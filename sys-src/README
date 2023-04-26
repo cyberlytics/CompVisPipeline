@@ -6,3 +6,7 @@ Use vscodes devcontainer-extension for development. you can run/debug/test your 
 the Dockerfile can be used to build a container for production and start the rest api
 1. docker build -t bdccbackend . 
 2. docker run -p 5000:5000 bdccbackend
+
+# How to start frontend
+1. open clientapp and open terminal
+2. npm start
