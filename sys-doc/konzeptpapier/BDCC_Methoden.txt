@@ -1,0 +1,5 @@
+Frontend: React mit JS
+Backend: Python mit Flask
+Deploy in AWS S3 Bucket + 2*EC
+REST-Calls
+Docker-Container
