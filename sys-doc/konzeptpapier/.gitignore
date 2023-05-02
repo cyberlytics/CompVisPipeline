@@ -1,6 +1,6 @@
 # all helper files
 *.aux
-*.mk
+*.fdb_latexmk
 *.fls
 *.log
 *.gz
