@@ -1,0 +1,6 @@
+# all helper files
+*.aux
+*.mk
+*.fls
+*.log
+*.gz
