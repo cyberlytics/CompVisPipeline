@@ -1,0 +1,14 @@
+{
+    "name": "frontendBDCC",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [],
+            "settings": {}
+        }
+    },
+    "forwardPorts": [3000]
+}
