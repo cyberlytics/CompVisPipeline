@@ -1,5 +1,5 @@
 import './App.css';
-import Calculator from './calculator';
+import Calculator from './Components/calculator';
 import Typography from '@mui/material/Typography';
 import { createTheme } from '@mui/material/styles';
 
