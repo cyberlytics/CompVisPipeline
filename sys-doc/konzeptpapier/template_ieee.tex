@@ -71,39 +71,152 @@ Please observe the conference page limits.
 
 \section{Verwandte Arbeiten}
 
-\subsection{Subsection A}
-
-Test A
-
-\subsection{Subsection B}
-
-Test B
-
-\section{Anforderungen}
-
-\subsection{Anforderung 1}
-
-Anforderung 1 Beschreibung 
-
+\subsection{Bild upload}
+Als Benutzer möchte ich ein Upload-Feld haben, mit dem ich mein Bild an die Webseite hochladen kann.
 Akzeptanzkriterien: 
 \begin{itemize}
-	\item Item 1
-	\item Item 2
+	\item Upload-Feld für das Bild
 \end{itemize}
 
+\subsection{Bild download}
+Als Benutzer möchte ich ein Download-Feld haben, um das fertige Bild lokal herunterzuladen.
+Akzeptanzkriterien: 
+\begin{itemize}
+	\item Download-Feld für das Bild
+\end{itemize}
 
-\subsection{Anforderung 2}
+\subsection{Metadaten}
+Als Entwickler möchte ich dem Benutzer die Metadaten zu seinem Bild anzeigen lassen.
+Akzeptanzkriterien: 
+\begin{itemize}
+	\item Histogramm aller Kanäle
+	\item Dimensionen des Bildes
+	\item Pixelanzahl
+	\item Graustufenbild oder Farbbild
+\end{itemize}
 
-Anforderung 2 Beschreibung
+\subsection{Visualisierung Bild}
+Als Benutzer möchte ich mein original Bild auf der Webseite sehen.
+Akzeptanzkriterien: 
+\begin{itemize}
+	\item Bild in ausreichender Qualität darstellen
+\end{itemize}
 
+\subsection{Visualisierung Ergebnisse}
+Als Benutzer möchte ich das Endergebnis, nach der Pipeline und auch alle Zwischenergebnisse betrachten können. Vorallem ist es wichtig, dass zugeordent wird zu welchem Schritt das angezeigte Bild gehört.
+Akzeptanzkriterien: 
+\begin{itemize}
+	\item Bild in ausreichender Qualität darstellen
+	\item Bild des Zwischenschrittes anzeigen, wenn von Benutzer gefordert
+\end{itemize}
+
+\subsection{Pipeline erstellen}
+Als Benutzer möchte ich die Pipeline intuituv erstellen und ändern können.
 Akzeptanzkriterien:
 \begin{itemize}
-	\item Item 1
-	\item Item 2
+	\item Filter wiederholen
+	\item Drag-Drop der Filter
+	\item ...
 \end{itemize}
 
+\subsection{Fehlermeldungen Pipeline}
+Als Entwickler möchte ich dem Benutzer Fehlermeldungen für die Pipeline anzeigen, dass dieser weiß was er ändern muss. 
+Akzeptanzkriterien: 
+\begin{itemize}
+	\item Bildformat passend
+	\item Vorverarbeitungsschritt von Filter nötig
+	\item Pipeline ändern
+	\item Filterparameter passend
+\end{itemize}
 
+\subsection{Pipeline Filter}
+Als Benutzer möchte ich Filter auf mein Bild anwenden.
+Akzeptanzkriterien:
+\begin{itemize}
+	\item Bilateral
+	\item Average
+	\item Faltung
+	\item ...
+\end{itemize}
 
+\subsection{Pipeline Morphologische Transformationen}
+Als Benutzer möchte ich morphologische Transformationen auf meinem Bild durchführen.
+Akzeptanzkriterien:
+\begin{itemize}
+	\item Erosion
+	\item Dilation
+	\item Opening
+	\item Closing
+	\item ...
+\end{itemize}
+
+\subsection{Pipeline Transformationen}
+Als Benutzer möchte ich Transformationen zur Kontrast- und Bildänderung mit meinem Bild ausführen.
+Akzeptanzkriterien:
+\begin{itemize}
+	\item Log-Transformationen
+	\item Gamma-Transformationen
+	\item Geometrische Transformation
+	\item ...
+\end{itemize}
+
+\subsection{Pipeline Segmentierung}
+Als Benutzer möchte ich Segmentierungsalgorithmen auf mein Bild anwenden.
+Akzeptanzkriterien:
+\begin{itemize}
+	\item Watershed
+	\item Otsu Thresholding
+\end{itemize}
+
+\subsection{Pipeline Kanten-/Konturenerkennung}
+Als Benutzer möchte ich die Kanten auf meinem Bild erkennen können
+Akzeptanzkriterien:
+\begin{itemize}
+	\item Canny-Edge-Detector
+	\item Sobel
+	\item Laplacian
+\end{itemize}
+
+\subsection{Parameter anpassen}
+Als Benutzer möchte ich Einfluss auf die einzelnen Parameter der Fitler haben, um den jeweiligen Filter anzupassen.
+Akzeptanzkriterien: 
+\begin{itemize}
+	\item Pop-Up Fenster
+	\item Default Werte vorhanden
+	\item Werte ändern
+\end{itemize}
+
+\subsection{Filter suchen}
+Als Benutzer möchte ich eine Suchfunktion auf der Webseite haben, um bestimmte Filter zu finden. 
+Akzeptanzkriterien: 
+\begin{itemize}
+	\item Suchfenster
+	\item Tastatureingabe
+	\item Ergebnisse anzeigen
+\end{itemize}
+
+\subsection{Container}
+Als Entwickler will ich das Projekt mit Containern modularisieren um die Anwendung leicht zu verteilen und die Wartbarkeit dadurch erhöhen.
+Akzeptanzkriterien: 
+\begin{itemize}
+	\item Frontend Container
+	\item Backend Container
+	\item Docker-Compose verwalten
+\end{itemize}
+
+\subsection{Container}
+Als Entwickler will ich eine Testabdeckung für meine Anwendung, um Fehler frühzeitig erkennen zu können.
+\begin{itemize}
+	\item Backend-Testabdeckung zu mindestens 50\%. Mithilfe einer geeigneten Bibliothek.
+	\item Frontend-Testabdeckung zu mindestens 50\%. Mithilfe einer geeigneten Bibliothek.
+\end{itemize}
+
+\subsection{Cloudanwendung}
+Als Entwickler will ich meine Anwenung über die Cloud verteilen, um möglichst einfach Benutzer anzusprechen.
+\begin{itemize}
+	\item Docker-Container der einzelnen Module
+	\item Sichere Datenübertragung, da Bilder sensible Daten beinhalten
+\end{itemize}
 
 
 \section{Methoden}
