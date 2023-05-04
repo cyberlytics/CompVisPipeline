@@ -16,92 +16,208 @@
 
 % Authoren	
 \author{
+
 	\IEEEauthorblockN{André Kestler}
 	\IEEEauthorblockA{
 		\textit{a.kestler@oth-aw.de}\\
 	}
-	\and
-
+	\\
+	
 	\IEEEauthorblockN{Antonio Vidos}
 	\IEEEauthorblockA{
-	\textit{a.vidos@oth-aw.de}\\
+		\textit{a.vidos@oth-aw.de}\\
 	}
 	\and
 	
 	\IEEEauthorblockN{Marcus Haberl}
 	\IEEEauthorblockA{
-	\textit{m.haberl@oth-aw.de}\\
+		\textit{m.haberl@oth-aw.de}\\
 	}
-	\and
+	\\
 	
 	\IEEEauthorblockN{Tobias Dobmeier}
 	\IEEEauthorblockA{
-	\textit{t.dobmeier@oth-aw.de}\\
+		\textit{t.dobmeier@oth-aw.de}\\
 	}
 	\and
 	
 	\IEEEauthorblockN{Tobias Lettner}
 	\IEEEauthorblockA{
-	\textit{t.lettner@oth-aw.de}\\
+		\textit{t.lettner@oth-aw.de}\\
 	}
-	\and
+	\\
 	
 	\IEEEauthorblockN{Tobias Weiß}
 	\IEEEauthorblockA{
-	\textit{t.weiss@oth-aw.de}\\
+		\textit{t.weiss@oth-aw.de}\\
 	}
 }
+
 
 \maketitle
 
 \begin{abstract}
-	Ziel des Projekts ist es eine Computer Vision Pipeline zu implementieren. Der User soll ein Bild zum Verarbeiten hochladen. Das Backend verarbeitet die Daten in den angegebenen Schritten und veröffentlicht das Bild als Ergebnis auf der Webseite.
+	Ziel des Projekts ist die Implementierung einer Computer Vision Pipeline als Cloud-Anwendung. In der Benutzeroberfläche kann der Benutzer ein zu verarbeitendes Bild hochladen und eine Verarbeitungskette aus einzelnen Modulen zusammenstellen. Das Backend verarbeitet die Daten in den angegebenen Schritten und stellt dem Benutzer die Ergebnisse als verarbeitetes Bild auf der Webseite zur Verfügung.
 \end{abstract}
 
 
 \section{Einleitung}
 
-This document is a model and instructions for \LaTeX.
-Please observe the conference page limits.
+Computer Vision ist ein wichtiges Gebiet der künstlichen Intelligenz und hat in den letzten Jahren erhebliche Fortschritte gemacht. Es ermöglicht die automatisierte Analyse und Interpretation von Bildern und Videos und hat zahlreiche Anwendungsbereiche in der Industrie, Medizin und Sicherheitstechnik. Eine wichtige Komponente bei der Entwicklung von Computer Vision Anwendungen ist die Erstellung einer robusten und effizienten Pipeline, die die Datenverarbeitung und Analyse durch mehrere Schritte automatisiert und optimiert.
+
+In diesem Projekt wird eine Computer Vision Pipeline als Cloud-Anwendung implementiert, die es dem Benutzer ermöglicht, ein Bild hochzuladen und durch eine Verarbeitungskette das gewünschte Ergebnis zu erhalten. Die Benutzeroberfläche soll eine intuitive Möglichkeit bieten, um den Prozess der Bildanalyse und -verarbeitung zu steuern. Zudem bietet die Cloud-Anwendung eine skalierbare und flexible Infrastruktur, die die Möglichkeit bietet, die Kapazität je nach Bedarf anzupassen.
 
 
 
 
 \section{Verwandte Arbeiten}
 
-\subsection{Subsection A}
-
-Test A
-
-\subsection{Subsection B}
-
-Test B
-
-\section{Anforderungen}
-
-\subsection{Anforderung 1}
-
-Anforderung 1 Beschreibung 
-
+\subsection{Bild upload}
+Als Benutzer möchte ich ein Upload-Feld haben, mit dem ich mein Bild an die Webseite hochladen kann.
 Akzeptanzkriterien: 
 \begin{itemize}
-	\item Item 1
-	\item Item 2
+	\item Upload-Feld für das Bild
 \end{itemize}
 
+\subsection{Bild download}
+Als Benutzer möchte ich ein Download-Feld haben, um das fertige Bild lokal herunterzuladen.
+Akzeptanzkriterien: 
+\begin{itemize}
+	\item Download-Feld für das Bild
+\end{itemize}
 
-\subsection{Anforderung 2}
+\subsection{Metadaten}
+Als Entwickler möchte ich dem Benutzer die Metadaten zu seinem Bild anzeigen lassen.
+Akzeptanzkriterien: 
+\begin{itemize}
+	\item Histogramm aller Kanäle
+	\item Dimensionen des Bildes
+	\item Pixelanzahl
+	\item Graustufenbild oder Farbbild
+\end{itemize}
 
-Anforderung 2 Beschreibung
+\subsection{Visualisierung Bild}
+Als Benutzer möchte ich mein original Bild auf der Webseite sehen.
+Akzeptanzkriterien: 
+\begin{itemize}
+	\item Bild in ausreichender Qualität darstellen
+\end{itemize}
 
+\subsection{Visualisierung Ergebnisse}
+Als Benutzer möchte ich das Endergebnis, nach der Pipeline und auch alle Zwischenergebnisse betrachten können. Vorallem ist es wichtig, dass zugeordent wird zu welchem Schritt das angezeigte Bild gehört.
+Akzeptanzkriterien: 
+\begin{itemize}
+	\item Bild in ausreichender Qualität darstellen
+	\item Bild des Zwischenschrittes anzeigen, wenn von Benutzer gefordert
+\end{itemize}
+
+\subsection{Pipeline erstellen}
+Als Benutzer möchte ich die Pipeline intuituv erstellen und ändern können.
 Akzeptanzkriterien:
 \begin{itemize}
-	\item Item 1
-	\item Item 2
+	\item Filter wiederholen
+	\item Drag-Drop der Filter
+	\item ...
 \end{itemize}
 
+\subsection{Fehlermeldungen Pipeline}
+Als Entwickler möchte ich dem Benutzer Fehlermeldungen für die Pipeline anzeigen, dass dieser weiß was er ändern muss. 
+Akzeptanzkriterien: 
+\begin{itemize}
+	\item Bildformat passend
+	\item Vorverarbeitungsschritt von Filter nötig
+	\item Pipeline ändern
+	\item Filterparameter passend
+\end{itemize}
 
+\subsection{Pipeline Filter}
+Als Benutzer möchte ich Filter auf mein Bild anwenden.
+Akzeptanzkriterien:
+\begin{itemize}
+	\item Bilateral
+	\item Average
+	\item Faltung
+	\item ...
+\end{itemize}
 
+\subsection{Pipeline Morphologische Transformationen}
+Als Benutzer möchte ich morphologische Transformationen auf meinem Bild durchführen.
+Akzeptanzkriterien:
+\begin{itemize}
+	\item Erosion
+	\item Dilation
+	\item Opening
+	\item Closing
+	\item ...
+\end{itemize}
+
+\subsection{Pipeline Transformationen}
+Als Benutzer möchte ich Transformationen zur Kontrast- und Bildänderung mit meinem Bild ausführen.
+Akzeptanzkriterien:
+\begin{itemize}
+	\item Log-Transformationen
+	\item Gamma-Transformationen
+	\item Geometrische Transformation
+	\item ...
+\end{itemize}
+
+\subsection{Pipeline Segmentierung}
+Als Benutzer möchte ich Segmentierungsalgorithmen auf mein Bild anwenden.
+Akzeptanzkriterien:
+\begin{itemize}
+	\item Watershed
+	\item Otsu Thresholding
+\end{itemize}
+
+\subsection{Pipeline Kanten-/Konturenerkennung}
+Als Benutzer möchte ich die Kanten auf meinem Bild erkennen können
+Akzeptanzkriterien:
+\begin{itemize}
+	\item Canny-Edge-Detector
+	\item Sobel
+	\item Laplacian
+\end{itemize}
+
+\subsection{Parameter anpassen}
+Als Benutzer möchte ich Einfluss auf die einzelnen Parameter der Fitler haben, um den jeweiligen Filter anzupassen.
+Akzeptanzkriterien: 
+\begin{itemize}
+	\item Pop-Up Fenster
+	\item Default Werte vorhanden
+	\item Werte ändern
+\end{itemize}
+
+\subsection{Filter suchen}
+Als Benutzer möchte ich eine Suchfunktion auf der Webseite haben, um bestimmte Filter zu finden. 
+Akzeptanzkriterien: 
+\begin{itemize}
+	\item Suchfenster
+	\item Tastatureingabe
+	\item Ergebnisse anzeigen
+\end{itemize}
+
+\subsection{Container}
+Als Entwickler will ich das Projekt mit Containern modularisieren um die Anwendung leicht zu verteilen und die Wartbarkeit dadurch erhöhen.
+Akzeptanzkriterien: 
+\begin{itemize}
+	\item Frontend Container
+	\item Backend Container
+	\item Docker-Compose verwalten
+\end{itemize}
+
+\subsection{Container}
+Als Entwickler will ich eine Testabdeckung für meine Anwendung, um Fehler frühzeitig erkennen zu können.
+\begin{itemize}
+	\item Backend-Testabdeckung zu mindestens 50\%. Mithilfe einer geeigneten Bibliothek.
+	\item Frontend-Testabdeckung zu mindestens 50\%. Mithilfe einer geeigneten Bibliothek.
+\end{itemize}
+
+\subsection{Cloudanwendung}
+Als Entwickler will ich meine Anwenung über die Cloud verteilen, um möglichst einfach Benutzer anzusprechen.
+\begin{itemize}
+	\item Docker-Container der einzelnen Module
+	\item Sichere Datenübertragung, da Bilder sensible Daten beinhalten
+\end{itemize}
 
 
 \section{Methoden}
@@ -149,13 +265,13 @@ For papers published in translation journals, please give the English
 citation first, followed by the original foreign-language citation \cite{b6}.
 
 \begin{thebibliography}{00}
-\bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
-\bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
-\bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
-\bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
-\bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
-\bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
-\bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
+	\bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
+	\bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
+	\bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
+	\bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
+	\bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
+	\bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
+	\bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
 \end{thebibliography}
 \vspace{12pt}
 

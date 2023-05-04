@@ -1,0 +1,17 @@
+	Bild hochladen
+Drag-Drop-Funktion (Kopieren kein Verschieben!!!!!!)
+	Parameter (Pop-Up Window?)
+	Suchfunktion für Filter
+	Filter (Bilateral, Average...)
+	Segmentierung (Watershed, Otsu Threshold)
+	Kantenerkennung (Canny-Edge-Detector, )
+	Normalisierung (Histogramm)
+	Transformationen (Farbraumänderung, Flippen, Clippen)
+	Kontraständerungen (Log-Transformation, Gamma-Transformation, Histogramm Equalization)
+	Morphologische Transformationen (Opening, Closing, Erosion, Delation)
+	Konturerkennung
+	Featureerkennung (zw. zwei Bildern) (?)
+	Visuelle Darstellung des Ergebnisses (Bild in Oberfläche zeigen)
+	Download des Ergebnisses
+	Zwischenergbenisse anzeigen (?)
+	Testabdeckung (50%?)
