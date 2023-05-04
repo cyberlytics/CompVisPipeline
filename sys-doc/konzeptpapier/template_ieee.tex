@@ -69,8 +69,7 @@ In diesem Projekt wird eine Computer Vision Pipeline als Cloud-Anwendung impleme
 
 \section{Verwandte Arbeiten}
 
-Die Webseite ,,Scratch” \cite{scratch} hat ein ähnliches Konzept, das teilweise als Inspiration für die Entwicklung des hier beschriebenen Systems genutzt wurde. Mit ,,Scratch” können Nutzer ohne oder mit wenig Programmiererfahrung die Denkweise eines Softwareentwicklers erlernen und ihre Erfahrungslücken verringern. Die Programmierung erfolgt grafisch, indem der Benutzer Aktionen und Ereignisse als Bausteine auf ein leeres Feld zieht und miteinander verknüpft. Wenn die Bausteine ausgeführt werden, führen sie die
-entsprechenden Aktionen aus, z.B. die Animation eines Laufenden Mannes.
+Die Webseite ,,Scratch” \cite{scratch} hat ein ähnliches Konzept, das teilweise als Inspiration für die Entwicklung des hier beschriebenen Systems genutzt wurde. Mit ,,Scratch” können Nutzer ohne oder mit wenig Programmiererfahrung die Denkweise eines Softwareentwicklers erlernen und ihre Erfahrungslücken verringern. Die Programmierung erfolgt grafisch, indem der Benutzer Aktionen und Ereignisse als Bausteine auf ein leeres Feld zieht und miteinander verknüpft. Wenn die Bausteine ausgeführt werden, führen sie die entsprechenden Aktionen aus, z.B. die Animation eines Laufenden Mannes.
 
 \section{Anforderungen}
 
@@ -79,6 +78,7 @@ Als Benutzer möchte ich ein Upload-Feld haben, mit dem ich mein Bild an die Web
 Akzeptanzkriterien: 
 \begin{itemize}
 	\item Upload-Feld für das Bild
+	\item Bild wird hochgeladen
 \end{itemize}
 
 \subsection{Bild download}
@@ -86,20 +86,21 @@ Als Benutzer möchte ich ein Download-Feld haben, um das fertige Bild lokal heru
 Akzeptanzkriterien: 
 \begin{itemize}
 	\item Download-Feld für das Bild
+	\item Bild wird heruntergeladen
 \end{itemize}
 
 \subsection{Metadaten}
 Als Entwickler möchte ich dem Benutzer die Metadaten zu seinem Bild anzeigen lassen.
 Akzeptanzkriterien: 
 \begin{itemize}
-	\item Histogramm aller Kanäle
 	\item Dimensionen des Bildes
 	\item Pixelanzahl
 	\item Graustufenbild oder Farbbild
+	\item Optional Histogramm aller Kanäle
 \end{itemize}
 
 \subsection{Visualisierung Bild}
-Als Benutzer möchte ich mein original Bild auf der Webseite sehen.
+Als Benutzer möchte ich mein originales Bild auf der Webseite sehen.
 Akzeptanzkriterien: 
 \begin{itemize}
 	\item Bild in ausreichender Qualität darstellen
@@ -114,20 +115,19 @@ Akzeptanzkriterien:
 \end{itemize}
 
 \subsection{Pipeline erstellen}
-Als Benutzer möchte ich die Pipeline intuituv erstellen und ändern können.
+Als Benutzer möchte ich die Pipeline intuitiv erstellen und ändern können.
 Akzeptanzkriterien:
 \begin{itemize}
-	\item Filter wiederholen
+	\item Mehrfachauswahl möglich
 	\item Drag-Drop der Filter
-	\item ...
 \end{itemize}
 
 \subsection{Fehlermeldungen Pipeline}
-Als Entwickler möchte ich dem Benutzer Fehlermeldungen für die Pipeline anzeigen, dass dieser weiß was er ändern muss. 
+Als Entwickler möchte ich dem Benutzer Fehlermeldungen für die Pipeline anzeigen, dass dieser weiß, was er bei Bedarf ändern muss. 
 Akzeptanzkriterien: 
 \begin{itemize}
 	\item Bildformat passend
-	\item Vorverarbeitungsschritt von Filter nötig
+	\item Vorverarbeitungsschritt vor Filter nötig
 	\item Pipeline ändern
 	\item Filterparameter passend
 \end{itemize}
@@ -139,7 +139,6 @@ Akzeptanzkriterien:
 	\item Bilateral
 	\item Average
 	\item Faltung
-	\item ...
 \end{itemize}
 
 \subsection{Pipeline Morphologische Transformationen}
@@ -150,7 +149,6 @@ Akzeptanzkriterien:
 	\item Dilation
 	\item Opening
 	\item Closing
-	\item ...
 \end{itemize}
 
 \subsection{Pipeline Transformationen}
@@ -160,7 +158,6 @@ Akzeptanzkriterien:
 	\item Log-Transformationen
 	\item Gamma-Transformationen
 	\item Geometrische Transformation
-	\item ...
 \end{itemize}
 
 \subsection{Pipeline Segmentierung}
@@ -199,7 +196,7 @@ Akzeptanzkriterien:
 \end{itemize}
 
 \subsection{Container}
-Als Entwickler will ich das Projekt mit Containern modularisieren um die Anwendung leicht zu verteilen und die Wartbarkeit dadurch erhöhen.
+Als Entwickler will ich das Projekt mit Containern modularisieren um die Anwendung leicht zu verteilen und die Wartbarkeit dadurch zu erhöhen.
 Akzeptanzkriterien: 
 \begin{itemize}
 	\item Frontend Container
@@ -215,28 +212,31 @@ Als Entwickler will ich eine Testabdeckung für meine Anwendung, um Fehler früh
 \end{itemize}
 
 \subsection{Cloudanwendung}
-Als Entwickler will ich meine Anwenung über die Cloud verteilen, um möglichst einfach Benutzer anzusprechen.
+Als Entwickler will ich meine Anwendung über die Cloud verteilen, um möglichst einfach Benutzer anzusprechen.
 \begin{itemize}
 	\item Docker-Container der einzelnen Module
-	\item Sichere Datenübertragung, da Bilder sensible Daten beinhalten
 \end{itemize}
 
-
 \section{Methoden}
-Was wird verwendet?
 
 \subsection{Datenfluss}
-Bild hochladen  an Backend übertragen
-Schritte zum verarbeiten wählen an Backend übertragen
-Backend verarbeitet die Daten und sendet die Daten über ... zurück an das Frontend
+\begin{enumerate}
+	\item Bild wird über die Benutzeroberfläche in einen S3-Bucket geladen.
+	\item Frontend überträgt die Verarbeitungskette ans Backend.
+	\item Backend lädt Bild aus S3-Bucket.
+	\item Backend speichert die Ergebnisse der Verarbeitungskette im S3-Bucket.
+	\item Frontend lädt Ergebnisse aus S3-Bucket und stellt diese dar.
+\end{enumerate}
 
 \subsection{Frontend}
-Frontend Technologie
-Umsetzung?
+Für die Interaktion mit dem Benutzer wird React mit Javascript verwendet. Über eine REST-Schnittstelle kann mit dem Backend kommumniziert werden.
 
 \subsection{Backend}
-Backend Technologie
-Umsetzung?
+\begin{itemize}
+	\item Für die serverseitige Verarbeitung wird Python verwendet. 
+	\item Für die Bildverarbeitung wird die OpenCV- und SciKit-Image-Bibliothek verwendet. 
+	\item Für die Bereitstellung der REST-Schnittstelle wird die Flask-Bibliothek verwendet.
+\end{itemize}
 
 \begin{thebibliography}{00}
 	\bibitem{scratch} Scratch Programmierung: https://scratch.mit.edu/projects/editor/?tutorial=getStarted
