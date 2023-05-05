@@ -1,8 +1,7 @@
-FROM node:20-bullseye
+FROM node:20-alpine
 
-WORKDIR workdir
+VOLUME [/workdir/node_modules]
 
-RUN npm install -g npm
-RUN npm install @mui/material @emotion/react @emotion/styled
+RUN npm i -g npm@latest
 
-CMD ["bin/bash"]
+CMD ["/bin/bash"]

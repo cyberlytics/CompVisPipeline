@@ -1,14 +1,8 @@
 {
-    "name": "frontendBDCC",
-    "build": {
-        "dockerfile": "Dockerfile",
-        "context": ".."
-    },
-    "customizations": {
-        "vscode": {
-            "extensions": [],
-            "settings": {}
-        }
-    },
-    "forwardPorts": [3000]
+    "name": "project-dev",
+    "dockerComposeFile": ["docker-compose.yml"],
+    "service": "vscode",
+    "runServices": ["vscode"],
+    "shutdownAction": "stopCompose",
+    "workspaceFolder": "/workdir"
 }
