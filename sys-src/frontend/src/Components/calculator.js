@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 
+//Beispiel Karte mit REST
 export default function Calculator() {
     const [number1, setNumber1] = useState("")
     const [number2, setNumber2] = useState("")

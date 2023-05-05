@@ -1,14 +1,13 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import Calculator from "../../Components/calculator";
+import StartPipeline from "../../Components/startPipeline";
 
-//Beispieltest
-describe("calculator.js tests", () => {
+describe("startPipeline.js tests", () => {
 
   test("card should be visible", () => {
-    render(<Calculator />);
-    const cardVisible = screen.queryByText(/Calculator/i);
+    render(<StartPipeline />);
+    const cardVisible = screen.queryByText(/Start Pipeline/i);
     expect(cardVisible).toBeVisible();
   });
 

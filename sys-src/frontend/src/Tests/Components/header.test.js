@@ -1,14 +1,13 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import Calculator from "../../Components/calculator";
+import Header from "../../Components/header";
 
-//Beispieltest
-describe("calculator.js tests", () => {
+describe("header.js tests", () => {
 
   test("card should be visible", () => {
-    render(<Calculator />);
-    const cardVisible = screen.queryByText(/Calculator/i);
+    render(<Header />);
+    const cardVisible = screen.queryByText(/Welcome/i);
     expect(cardVisible).toBeVisible();
   });
 
