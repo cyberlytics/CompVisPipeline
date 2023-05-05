@@ -5,9 +5,7 @@ services:
     build: 
       context: ./frontend
       dockerfile: Dockerfile
-    volumes:
-      - ./frontend:/workspace:cached
-    working_dir: /workspace/
+    working_dir: /workdir/
     restart: on-failure
     depends_on:
       - backend
@@ -17,8 +15,7 @@ services:
     build: 
       context: ./backend
       dockerfile: Dockerfile
-    volumes:
-      - ./backend/:/workspace:cached
     restart: on-failure
+    working_dir: /workdir/
     ports: 
       - 5000:5000
