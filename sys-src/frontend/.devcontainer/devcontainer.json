@@ -1,14 +1,10 @@
 {
-    "name": "frontendBDCC",
+    "name": "BDCCfrontend",
     "build": {
         "dockerfile": "Dockerfile",
         "context": ".."
     },
-    "customizations": {
-        "vscode": {
-            "extensions": [],
-            "settings": {}
-        }
-    },
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workdir,type=bind",
+    "workspaceFolder": "/workdir",
     "forwardPorts": [3000]
 }
