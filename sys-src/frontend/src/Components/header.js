@@ -10,17 +10,10 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 
 export default function Header(props) {
-    const { setTheme } = props;
-
-    const [darkMode, setDarkMode] = useState(true)
-
-    function onDarkModeClick(value) {
-        setDarkMode(value)
-        darkMode ? setTheme('dark') : setTheme('light')
-    }
+    const { theme, setTheme } = props;
 
     return (
-        <Card style={{ backgroundColor: "#d9d9d9", height: 50 }}>
+        <Card style={{ height: 50 }} >
             <CardContent>
                 <Grid container>
                     <Grid md={4}>
@@ -37,7 +30,7 @@ export default function Header(props) {
                             <SettingsIcon fontSize='medium' />
                         </Grid>
                         <Grid item>
-                            {darkMode ? <DarkModeIcon onClick={() => onDarkModeClick(false)} /> : <LightModeIcon onClick={() => onDarkModeClick(true)} />}
+                            {theme ? <DarkModeIcon onClick={() => setTheme(!theme)} /> : <LightModeIcon onClick={() => setTheme(!theme)} />}
                         </Grid>
                     </Grid>
                 </Grid>
