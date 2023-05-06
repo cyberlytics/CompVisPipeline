@@ -1,4 +1,3 @@
-import app.routes as routes
+from app.routes import app
 
-if __name__ == "__main__":
-    routes.start()
+app.config["DEBUG"] = False
