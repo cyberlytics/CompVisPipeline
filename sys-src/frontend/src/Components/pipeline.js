@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 export default function Pipeline() {
 
     return (
-        <Card style={{ backgroundColor: "#d9d9d9", height: 900 }}>
+        <Card style={{ height: 900 }}>
             <CardContent>
                 <Typography sx={{ width: '100%' }} align="center" variant="h5" component="div">Pipeline</Typography>
             </CardContent>

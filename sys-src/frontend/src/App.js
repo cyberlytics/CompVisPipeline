@@ -1,4 +1,3 @@
-import './App.css';
 import React, { useState } from 'react';
 import Header from './Components/header';
 import Upload from './Components/upload';
@@ -9,14 +8,33 @@ import PipelineSteps from './Components/pipelineSteps';
 import StartPipeline from './Components/startPipeline';
 import Grid from '@mui/material/Grid';
 import Calculator from './Components/calculator';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+    background: {
+      default: '#f0f0f0',
+    },
+  },
+});
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 function App() {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState(true)
+  const appliedTheme = createTheme(theme ? lightTheme : darkTheme)
 
   return (
-    <div className={`Body-${theme}`}>
+    <ThemeProvider theme={appliedTheme}>
+      <CssBaseline />
       <Grid style={{ paddingTop: 20, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
-        <Header setTheme={setTheme}/>
+        <Header theme={theme} setTheme={setTheme}/>
       </Grid>
 
       <Grid container style={{ paddingTop: 0, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
@@ -57,8 +75,7 @@ function App() {
       </Grid>
 
       <Calculator />
-
-    </div>
+    </ThemeProvider>
   );
 }
 
