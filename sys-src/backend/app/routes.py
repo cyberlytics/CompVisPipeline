@@ -4,7 +4,7 @@ from flask_cors import CORS
 
 
 app = Flask(__name__)
-CORS(app) #do not use this in production
+CORS(app) # TODO: do not use this in production
 
 @app.route("/", methods=["GET"])
 @app.route('/get-hello-world', methods=["GET"])
@@ -20,5 +20,5 @@ def getSum():
     y = request.args.get("y")
     return x+y
 
-def start():
+if __name__ == "__main__":
     app.run(host="0.0.0.0")

@@ -4,5 +4,5 @@ Use vscodes devcontainer-extension for development. you can run/debug/test your 
 
 # Production
 the docker-compose file can be used to start frontend and backend. it uses the Dockerfiles from /clientapp/Dockerfile and /backend/Dockerfile
-1. docker-compose up (this can take a few minutes wait until you see logs for frontend and backend)
+1. docker-compose up --build (this can take a few minutes wait until you see logs for frontend and backend)
 2. frontend is available: localhost:80 or 127.0.0.1:80

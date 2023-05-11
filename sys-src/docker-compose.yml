@@ -3,22 +3,19 @@ version: '3.7'
 services:
   frontend:
     build: 
-      context: ./clientapp
+      context: ./frontend
       dockerfile: Dockerfile
-    volumes:
-      - ./clientapp:/workspace:cached
-    working_dir: /workspace/
+    working_dir: /workdir/
     restart: on-failure
     depends_on:
       - backend
     ports:
-      - 80:3000
+      - 80:80
   backend:
     build: 
       context: ./backend
       dockerfile: Dockerfile
-    volumes:
-      - ./backend/:/workspace:cached
     restart: on-failure
+    working_dir: /workdir/
     ports: 
       - 5000:5000
