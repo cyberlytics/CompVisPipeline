@@ -22,11 +22,13 @@ def get_s3_bucket(s3_ressource):
 
     return s3_bucket
 
-def get_s3_object(s3_bucket, data):
-    pass
+def get_s3_object(s3_bucket, str_path_s3, str_path_local):
+    """ Download the s3 object from the s3 bucket """
+    s3_bucket.download_file(Key=str_path_s3, Filename=str_path_local)
 
-def put_s3_object(s3_bucket, data):
-    pass
+def put_s3_object(s3_bucket, str_path_s3, str_path_local):
+    """ Upload the s3 object to the s3 bucket """
+    s3_bucket.upload_file(Filename=str_path_local, Key=str_path_s3)
 
 def close_s3_connection(s3_ressource):
     """ Close the connection to AWS and the s3 bucket """
@@ -37,7 +39,7 @@ if __name__ == '__main__':
     s3_ressource = get_s3_connection()
     s3_bucket = get_s3_bucket(s3_ressource)
 
-    for obj in s3_bucket.objects.all():
-        print(obj.key)
+    # put_s3_object(s3_bucket, 'test/test.txt', '/Users/andrekestler/Library/Mobile Documents/3L68KQB4HG~com~readdle~CommonDocuments/Documents/2. Semester/Big Data und Cloud Computing/cv_pipeline_team_rot/sys-src/backend/app/connections/test.txt')
+    # get_s3_object(s3_bucket, str_path_s3='test/test.txt', str_path_local='/Users/andrekestler/Library/Mobile Documents/3L68KQB4HG~com~readdle~CommonDocuments/Documents/2. Semester/Big Data und Cloud Computing/cv_pipeline_team_rot/sys-src/backend/app/connections/test.txt')
 
     close_s3_connection(s3_ressource)
