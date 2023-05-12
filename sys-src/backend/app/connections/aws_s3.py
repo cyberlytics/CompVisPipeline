@@ -2,6 +2,11 @@
 # s3 bucket: team-rot-fatcat-data
 # TODO
 import os
+from io import BytesIO
+
+import numpy as np
+import matplotlib.pyplot as plt
+import cv2
 import boto3
 
 def get_s3_connection():
@@ -22,13 +27,39 @@ def get_s3_bucket(s3_ressource):
 
     return s3_bucket
 
-def get_s3_object(s3_bucket, str_path_s3, str_path_local):
-    """ Download the s3 object from the s3 bucket """
-    s3_bucket.download_file(Key=str_path_s3, Filename=str_path_local)
+def get_s3_object(s3_bucket, str_object_key):
+    """
+    Download the s3 object from the s3 bucket 
+    
+    s3_bucket: s3_bucket object
+    str_object_key: path to the object in the s3 bucket
 
-def put_s3_object(s3_bucket, str_path_s3, str_path_local):
-    """ Upload the s3 object to the s3 bucket """
-    s3_bucket.upload_file(Filename=str_path_local, Key=str_path_s3)
+    return: opencv_image
+    """
+    obj = s3_bucket.Object(str_object_key)       # get object from s3 bucket 
+    img_bytes = obj.get()['Body'].read()         # read bytes from object
+
+    # convert img_bytes to opencv image
+    np_array = np.frombuffer(img_bytes, np.uint8)
+    img = cv2.imdecode(np_array, cv2.IMREAD_COLOR)
+
+    return img
+    
+
+def put_s3_object(s3_bucket, str_object_key, img):
+    """ Upload the s3 object to the s3 bucket
+    
+    s3_bucket: s3_bucket object
+    str_object_key: path to the object in the s3 bucket
+    img: opencv image
+    """
+    _, buffer = cv2.imencode('.jpg', img)        # compresses opencv image and stores it in the memory buffer
+    img_as_bytes = BytesIO(buffer).getvalue()    # convert buffer to BytesIO object
+    
+    # upload object to s3 bucket
+    obj = s3_bucket.Object(str_object_key)      # build object
+    obj.put(Body=img_as_bytes)                  # upload object to s3 bucket
+
 
 def close_s3_connection(s3_ressource):
     """ Close the connection to AWS and the s3 bucket """
@@ -38,8 +69,8 @@ def close_s3_connection(s3_ressource):
 if __name__ == '__main__':
     s3_ressource = get_s3_connection()
     s3_bucket = get_s3_bucket(s3_ressource)
-
-    # put_s3_object(s3_bucket, 'test/test.txt', '/Users/andrekestler/Library/Mobile Documents/3L68KQB4HG~com~readdle~CommonDocuments/Documents/2. Semester/Big Data und Cloud Computing/cv_pipeline_team_rot/sys-src/backend/app/connections/test.txt')
-    # get_s3_object(s3_bucket, str_path_s3='test/test.txt', str_path_local='/Users/andrekestler/Library/Mobile Documents/3L68KQB4HG~com~readdle~CommonDocuments/Documents/2. Semester/Big Data und Cloud Computing/cv_pipeline_team_rot/sys-src/backend/app/connections/test.txt')
+    
+    img = get_s3_object(s3_bucket, "Big_Fat_Red_Cat.jpg")
+    put_s3_object(s3_bucket, "test.jpg", img)
 
     close_s3_connection(s3_ressource)
