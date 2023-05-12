@@ -2,11 +2,10 @@
 # s3 bucket: team-rot-fatcat-data
 # TODO
 import boto3
-import os
 
 def get_s3_connection():
     # get boto3 session with access_key_id and secret_access_key from ./aws/credentials
-    session = boto3.Session(profile_name='default')
+    session = boto3.Session(profile_name='default', region_name='eu-central-1')
     return session
 
 def get_s3_bucket(session):
