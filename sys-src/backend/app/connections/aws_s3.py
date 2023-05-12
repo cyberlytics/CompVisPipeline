@@ -2,12 +2,18 @@
 # s3 bucket: team-rot-fatcat-data
 # TODO
 import boto3
+import os
 
 def get_s3_connection():
-    pass
+    # get boto3 session with access_key_id and secret_access_key from ./aws/credentials
+    session = boto3.Session(profile_name='default')
+    return session
 
-def get_s3_bucket():
-    pass
+def get_s3_bucket(session):
+    # get s3 buckets
+    s3_bucket = session.resource('s3')
+
+    return s3_bucket
 
 def get_s3_object():
     pass
@@ -17,4 +23,7 @@ def put_s3_object():
 
 
 if __name__ == '__main__':
-    pass
+    aws_session = get_s3_connection()
+    s3_bucket = get_s3_bucket(aws_session)
+
+    print(s3_bucket)
