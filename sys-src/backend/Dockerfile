@@ -1,8 +1,9 @@
 FROM python:3.10-alpine
 
-# copy aws credentials from local machine to docker container -> for s3 bucket access from python
-MKDIR ~/.aws
-COPY ~/.aws/credentials ~/.aws
+# ENV variables for AWS credentials
+ENV AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY_ID
+ENV AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY
+ENV AWS_DEFAULT_REGION=AWS_DEFAULT_REGION
 
 WORKDIR workdir
 COPY requirements.txt requirements.txt

@@ -1,11 +1,12 @@
 # Manage the connection to AWS S3
 # s3 bucket: team-rot-fatcat-data
 # TODO
+import os
 import boto3
 
 def get_s3_connection():
     # get boto3 session with access_key_id and secret_access_key from ./aws/credentials
-    session = boto3.Session(profile_name='default', region_name='eu-central-1')
+    session = boto3.Session(aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'], aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'], region_name=os.environ['AWS_DEFAULT_REGION'])
     return session
 
 def get_s3_bucket(session):
