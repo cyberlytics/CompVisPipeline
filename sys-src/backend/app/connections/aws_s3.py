@@ -71,6 +71,11 @@ if __name__ == '__main__':
     s3_bucket = get_s3_bucket(s3_ressource)
     
     img = get_s3_object(s3_bucket, "Big_Fat_Red_Cat.jpg")
-    put_s3_object(s3_bucket, "test.jpg", img)
+    print(img.shape)
+    
+    # cv2.imshow("test", img)
+    # cv2.waitKey(0)
+    
+    put_s3_object(s3_bucket, "test_grey.jpg", img)
 
     close_s3_connection(s3_ressource)
