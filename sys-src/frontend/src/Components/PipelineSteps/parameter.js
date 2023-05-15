@@ -6,10 +6,11 @@ import FiberManualRecordOutlinedIcon from '@mui/icons-material/FiberManualRecord
 import TextField from '@mui/material/TextField';
 
 export default function Parameter(props) {
-    const { parameterName, defaultValue } = props;
+    const { parameterId, parameterName, defaultValue } = props;
 
+    //returns a paramater view based on the given name and defaultvalue
     return (
-        <ListItem sx={{ pl: 4 }}>
+        <ListItem key={parameterId} sx={{ pl: 4 }}>
             <ListItemIcon>
                 <FiberManualRecordOutlinedIcon fontSize='small' />
             </ListItemIcon>

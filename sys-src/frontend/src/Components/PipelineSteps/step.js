@@ -15,7 +15,8 @@ export default function Step(props) {
     const { isClickable, title, id, params } = props;
 
     const [isExpanded, setIsExpandend] = useState(false)
-    const stepId = id
+
+    const stepId = id //todo
 
     const handleItemClick = () => {
         //todo
@@ -33,23 +34,22 @@ export default function Step(props) {
         //todo
     };
 
+    //returns a single parameterstep with containing parameters
     return (
-        <List>
+        <List key={id}>
             <ListItemButton onClick={handleItemClick}>
                 <ListItemIcon onClick={isClickable && handleExpandClick} >
                     {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                 </ListItemIcon>
                 <ListItemText primary={title} />
-                <VisibilityOutlinedIcon onClick={isClickable && handleShowResultClick} sx={{ mr: 2 }}/>
-                <DeleteOutlineOutlinedIcon onClick={isClickable && handleDeleteClick}/>
+                <VisibilityOutlinedIcon onClick={isClickable && handleShowResultClick} sx={{ mr: 2 }} />
+                <DeleteOutlineOutlinedIcon onClick={isClickable && handleDeleteClick} />
             </ListItemButton>
             <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                     {params.map(param => {
                         return (
-                            <ListItem sx={{ pl: 4 }}>
-                                <Parameter parameterName={param.title} defaultValue={param.defaultValue} />
-                            </ListItem>
+                            <Parameter sx={{ pl: 4 }} parameterId={param.id} parameterName={param.title} defaultValue={param.defaultValue} key={param.id}/>
                         );
                     })}
                 </List>

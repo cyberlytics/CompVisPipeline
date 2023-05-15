@@ -4,14 +4,17 @@
       "id": 0,
       "params": [
          {
+            "id": 1000,
             "title": "Kernelsize",
             "defaultValue": 3
          },
          {
+            "id": 1001,
             "title": "fatcatScale",
             "defaultValue": 0.01
          },
          {
+            "id": 1002,
             "title": "mode",
             "defaultValue": "red"
          }
@@ -22,6 +25,7 @@
       "id": 1,
       "params": [
          {
+            "id": 2000,
             "title": "Kernelsize",
             "defaultValue": 3
          }

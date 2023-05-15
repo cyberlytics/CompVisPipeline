@@ -9,22 +9,22 @@ import Step from './step'
 import AvailablePipelineSteps from './availablePipelineSteps.json';
 
 export default function PipelineSteps() {
+
+    //returns a list of steps from steps which are defined in availablePipelineSteps.json
     return (
         <Card style={{ height: 1000 }}>
             <CardContent>
                 <Typography sx={{ width: '100%' }} align="center" variant="h5" component="div">Available Steps</Typography>
             </CardContent>
             <CardContent>
-                <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                <Box sx={{ width: '100%', bgcolor: 'background.default' }}>
                     <List component="nav">
                         {AvailablePipelineSteps.map(step => {
                             return (
-                                <>
-                                {step.id > 0 && 
-                                    <Divider/>
-                                }
-                                <Step isClickable={true} title={step.title} id={step.id} params={step.params} />
-                                </>       
+                                <div key={step.id}>
+                                    {step.id > 0 && <Divider />}
+                                    <Step isClickable={true} title={step.title} id={step.id} params={step.params} />
+                                </div>
                             );
                         })}
                     </List>
