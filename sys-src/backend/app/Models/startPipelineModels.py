@@ -1,10 +1,16 @@
 from pydantic import BaseModel, validator, ValidationError
 import typing
 
+from app.Pipeline.Steps.baseStep import BaseStep
+from app.Pipeline.Steps.bilateralFilter import BilateralFilter
+from app.Pipeline.Steps.gaussianBlur import GaussianBlur
+
 FUNCTION_NAME_MAPPER = {
-    "bilateralFilter" : lambda x, y: x, # TODO: add openCV functions here
-    "test": lambda x, y: x
+    "bilateralFilter": BilateralFilter(),
+    "gaussianBlur": GaussianBlur(),
+    "test": BaseStep(),
 }
+
 
 class PipelineStep(BaseModel):
     func: typing.Callable
@@ -15,6 +21,7 @@ class PipelineStep(BaseModel):
         if v not in FUNCTION_NAME_MAPPER.keys():
             raise ValidationError("Function-Name not defined")
         return FUNCTION_NAME_MAPPER[v]
+
 
 class PipelineSteps(BaseModel):
     steps: typing.List[PipelineStep]
