@@ -4,7 +4,7 @@ import Upload from './Components/upload';
 import ImageView from './Components/imageView';
 import ImageDetails from './Components/imageDetails';
 import Pipeline from './Components/pipeline';
-import PipelineSteps from './Components/pipelineSteps';
+import PipelineSteps from './Components/PipelineSteps/pipelineSteps';
 import StartPipeline from './Components/startPipeline';
 import Grid from '@mui/material/Grid';
 import Calculator from './Components/calculator';
