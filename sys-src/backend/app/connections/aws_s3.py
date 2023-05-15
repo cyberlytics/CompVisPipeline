@@ -67,7 +67,7 @@ def get_s3_object(s3_bucket, str_object_key):
 
     return:
         - response_metadata (for testing purposes)
-            response_metadata['HTTPStatusCode'] == 200: successful
+            response_metadata['HTTPStatusCode'] == 200: get was successful
         - opencv_image
     """
     obj = s3_bucket.Object(str_object_key)       # get object from s3 bucket 
@@ -89,8 +89,8 @@ def put_s3_object(s3_bucket, str_object_key, img):
         - img: opencv image
 
     return:
-        - response_metadata (for testing purposes)
-            response_metadata['HTTPStatusCode'] == 200: successful
+        - response_metadata (for testing purpose)
+            response_metadata['HTTPStatusCode'] == 200: put was successful
 
     """
     _, buffer = cv2.imencode('.jpg', img)        # compresses opencv image and stores it in the memory buffer
@@ -114,7 +114,7 @@ def delete_s3_object(s3_bucket, str_object_key):
         - str_object_key: path to the object in the s3 bucket
 
     return:
-        - response_metadata (for testing purposes)
+        - response_metadata (for testing purpose)
             response_metadata['HTTPStatusCode'] == 204: delete was successful
     """
     response = s3_bucket.Object(str_object_key).delete()
@@ -127,10 +127,9 @@ def delete_all_s3_objects(s3_bucket):
 
     input:
         - s3_bucket: s3_bucket object
-        - str_object_key: path to the object in the s3 bucket
 
     return:
-        - response_metadata_list (for testing purposes)
+        - response_metadata_list (for testing purpose)
             a list with all deleted response_metadata
             response_metadata['HTTPStatusCode'] == 204: delete was successful  
     """
