@@ -139,18 +139,3 @@ def delete_all_s3_objects(s3_bucket):
         response_list.append(response['ResponseMetadata'])
 
     return response_list
-
-
-if __name__ == '__main__':
-    s3_ressource = get_s3_connection()
-    s3_bucket = get_s3_bucket(s3_ressource)
-    
-    _, img = get_s3_object(s3_bucket, "Big_Fat_Red_Cat.jpg")
-    print(img.shape)
-    
-    # cv2.imshow("test", img)
-    # cv2.waitKey(0)
-    
-    _ = put_s3_object(s3_bucket, "test_grey.jpg", img)
-
-    close_s3_connection(s3_ressource)
