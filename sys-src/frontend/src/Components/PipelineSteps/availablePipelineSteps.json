@@ -1,0 +1,30 @@
+[
+   {
+      "title": "Salt&Pepper-Noise",
+      "id": 0,
+      "params": [
+         {
+            "title": "Kernelsize",
+            "defaultValue": 3
+         },
+         {
+            "title": "fatcatScale",
+            "defaultValue": 0.01
+         },
+         {
+            "title": "mode",
+            "defaultValue": "red"
+         }
+      ]
+   },
+   {
+      "title": "Medianfilter",
+      "id": 1,
+      "params": [
+         {
+            "title": "Kernelsize",
+            "defaultValue": 3
+         }
+      ]
+   }
+]
