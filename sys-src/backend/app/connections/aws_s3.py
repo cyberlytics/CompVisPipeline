@@ -36,13 +36,14 @@ def get_s3_object(s3_bucket, str_object_key):
     return: opencv_image
     """
     obj = s3_bucket.Object(str_object_key)       # get object from s3 bucket 
+    response_metadata = obj.get()['ResponseMetadata']                            
     img_bytes = obj.get()['Body'].read()         # read bytes from object
 
     # convert img_bytes to opencv image
     np_array = np.frombuffer(img_bytes, np.uint8)
-    img = cv2.imdecode(np_array, cv2.IMREAD_COLOR)
+    img = cv2.imdecode(np_array, cv2.IMREAD_UNCHANGED)
 
-    return img
+    return response_metadata, img
     
 
 def put_s3_object(s3_bucket, str_object_key, img):
@@ -57,7 +58,9 @@ def put_s3_object(s3_bucket, str_object_key, img):
     
     # upload object to s3 bucket
     obj = s3_bucket.Object(str_object_key)      # build object
-    obj.put(Body=img_as_bytes)                  # upload object to s3 bucket
+    response_metadata = obj.put(Body=img_as_bytes)                  # upload object to s3 bucket
+
+    return response_metadata['ResponseMetadata']
 
 
 def close_s3_connection(s3_ressource):
@@ -69,12 +72,12 @@ if __name__ == '__main__':
     s3_ressource = get_s3_connection()
     s3_bucket = get_s3_bucket(s3_ressource)
     
-    img = get_s3_object(s3_bucket, "Big_Fat_Red_Cat.jpg")
+    _, img = get_s3_object(s3_bucket, "Big_Fat_Red_Cat.jpg")
     print(img.shape)
     
     # cv2.imshow("test", img)
     # cv2.waitKey(0)
     
-    put_s3_object(s3_bucket, "test_grey.jpg", img)
+    _ = put_s3_object(s3_bucket, "test_grey.jpg", img)
 
     close_s3_connection(s3_ressource)
