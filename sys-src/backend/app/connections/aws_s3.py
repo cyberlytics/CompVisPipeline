@@ -1,6 +1,5 @@
 # Manage the connection to AWS S3
 # s3 bucket: team-rot-fatcat-data
-# TODO
 import os
 from io import BytesIO
 
@@ -19,9 +18,9 @@ def get_s3_connection():
 
     return s3_ressource
 
-def get_s3_bucket(s3_ressource):
+def get_s3_bucket(s3_ressource, str_bucket_name='team-rot-fatcat-data'):
     """ Get the s3 bucket from aws """
-    str_bucket_name = 'team-rot-fatcat-data'        # bucket name
+
     # get s3 buckets
     s3_bucket = s3_ressource.Bucket(str_bucket_name)
 
