@@ -3,3 +3,5 @@ flask_cors~=3.0.10
 pytest~=7.3.1
 gunicorn~=20.1.0
 pydantic~=1.10.7
+boto3~=1.26.133
+opencv-python~=4.7.0.72 
