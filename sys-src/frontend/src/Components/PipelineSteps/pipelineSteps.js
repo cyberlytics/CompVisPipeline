@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import List from '@mui/material/List';
+import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Step from './step'
 import AvailablePipelineSteps from './availablePipelineSteps.json';
@@ -17,17 +17,17 @@ export default function PipelineSteps() {
                 <Typography sx={{ width: '100%' }} align="center" variant="h5" component="div">Available Steps</Typography>
             </CardContent>
             <CardContent>
-                <Box sx={{ width: '100%', bgcolor: 'background.default' }}>
-                    <List component="nav">
-                        {AvailablePipelineSteps.map(step => {
+                <Box sx={{ width: '100%' }}>
+                    <Stack spacing={1} style={{ maxHeight: '900px', overflow: 'auto'}}>
+                        {AvailablePipelineSteps.map((step, index) => {
                             return (
-                                <div key={step.id}>
-                                    {step.id > 0 && <Divider />}
-                                    <Step isClickable={true} title={step.title} id={step.id} params={step.params} />
-                                </div>
+                                <>
+                                    
+                                    <Step expandButtonActive={false} showButtonActive={false} deleteButtonActive={false} title={step.title} params={step.params} info={step.info} />
+                                </>
                             );
                         })}
-                    </List>
+                    </Stack>
                 </Box>
             </CardContent>
         </Card>

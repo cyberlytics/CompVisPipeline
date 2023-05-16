@@ -5,19 +5,16 @@
       "info": "function info",
       "params": [
          {
-            "id": 1000,
             "title": "Kernelsize",
             "info": "param info",
             "defaultValue": 3
          },
          {
-            "id": 1001,
             "title": "fatcatScale",
             "info": "param info",
             "defaultValue": 0.01
          },
          {
-            "id": 1002,
             "title": "mode",
             "info": "param info",
             "defaultValue": "red"
@@ -30,7 +27,6 @@
       "info": "function info",
       "params": [
          {
-            "id": 2000,
             "title": "Kernelsize",
             "info": "param info",
             "defaultValue": 3
@@ -43,7 +39,6 @@
       "info": "function info",
       "params": [
          {
-            "id": 2000,
             "title": "Kernelsize",
             "info": "param info",
             "defaultValue": 3
