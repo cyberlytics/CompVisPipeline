@@ -15,18 +15,21 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import InformationPopup from '../../ModalWindow/InformationPopup.js';
 
 export default function Step(props) {
-    const { expandButtonActive, showButtonActive, deleteButtonActive, title, params, info } = props;
+    const { dragDropEnabled, expandButtonActive, showButtonActive, deleteButtonActive, title, params, info } = props;
     const [isExpanded, setIsExpandend] = useState(false)
     const [informationPopupIsOpen, setInformationPopupIsOpen] = useState(false);
 
     const [{ isDragging }, drag] = useDrag(() => ({
         type: 'Step',
-        item: { expandButtonActive: true, showButtonActive: true, deleteButtonActive: true, title: title, params: params, info: info },
+        item: { dragDropEnabled: false, expandButtonActive: true, showButtonActive: true, deleteButtonActive: true, title: title, params: params, info: info },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
             handlerId: monitor.getHandlerId(),
         }),
-    }));
+        canDrag: () => dragDropEnabled,
+    }),
+    [dragDropEnabled]
+    );
 
     const opacity = isDragging ? 0.4 : 1
 

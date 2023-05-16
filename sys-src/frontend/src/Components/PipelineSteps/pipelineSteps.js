@@ -23,7 +23,7 @@ export default function PipelineSteps() {
                             return (
                                 <>
                                     
-                                    <Step expandButtonActive={false} showButtonActive={false} deleteButtonActive={false} title={step.title} params={step.params} info={step.info} />
+                                    <Step dragDropEnabled={true} expandButtonActive={false} showButtonActive={false} deleteButtonActive={false} title={step.title} params={step.params} info={step.info} />
                                 </>
                             );
                         })}

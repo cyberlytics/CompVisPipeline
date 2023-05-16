@@ -5,9 +5,11 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { useDrop } from 'react-dnd'
 import Step from './PipelineSteps/step';
+import Box from '@mui/material/Box';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
 export default function Pipeline() {
-    const [steps, setSteps] = useState([{expandButtonActive:false, showButtonActive:false, deleteButtonActive:false, title: "Uploaded Picture", params: [], info: "Uploaded Image as default." }]);
+    const [steps, setSteps] = useState([{dragDropEnabled: false, expandButtonActive:false, showButtonActive:false, deleteButtonActive:false, title: "Uploaded Picture", params: [], info: "Uploaded Image as default." }]);
 
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: 'Step',
@@ -22,15 +24,16 @@ export default function Pipeline() {
         }),
     }));
 
+    const dropfieldIsVisible = canDrop || isOver
     const isActive = canDrop && isOver
     let boxBackgroundColor = 'background'
     let space = 1
     if (isActive) {
         boxBackgroundColor = 'darkgreen'
-        space = 2
+        space = 1
     } else if (canDrop) {
         boxBackgroundColor = 'darkkhaki'
-        space = 2
+        space = 1
     }
 
     return (
@@ -39,11 +42,16 @@ export default function Pipeline() {
                 <Typography sx={{ width: '100%' }} align="center" variant="h5" component="div">Pipeline</Typography>
             </CardContent>
             <CardContent>
-                <Stack ref={drop} spacing={space} sx={{ width: '100%', pb:2, bgcolor: boxBackgroundColor, maxHeight: '800px', overflow: 'auto' }}>
+                <Stack spacing={space} sx={{ width: '100%', maxHeight: '740px', overflow: 'auto' }}>
                     {steps.map((step, index) => (
-                        <Step expandButtonActive={step.expandButtonActive} showButtonActive={step.showButtonActive} deleteButtonActive={step.deleteButtonActive} title={step.title} params={step.params} info={step.info} />
+                        <Step dragDropEnabled={step.dragDropEnabled} expandButtonActive={step.expandButtonActive} showButtonActive={step.showButtonActive} deleteButtonActive={step.deleteButtonActive} title={step.title} params={step.params} info={step.info} />
                     ))}
                 </Stack>
+                {dropfieldIsVisible &&
+                <Box ref={drop} sx={{ bgcolor: boxBackgroundColor, width:'100%', height: '60px', mt: 1, display: 'flex', align:'center', alignItems: 'center', justifyContent: 'center'}}>
+                    <AddCircleOutlineOutlinedIcon fontSize='large'/>
+                </Box>
+                    }
             </CardContent>
         </Card>
     );
