@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
-import SettingsIcon from '@mui/icons-material/Settings';
-import InfoIcon from '@mui/icons-material/Info';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import Typography from '@mui/material/Typography';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 
 export default function Header(props) {
     const { theme, setTheme } = props;
@@ -24,13 +24,13 @@ export default function Header(props) {
                             <RestartAltIcon fontSize='medium' />
                         </Grid>
                         <Grid item>
-                            <InfoIcon fontSize='medium' />
+                            <InfoOutlinedIcon fontSize='medium' />
                         </Grid>
                         <Grid item>
-                            <SettingsIcon fontSize='medium' />
+                            <SettingsOutlinedIcon fontSize='medium' />
                         </Grid>
                         <Grid item>
-                            {theme ? <DarkModeIcon onClick={() => setTheme(!theme)} /> : <LightModeIcon onClick={() => setTheme(!theme)} />}
+                            {theme ? <DarkModeOutlinedIcon onClick={() => setTheme(!theme)} /> : <LightModeOutlinedIcon onClick={() => setTheme(!theme)} />}
                         </Grid>
                     </Grid>
                 </Grid>
