@@ -14,7 +14,7 @@ def test_PipelineStep_empty_parameter_list():
 
 
 def test_PipelineStep_parameter_list_not_empty():
-    test = {"func": "test", "parameters": [1, 2, 3]}
+    test = {"func": "test", "parameters": ["1", "2", "3"]}
     pipelineStep = PipelineStep(**test)
     assert pipelineStep == PipelineStep(func="test", parameters=[1, 2, 3])
     assert pipelineStep.func(1, 2) == 1

@@ -7,7 +7,7 @@ from botocore.exceptions import ClientError
 
 from app.connections.aws_s3 import S3Manager
 
-
+@pytest.mark.aws
 def test_get_s3_connection():
     s3Manager = S3Manager()
     s3_ressource = s3Manager._getConnection()
@@ -22,7 +22,7 @@ def test_get_s3_connection():
         len(list(s3_ressource.buckets.all())) > 0
     )  # check if there are buckets available
 
-
+@pytest.mark.aws
 def test_get_s3_bucket():
     s3Manager = S3Manager()
     s3_ressource = s3Manager._getConnection()
@@ -45,7 +45,7 @@ def test_get_s3_bucket():
             )  # check if bucket exists
             assert bucket.name == bucket_name  # check if bucket name is correct
 
-
+@pytest.mark.aws
 def test_get_s3_object(create_rgb_image, create_grayscale_image):
     s3Manager = S3Manager()
 
@@ -79,7 +79,7 @@ def test_get_s3_object(create_rgb_image, create_grayscale_image):
     s3Manager.deleteImageFromS3("test_rgb_image.jpg")
     s3Manager.deleteImageFromS3("test_grayscale_image.jpg")
 
-
+@pytest.mark.aws
 def test_put_s3_object(create_rgb_image, create_grayscale_image):
     s3Manager = S3Manager()
 
@@ -113,7 +113,7 @@ def test_put_s3_object(create_rgb_image, create_grayscale_image):
     s3Manager.deleteImageFromS3("test_rgb_image.jpg")
     s3Manager.deleteImageFromS3("test_grayscale_image.jpg")
 
-
+@pytest.mark.aws
 def test_delete_s3_object(create_rgb_image, create_grayscale_image):
     s3Manager = S3Manager()
 
@@ -137,7 +137,7 @@ def test_delete_s3_object(create_rgb_image, create_grayscale_image):
         s3Manager.getImageFromS3("test_rgb_image.jpg")
         s3Manager.getImageFromS3("test_grayscale_image.jpg")
 
-
+@pytest.mark.aws
 def test_delete_all_s3_objects(create_rgb_image, create_grayscale_image):
     s3Manager = S3Manager()
 

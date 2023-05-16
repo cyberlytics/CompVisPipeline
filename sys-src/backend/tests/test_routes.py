@@ -29,7 +29,7 @@ def test_startPipeline_route(client, create_rgb_image):
         "/start-pipeline/123",
         json={"steps": [{"func": "test", "parameters": [1, 2, 3]}]},
     )
-    assert len(response.json) == 1
+    assert len(response.json) == 2
     assert (s3Manager.getImageFromS3(response.json[0])[1] == create_rgb_image).all()
     s3Manager.deleteImageFromS3("123")
     s3Manager.deleteImageFromS3(response.json[0])
