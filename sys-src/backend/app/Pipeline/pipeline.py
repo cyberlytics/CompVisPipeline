@@ -19,7 +19,7 @@ class Pipeline:
         metaData, lastImage = self.s3Manager.getImageFromS3(self.image)
         if metaData["HTTPStatusCode"] != 200:
             raise PipelineError(message="failed to load image from s3 bucket")
-        allResults = []
+        allResults = [self.image]
         for step in self.steps:
             try:
                 lastImage = step.func(lastImage, step.parameters)

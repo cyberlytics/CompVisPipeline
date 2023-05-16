@@ -8,7 +8,7 @@ from app.Pipeline.Steps.gaussianBlur import GaussianBlur
 FUNCTION_NAME_MAPPER = {
     "bilateralFilter": BilateralFilter(),
     "gaussianBlur": GaussianBlur(),
-    "test": BaseStep(),
+    "test": BaseStep(), # This step is just for testing and returns the input image
 }
 
 

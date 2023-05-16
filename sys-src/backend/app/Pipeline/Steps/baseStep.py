@@ -15,4 +15,12 @@ class BaseStep:
     """
 
     def __call__(self, img, parameters):
+        """
+        input:
+        - img: matrix of the input image
+        - parameters: list of str with the parameters for the current step
+        
+        returns:
+        - matrix of the resulting image
+        """
         return img

@@ -1,11 +1,9 @@
-import json
-from flask import Flask, request, Response
+from flask import Flask, request
 from flask_cors import CORS
 from pydantic import ValidationError
 
 from app.Models.startPipelineModels import PipelineSteps
-from app.Pipeline.Steps.baseStep import ImageProcessingError
-from app.Pipeline.pipeline import Pipeline
+from app.Pipeline.pipeline import Pipeline, PipelineError
 
 app = Flask(__name__)
 CORS(app)  # TODO: do not use this in production
@@ -40,7 +38,7 @@ def startPipeline(imageId):
     pipeline = Pipeline(imageId, steps)
     try:
         result = pipeline.start()
-    except ImageProcessingError as e:
+    except PipelineError as e:
         return app.response_class(
             response=f"Failed to process image: {e.message}",
             status=400,
