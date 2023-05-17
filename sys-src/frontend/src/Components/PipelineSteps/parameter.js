@@ -11,12 +11,12 @@ export default function Parameter(props) {
 
     const [isOpen, setIsOpen] = useState(false);
 
-    //function to open modul window for information
+    //function to open modalwindow for information
     const handleInfoClick = () => {
         setIsOpen(true);
     };
 
-    //function to close modul window
+    //function to close modalwindow
     const handleClosePopup = () => {
         setIsOpen(false);
     };

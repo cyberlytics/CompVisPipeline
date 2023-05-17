@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
+import Controller from '../controller';
 
 //Beispiel Karte mit REST
 export default function Calculator() {
@@ -13,11 +14,9 @@ export default function Calculator() {
     const [number2, setNumber2] = useState("")
     const [result, setResult] = useState("")
 
-    async function calculateClick () {
-        const response = await fetch('http://127.0.0.1:5000/get-sum?x=' + number1 + '&y=' + number2)
-        const responseText = await response.text()
-
-        setResult(responseText)
+    async function fetchData() {
+        const result = await Controller.calculateClick(number1, number2);
+        setResult(result)
     }
 
     const handleText1InputChange = event => {
@@ -40,24 +39,24 @@ export default function Calculator() {
         >
             <Card sx={{ minWidth: 275 }}>
                 <CardContent>
-                    <Typography sx={{ width:'100%' }} align="center" variant="h5" component="div">
+                    <Typography sx={{ width: '100%' }} align="center" variant="h5" component="div">
                         Calculator
                     </Typography>
                 </CardContent>
                 <CardContent>
-                    <TextField id="number1" label="Zahl 1" type='number' variant="filled" onChange={handleText1InputChange}/>
+                    <TextField id="number1" label="Zahl 1" type='number' variant="filled" onChange={handleText1InputChange} />
                 </CardContent>
                 <CardContent>
-                    <Typography sx={{ width:'100%' }} align="center" variant="h5"> + </Typography>
+                    <Typography sx={{ width: '100%' }} align="center" variant="h5"> + </Typography>
                 </CardContent>
                 <CardContent>
-                    <TextField id="number2" label="Zahl 2" type='number'  variant="filled" onChange={handleText2InputChange}/>
+                    <TextField id="number2" label="Zahl 2" type='number' variant="filled" onChange={handleText2InputChange} />
                 </CardContent>
                 <CardActions>
-                    <Button sx={{ width:'100%' }} align="center" size="small" onClick={calculateClick}>Calculate</Button>
+                    <Button sx={{ width: '100%' }} align="center" size="small" onClick={fetchData}>Calculate</Button>
                 </CardActions>
                 <CardContent>
-                    <TextField id="result" label="Ergebnis" value={result} variant="filled" disabled/>
+                    <TextField id="result" label="Ergebnis" value={result} variant="filled" disabled />
                 </CardContent>
             </Card>
         </Grid>
