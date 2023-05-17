@@ -1,10 +1,8 @@
 {
-    "name": "BDCCfrontend",
-    "build": {
-        "dockerfile": "Dockerfile",
-        "context": ".."
-    },
-    "workspaceMount": "source=${localWorkspaceFolder},target=/workdir,type=bind",
-    "workspaceFolder": "/workdir",
-    "forwardPorts": [3000]
+    "name": "BDCC-frontend",
+    "dockerComposeFile": ["docker-compose.yml"],
+    "service": "vscode",
+    "runServices": ["vscode"],
+    "shutdownAction": "stopCompose",
+    "workspaceFolder": "/workdir"
 }
