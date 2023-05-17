@@ -14,3 +14,27 @@ class BilateralFilter(BaseStep):
             raise ImageProcessingError(
                 message="BilateralFilter failed to process image"
             )
+
+    def describe(self):
+        # TODO: describe this
+        return {
+            "title": "Bilateral Filter",
+            "info": "Reduce Noise using a Bilateral Filter",
+            "params": [
+                {
+                    "title": "parameter 1",
+                    "info": "param info",
+                    "defaultValue": 3
+                },
+                {
+                    "title": "parameter 2",
+                    "info": "param info",
+                    "defaultValue": 0.01
+                },
+                {
+                    "title": "parameter 3",
+                    "info": "param info",
+                    "defaultValue": "red"
+                }
+            ]
+        }

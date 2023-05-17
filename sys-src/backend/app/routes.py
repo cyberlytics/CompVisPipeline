@@ -2,8 +2,8 @@ from flask import Flask, request
 from flask_cors import CORS
 from pydantic import ValidationError
 
-from app.Models.startPipelineModels import PipelineSteps
-from app.Pipeline.pipeline import Pipeline, PipelineError
+from app.Models.startPipelineModels import PipelineStep
+from app.Pipeline.pipeline import FUNCTION_LIST, Pipeline, PipelineError
 
 app = Flask(__name__)
 CORS(app)  # TODO: do not use this in production
@@ -28,7 +28,7 @@ def getSum():
 @app.route("/start-pipeline/<imageId>", methods=["POST"])
 def startPipeline(imageId):
     try:
-        steps = PipelineSteps(**request.json)
+        steps = [PipelineStep(**item) for item in request.json]
     except ValidationError as e:
         return app.response_class(
             response=f"Invalid request: {e}",
@@ -44,6 +44,15 @@ def startPipeline(imageId):
             status=400,
             content_type="application/json",
         )
+    return result
+
+@app.route("/available-steps", methods=["GET"])
+def getAvailableSteps():
+    result = []
+    for id, func in enumerate(FUNCTION_LIST):
+        description = func.describe()
+        description["id"] = id
+        result.append(description)
     return result
 
 

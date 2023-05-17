@@ -19,8 +19,37 @@ class BaseStep:
         input:
         - img: matrix of the input image
         - parameters: list of str with the parameters for the current step
-        
+
         returns:
         - matrix of the resulting image
         """
         return img
+    
+    def describe(self):
+        """
+        This method is used for creating the 
+
+        returns:
+        - dict: {
+            "title": "Title of this funciton",
+            "info": "function info",
+            "params": [
+                {
+                    "title": "parameter 1",
+                    "info": "param info",
+                    "defaultValue": 3
+                },
+                {
+                    "title": "parameter 2",
+                    "info": "param info",
+                    "defaultValue": 0.01
+                },
+                {
+                    "title": "parameter 3",
+                    "info": "param info",
+                    "defaultValue": "red"
+                }
+            ]
+        }
+        """
+        return {}
