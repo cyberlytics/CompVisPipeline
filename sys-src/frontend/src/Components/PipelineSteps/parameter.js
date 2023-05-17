@@ -11,12 +11,14 @@ export default function Parameter(props) {
 
     const [isOpen, setIsOpen] = useState(false);
 
-    const handleClosePopup = () => {
-      setIsOpen(false);
-    };
-
+    //function to open modul window for information
     const handleInfoClick = () => {
         setIsOpen(true);
+    };
+
+    //function to close modul window
+    const handleClosePopup = () => {
+        setIsOpen(false);
     };
 
     //returns a paramater view based on the given name and defaultvalue

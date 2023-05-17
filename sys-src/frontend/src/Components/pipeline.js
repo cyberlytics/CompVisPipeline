@@ -9,12 +9,13 @@ import Box from '@mui/material/Box';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
 export default function Pipeline() {
-    const [steps, setSteps] = useState([{dragDropEnabled: false, expandButtonActive:false, showButtonActive:false, deleteButtonActive:false, title: "Uploaded Picture", params: [], info: "Uploaded Image as default." }]);
+    const [steps, setSteps] = useState([{ dragDropEnabled: false, expandButtonActive: false, showButtonActive: false, deleteButtonActive: false, title: "Uploaded Picture", params: [], info: "Uploaded Image as default." }]);
 
+    //function for move and copy from pipelinesteps
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: 'Step',
         drop: (item, monitor) => {
-            if (!monitor.didDrop()) { //only drop if element from outside
+            if (!monitor.didDrop()) {
                 setSteps((prevSteps) => [...prevSteps, item]);
             }
         },
@@ -24,34 +25,40 @@ export default function Pipeline() {
         }),
     }));
 
+    //variable to change the style from the box to drop steps
     const dropfieldIsVisible = canDrop || isOver
     const isActive = canDrop && isOver
     let boxBackgroundColor = 'background'
-    let space = 1
     if (isActive) {
         boxBackgroundColor = 'darkgreen'
-        space = 1
     } else if (canDrop) {
         boxBackgroundColor = 'darkkhaki'
-        space = 1
     }
 
+    //function to delete a single step from list
+    const deleteStep = (index) => {
+        const updatedSteps = [...steps];    
+        updatedSteps.splice(index, 1);      
+        setSteps(updatedSteps);            
+    };
+
+    //returns the view for the pipeline configuration
     return (
         <Card style={{ height: 900 }}>
             <CardContent>
                 <Typography sx={{ width: '100%' }} align="center" variant="h5" component="div">Pipeline</Typography>
             </CardContent>
             <CardContent>
-                <Stack spacing={space} sx={{ width: '100%', maxHeight: '740px', overflow: 'auto' }}>
+                <Stack spacing={1} sx={{ width: '100%', maxHeight: '740px', overflow: 'auto' }}>
                     {steps.map((step, index) => (
-                        <Step dragDropEnabled={step.dragDropEnabled} expandButtonActive={step.expandButtonActive} showButtonActive={step.showButtonActive} deleteButtonActive={step.deleteButtonActive} title={step.title} params={step.params} info={step.info} />
+                        <Step deleteStep={deleteStep} index={index} dragDropEnabled={step.dragDropEnabled} expandButtonActive={step.expandButtonActive} showButtonActive={step.showButtonActive} deleteButtonActive={step.deleteButtonActive} title={step.title} params={step.params} info={step.info} />
                     ))}
                 </Stack>
                 {dropfieldIsVisible &&
-                <Box ref={drop} sx={{ bgcolor: boxBackgroundColor, width:'100%', height: '60px', mt: 1, display: 'flex', align:'center', alignItems: 'center', justifyContent: 'center'}}>
-                    <AddCircleOutlineOutlinedIcon fontSize='large'/>
-                </Box>
-                    }
+                    <Box ref={drop} sx={{ bgcolor: boxBackgroundColor, width: '100%', height: '60px', mt: 1, display: 'flex', align: 'center', alignItems: 'center', justifyContent: 'center' }}>
+                        <AddCircleOutlineOutlinedIcon fontSize='large' />
+                    </Box>
+                }
             </CardContent>
         </Card>
     );
