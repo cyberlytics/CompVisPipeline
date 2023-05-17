@@ -20,7 +20,7 @@ export default function PipelineSteps() {
                     <Stack spacing={1} style={{ maxHeight: '900px', overflow: 'auto' }}>
                         {AvailablePipelineSteps.map((step, index) => {
                             return (
-                                <Step dragDropEnabled={true} expandButtonActive={false} showButtonActive={false} deleteButtonActive={false} title={step.title} params={step.params} info={step.info} />
+                                <Step key={index} dragDropEnabled={true} expandButtonActive={false} showButtonActive={false} deleteButtonActive={false} title={step.title} params={step.params} info={step.info} />
                             );
                         })}
                     </Stack>

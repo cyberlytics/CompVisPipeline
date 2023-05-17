@@ -51,7 +51,7 @@ export default function Pipeline() {
             <CardContent>
                 <Stack spacing={1} sx={{ width: '100%', maxHeight: '740px', overflow: 'auto' }}>
                     {steps.map((step, index) => (
-                        <Step deleteStep={deleteStep} index={index} dragDropEnabled={step.dragDropEnabled} expandButtonActive={step.expandButtonActive} showButtonActive={step.showButtonActive} deleteButtonActive={step.deleteButtonActive} title={step.title} params={step.params} info={step.info} />
+                        <Step key={index} deleteStep={deleteStep} index={index} dragDropEnabled={step.dragDropEnabled} expandButtonActive={step.expandButtonActive} showButtonActive={step.showButtonActive} deleteButtonActive={step.deleteButtonActive} title={step.title} params={step.params} info={step.info} />
                     ))}
                 </Stack>
                 {dropfieldIsVisible &&

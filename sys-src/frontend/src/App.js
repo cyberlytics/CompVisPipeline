@@ -42,7 +42,7 @@ function App() {
 
         <Grid container style={{ paddingTop: 0, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
 
-          <Grid container md={4} style={{ paddingRight: 10 }}>
+          <Grid item md={4} style={{ paddingRight: 10 }}>
             <Grid container direction="column">
               <Grid item xs style={{ paddingBottom: 10 }}>
                 <Upload />
@@ -56,7 +56,7 @@ function App() {
             </Grid>
           </Grid>
 
-          <Grid container md={4} style={{ paddingRight: 10 }}>
+          <Grid item md={4} style={{ paddingRight: 10 }}>
             <Grid container direction="column">
               <Grid item xs style={{ paddingBottom: 10 }}>
                 <Pipeline />
@@ -67,7 +67,7 @@ function App() {
             </Grid>
           </Grid>
 
-          <Grid container md={4}>
+          <Grid item md={4}>
             <Grid container direction="column">
               <Grid item xs>
                 <PipelineSteps />

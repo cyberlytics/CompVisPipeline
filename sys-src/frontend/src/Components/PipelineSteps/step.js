@@ -15,14 +15,14 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import InformationPopup from '../../ModalWindow/InformationPopup.js';
 
 export default function Step(props) {
-    const {deleteStep, index, dragDropEnabled, expandButtonActive, showButtonActive, deleteButtonActive, title, params, info } = props;
+    const {deleteStep, index, dragDropEnabled, expandButtonActive, showButtonActive, deleteButtonActive, title, params, info, id } = props;
     const [isExpanded, setIsExpandend] = useState(false)
     const [informationPopupIsOpen, setInformationPopupIsOpen] = useState(false);
 
     //function for move and copy to pipeline
     const [{ isDragging }, drag] = useDrag(() => ({
         type: 'Step',
-        item: { dragDropEnabled: false, expandButtonActive: true, showButtonActive: true, deleteButtonActive: true, title: title, params: params, info: info },
+        item: { dragDropEnabled: false, expandButtonActive: true, showButtonActive: true, deleteButtonActive: true, title: title, params: params, info: info, id:id },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
             handlerId: monitor.getHandlerId(),
@@ -76,9 +76,9 @@ export default function Step(props) {
             </ListItem>
             <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                    {params.map(param => {
+                    {params.map((param, index) => {
                         return (
-                            <Parameter sx={{ pl: 4 }} parameterName={param.title} defaultValue={param.defaultValue} info={param.info} key={param.id} />
+                            <Parameter key={index} sx={{ pl: 4 }} parameterName={param.title} defaultValue={param.defaultValue} info={param.info}/>
                         );
                     })}
                 </List>
