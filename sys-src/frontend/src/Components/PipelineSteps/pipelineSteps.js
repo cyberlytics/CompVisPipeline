@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -6,13 +6,16 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Step from './step';
 import Controller from '../../controller';
-import ExampleAvailablePipelineSteps from './availablePipelineSteps.json';
+import AvailablePipelineSteps from './availablePipelineSteps.json';
 
 export default function PipelineSteps() {
+    const [pipelineSteps, setPipelineSteps] = useState([])
 
-    //If FRONTENDDEVELOPMENT, availablesteps are genereated from json in folder. This is necessary when the backend is inactive
-    let FRONTENDDEVELOPMENT = true
-    const AvailablePipelineSteps = FRONTENDDEVELOPMENT ? ExampleAvailablePipelineSteps : Controller.getAvailableSteps();
+    //use this variable to map with local defined steps
+    const localPipelineSteps = AvailablePipelineSteps
+
+    //get pipelinesteps from backend
+    Controller.getPipelineStepsFromBackend(setPipelineSteps);
 
     //returns a list of steps from steps which are defined in availablePipelineSteps.json
     return (
@@ -23,7 +26,7 @@ export default function PipelineSteps() {
             <CardContent>
                 <Box sx={{ width: '100%' }}>
                     <Stack spacing={1} style={{ maxHeight: '900px', overflow: 'auto' }}>
-                        {AvailablePipelineSteps.map((step, index) => {
+                        {pipelineSteps.map((step, index) => {
                             return (
                                 <Step key={index} dragDropEnabled={true} expandButtonActive={false} showButtonActive={false} deleteButtonActive={false} title={step.title} params={step.params} info={step.info} />
                             );
