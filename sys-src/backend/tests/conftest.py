@@ -2,6 +2,8 @@ import numpy as np
 import pytest
 from botocore.exceptions import ClientError
 
+from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
+
 
 @pytest.fixture
 def create_rgb_image():
@@ -41,4 +43,11 @@ def fakeS3Manager():
             self.savedImages = {}
             return response
     return FakeS3Manager()
+        
+@pytest.fixture
+def pipelineStepRaisesError():
+    class PipelineStepRaisesError(BaseStep):
+        def __call__(self, img, parameters):
+            raise ImageProcessingError(message="failed to process Image")
+    return PipelineStepRaisesError()
         

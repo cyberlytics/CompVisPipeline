@@ -6,3 +6,4 @@ pydantic~=1.10.7
 boto3~=1.26.133
 opencv-python~=4.7.0.72 
 numpy~=1.24.3
+pytest-mock~=3.10.0

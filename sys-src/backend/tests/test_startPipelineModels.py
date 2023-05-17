@@ -1,20 +1,23 @@
-from app.Models.startPipelineModels import PipelineSteps, PipelineStep
+from pydantic import ValidationError
+import pytest
+from app.Models.startPipelineModels import PipelineStep
+from app.Pipeline.Steps.baseStep import BaseStep
+from app.Pipeline.Steps.bilateralFilter import BilateralFilter
+from app.Pipeline.pipeline import FUNCTION_LIST
 
+def test_pipelineStep_raises_validation_error_for_to_large_id():
+    with pytest.raises(ValidationError) as e:
+        PipelineStep(id=len(FUNCTION_LIST)+100, params=[])
 
-def test_PipelineSteps_empty_list():
-    test = {"steps": []}
-    pipelineSteps = PipelineSteps(**test)
-    assert pipelineSteps == PipelineSteps(steps=[])
+def test_pipelineStep_raises_validation_error_for_negative_id():
+    with pytest.raises(ValidationError) as e:
+        PipelineStep(id=-20, params=[])
 
-
-def test_PipelineStep_empty_parameter_list():
-    test = {"func": "test", "parameters": []}
-    pipelineStep = PipelineStep(**test)
-    assert pipelineStep == PipelineStep(func="test", parameters=[])
-
-
-def test_PipelineStep_parameter_list_not_empty():
-    test = {"func": "test", "parameters": ["1", "2", "3"]}
-    pipelineStep = PipelineStep(**test)
-    assert pipelineStep == PipelineStep(func="test", parameters=[1, 2, 3])
-    assert pipelineStep.func(1, 2) == 1
+def test_pipelineStep_contains_correct_id_and_params(mocker):
+    fakeFunctionList = [
+        BaseStep()
+    ]
+    mocker.patch("app.Models.startPipelineModels.FUNCTION_LIST", fakeFunctionList)
+    pipelineStep = PipelineStep(id=0, params=[1,2.3,"hallo"])
+    assert pipelineStep.id == 0
+    assert pipelineStep.params == [1, 2.3, "hallo"]
