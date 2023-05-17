@@ -7,7 +7,6 @@ import Pipeline from './Components/pipeline';
 import PipelineSteps from './Components/PipelineSteps/pipelineSteps';
 import StartPipeline from './Components/startPipeline';
 import Grid from '@mui/material/Grid';
-import Calculator from './Components/calculator';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { DndProvider } from 'react-dnd'
@@ -76,8 +75,6 @@ function App() {
           </Grid>
 
         </Grid>
-
-        <Calculator />
       </DndProvider>
     </ThemeProvider>
   );
