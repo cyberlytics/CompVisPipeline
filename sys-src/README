@@ -1,6 +1,7 @@
 # Development
 the .devcontainer can be used to develop in vscode (foreach frontend and backend). it contains a Dockerfile and a devcontainer.json file. 
 Use vscodes devcontainer-extension for development. you can run/debug/test your code inside the devcontainer.
+To use the s3 buckets in your devcontainer add a devcontainer.env file in the backend/.devcontainer folder. 
 
 # Production
 the docker-compose file can be used to start frontend and backend. it uses the Dockerfiles from /clientapp/Dockerfile and /backend/Dockerfile
