@@ -5,8 +5,9 @@ To use the s3 buckets in your devcontainer add a devcontainer.env file in the ba
 
 # Production
 the docker-compose file can be used to start frontend and backend. it uses the Dockerfiles from /clientapp/Dockerfile and /backend/Dockerfile
-1. docker-compose up --build (this can take a few minutes wait until you see logs for frontend and backend)
-2. frontend is available: localhost:80 or 127.0.0.1:80
+1. set the aws secrets in a backend.env file in this folder
+2. docker-compose up --build (this can take a few minutes wait until you see logs for frontend and backend)
+3. frontend is available: localhost:80 or 127.0.0.1:80
 
 
 # Backend 
