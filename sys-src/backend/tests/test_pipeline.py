@@ -1,4 +1,3 @@
-
 import pytest
 import numpy as np
 from app.Models.startPipelineModels import PipelineStep
@@ -12,21 +11,30 @@ def test_pipeline_raises_pipeline_error_failed_to_load_image_from_s3(fakeS3Manag
         pipeline.start()
     assert e.value.message == "failed to load image from s3 bucket"
 
-def test_pipeline_raises_pipeline_error_image_processing_failed(fakeS3Manager, pipelineStepRaisesError, create_rgb_image):
+
+def test_pipeline_raises_pipeline_error_image_processing_failed(
+    fakeS3Manager, pipelineStepRaisesError, create_rgb_image
+):
     fakeS3Manager.pushImageToS3("42", create_rgb_image)
-    pipeline = Pipeline("42", [PipelineStep(id=0, params=[])], fakeS3Manager, [pipelineStepRaisesError])
+    pipeline = Pipeline(
+        "42", [PipelineStep(id=0, params=[])], fakeS3Manager, [pipelineStepRaisesError]
+    )
     with pytest.raises(PipelineError) as e:
         pipeline.start()
     assert e.value.message == "failed to process Image"
 
+
 def test_pipeline_result_is_saved_to_s3(fakeS3Manager, create_rgb_image):
     fakeS3Manager.pushImageToS3("42", create_rgb_image)
-    pipeline = Pipeline("42", [PipelineStep(id=0, params=[])], fakeS3Manager, [BaseStep()])
+    pipeline = Pipeline(
+        "42", [PipelineStep(id=0, params=[])], fakeS3Manager, [BaseStep()]
+    )
     results = pipeline.start()
     assert len(results) == 2
     assert results[0] == "42"
     assert (fakeS3Manager.getImageFromS3(results[0])[1] == create_rgb_image).all()
     assert (fakeS3Manager.getImageFromS3(results[1])[1] == create_rgb_image).all()
+
 
 def test_pipeline_all_steps_are_executed(fakeS3Manager, create_rgb_image):
     fakeS3Manager.pushImageToS3("42", create_rgb_image)
@@ -38,21 +46,19 @@ def test_pipeline_all_steps_are_executed(fakeS3Manager, create_rgb_image):
     for result in results:
         assert (fakeS3Manager.getImageFromS3(result)[1] == create_rgb_image).all()
 
+
 def test_pipeline_steps_are_executed_in_correc_order(fakeS3Manager, mocker):
     testImage = np.array([[1]])
     fakeS3Manager.pushImageToS3("42", testImage)
+
     class FakePipelineStep(BaseStep):
         def __init__(self, number):
             self.number = number
 
         def __call__(self, img, parameters):
             return self.number
-        
-    fakeFunctionList = [
-        FakePipelineStep(2), 
-        FakePipelineStep(1), 
-        FakePipelineStep(3)
-    ]
+
+    fakeFunctionList = [FakePipelineStep(2), FakePipelineStep(1), FakePipelineStep(3)]
     mocker.patch("app.Models.startPipelineModels.FUNCTION_LIST", fakeFunctionList)
     steps = [
         PipelineStep(id=1, params=[]),

@@ -18,6 +18,7 @@ def create_grayscale_image():
     grayimg *= 127  # gray image
     return grayimg
 
+
 @pytest.fixture
 def fakeS3Manager():
     class FakeS3Manager:
@@ -33,21 +34,23 @@ def fakeS3Manager():
         def pushImageToS3(self, objectKey, img):
             self.savedImages[objectKey] = img
             return {"HTTPStatusCode": 200}
-        
+
         def deleteImageFromS3(self, objectKey):
             self.savedImages.pop(objectKey)
             return {"HTTPStatusCode": 204}
-        
+
         def deleteAllImagesFromS3(self):
             response = [{"HTTPStatusCode": 204} for _ in self.savedImages.keys()]
             self.savedImages = {}
             return response
+
     return FakeS3Manager()
-        
+
+
 @pytest.fixture
 def pipelineStepRaisesError():
     class PipelineStepRaisesError(BaseStep):
         def __call__(self, img, parameters):
             raise ImageProcessingError(message="failed to process Image")
+
     return PipelineStepRaisesError()
-        

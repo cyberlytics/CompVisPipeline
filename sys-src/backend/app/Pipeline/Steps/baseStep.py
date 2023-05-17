@@ -24,10 +24,10 @@ class BaseStep:
         - matrix of the resulting image
         """
         return img
-    
+
     def describe(self):
         """
-        This method is used for creating the 
+        This method is used for creating the
 
         returns:
         - dict: {

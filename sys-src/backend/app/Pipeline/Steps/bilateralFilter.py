@@ -8,7 +8,7 @@ class BilateralFilter(BaseStep):
         # TODO: add error handling and check which parameters we need
         try:
             p0 = int(parameters[0])
-            ... # TODO: cast parameters to correct type all parameters is a list of str
+            ...  # TODO: cast parameters to correct type all parameters is a list of str
             return cv2.bilateralFilter(img, p0)
         except Exception:
             raise ImageProcessingError(
@@ -21,20 +21,8 @@ class BilateralFilter(BaseStep):
             "title": "Bilateral Filter",
             "info": "Reduce Noise using a Bilateral Filter",
             "params": [
-                {
-                    "title": "parameter 1",
-                    "info": "param info",
-                    "defaultValue": 3
-                },
-                {
-                    "title": "parameter 2",
-                    "info": "param info",
-                    "defaultValue": 0.01
-                },
-                {
-                    "title": "parameter 3",
-                    "info": "param info",
-                    "defaultValue": "red"
-                }
-            ]
+                {"title": "parameter 1", "info": "param info", "defaultValue": 3},
+                {"title": "parameter 2", "info": "param info", "defaultValue": 0.01},
+                {"title": "parameter 3", "info": "param info", "defaultValue": "red"},
+            ],
         }
