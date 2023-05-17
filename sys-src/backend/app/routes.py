@@ -10,19 +10,8 @@ CORS(app)  # TODO: do not use this in production
 
 
 @app.route("/", methods=["GET"])
-@app.route("/get-hello-world", methods=["GET"])
 def getHelloWorld():
-    return "Hello World"
-
-
-@app.route("/get-sum", methods=["GET"])
-def getSum():
-    """
-    http://127.0.0.1:5000/get-sum?x=<x>&y=<y>
-    """
-    x = request.args.get("x")
-    y = request.args.get("y")
-    return x + y
+    return {"available routes": ["/start-pipeline/<imageId>", "/available-steps"]}
 
 
 @app.route("/start-pipeline/<imageId>", methods=["POST"])
@@ -45,6 +34,7 @@ def startPipeline(imageId):
             content_type="application/json",
         )
     return result
+
 
 @app.route("/available-steps", methods=["GET"])
 def getAvailableSteps():

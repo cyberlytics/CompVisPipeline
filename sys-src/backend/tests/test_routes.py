@@ -14,13 +14,6 @@ def client():
 def test_hello_world_route(client):
     response = client.get("/")
     assert response.status_code == 200
-    assert response.text == "Hello World"
-
-
-def test_sum_route(client):
-    response = client.get("/get-sum", query_string={"x": "1", "y": "2"})
-    assert response.status_code == 200
-    assert response.text == "12"
 
 
 def test_startPipeline_route(client, create_rgb_image):
@@ -33,6 +26,7 @@ def test_startPipeline_route(client, create_rgb_image):
     assert len(response.json) == 1
     s3Manager.deleteImageFromS3("123")
     s3Manager.deleteImageFromS3(response.json[0])
+
 
 def test_availableSteps_route(client):
     response = client.get("/available-steps")
@@ -48,5 +42,3 @@ def test_availableSteps_route(client):
             assert "title" in param.keys()
             assert "info" in param.keys()
             assert "defaultValue" in param.keys()
-
-
