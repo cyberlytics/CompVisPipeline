@@ -4,10 +4,15 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Step from './step'
-import AvailablePipelineSteps from './availablePipelineSteps.json';
+import Step from './step';
+import Controller from '../../controller';
+import ExampleAvailablePipelineSteps from './availablePipelineSteps.json';
 
 export default function PipelineSteps() {
+
+    //If FRONTENDDEVELOPMENT, availablesteps are genereated from json in folder. This is necessary when the backend is inactive
+    let FRONTENDDEVELOPMENT = true
+    const AvailablePipelineSteps = FRONTENDDEVELOPMENT ? ExampleAvailablePipelineSteps : Controller.getAvailableSteps();
 
     //returns a list of steps from steps which are defined in availablePipelineSteps.json
     return (

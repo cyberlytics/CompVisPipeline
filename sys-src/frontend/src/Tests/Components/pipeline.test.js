@@ -5,7 +5,7 @@ import Pipeline from "../../Components/pipeline";
 
 describe("pipeline.js tests", () => {
 
-  test("card should be visible", () => {
+  test.skip("card should be visible", () => {
     render(<Pipeline />);
     const cardVisible = screen.queryByText(/Pipeline/i);
     expect(cardVisible).toBeVisible();

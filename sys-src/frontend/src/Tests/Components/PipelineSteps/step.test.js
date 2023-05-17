@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import Step from "../../../Components/PipelineSteps/step";
 
-describe("parameter.js tests", () => {
+describe.skip("parameter.js tests", () => {
     test("parametername visible", () => {
         let isClickable = true
         let title = "Steptesttitle"

@@ -22,7 +22,7 @@
   "scripts": {
     "start": "WATCHPACK_POLLING=true react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!react-dnd)/\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
