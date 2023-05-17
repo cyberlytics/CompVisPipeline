@@ -8,10 +8,23 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import Typography from '@mui/material/Typography';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
-import { Girl } from '@mui/icons-material';
+import InformationPopup from '../ModalWindow/InformationPopup';
 
 export default function Header(props) {
     const { theme, setTheme } = props;
+    const [isOpen, setIsOpen] = useState(false);
+
+    //function to open modalwindow for information
+    const handleInfoClick = () => {
+        setIsOpen(true);
+    };
+
+    //function to close modalwindow
+    const handleClosePopup = () => {
+        setIsOpen(false);
+    };
+
+    let infotext = "Welcome to our cutting-edge computer vision pipeline! Unleash the power of visual intelligence and redefine the way you interact with images. Discover hidden details, gain meaningful insights, and effortlessly achieve remarkable results. Get ready to revolutionize your workflow and immerse yourself in a world of unlimited possibilities."
 
     return (
         <Card style={{ height: 50 }} >
@@ -26,8 +39,9 @@ export default function Header(props) {
                                 <RestartAltIcon fontSize='medium' />
                             </Grid>
                             <Grid item>
-                                <InfoOutlinedIcon fontSize='medium' />
+                                <InfoOutlinedIcon fontSize='medium' onClick={handleInfoClick}/>
                             </Grid>
+                            <InformationPopup open={isOpen} onClose={handleClosePopup} headerText={"Computer Vision Pipeline"} text={infotext} />
                             <Grid item>
                                 <SettingsOutlinedIcon fontSize='medium' />
                             </Grid>
