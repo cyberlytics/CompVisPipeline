@@ -21,8 +21,19 @@ class BilateralFilter(BaseStep):
             "title": "Bilateral Filter",
             "info": "Reduce Noise using a Bilateral Filter",
             "params": [
-                {"title": "parameter 1", "info": "param info", "defaultValue": 3},
-                {"title": "parameter 2", "info": "param info", "defaultValue": 0.01},
-                {"title": "parameter 3", "info": "param info", "defaultValue": "red"},
+                {
+                    "title": "Neighborhood Diameter", 
+                    "info": "Diameter of each pixel neighborhood used during filtering. Must be greater than 0", "defaultValue": 3
+                },
+                {
+                    "title": "Sigma Color", 
+                    "info": "Filter sigma in the color space. Large value means farther colors of neigborhood will be mixed together.", 
+                    "defaultValue": 0.01
+                },
+                {
+                    "title": "Sigma Space", 
+                    "info": "Filter sigma in the coordinate space. Large value means farther pixels will influence each other.", 
+                    "defaultValue": 0.01
+                },
             ],
         }
