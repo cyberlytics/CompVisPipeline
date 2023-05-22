@@ -1,4 +1,7 @@
 // Connection for AWS S3
+// S3.headBucket()
+// headBucket(params = {}, callback) ⇒ AWS.Request
+// This action is useful to determine if a bucket exists and you have permission to access it.
 
 // Get AWS SDK
 function getAWSSDK() {
@@ -35,6 +38,16 @@ function getS3Connection(AWS, bucketName='team-rot-fatcat-data') {
     // Creat S3 instance
     let s3 = new AWS.S3();
 
+    const params = { Bucket: bucketName };
+
+    console.log(s3.headBucket(params, function(err, data) {
+        if (err) {
+            console.log("Zugriff auf S3 Bucket fehlgeschlagen");
+        } else {
+            console.log("Zugriff auf S3 Bucket erfolgreich");
+        }
+    }));
+
     return s3;
 }
 
@@ -59,3 +72,6 @@ function pushImageToS3() {
 let AWS = getAWSSDK();
 
 console.log(AWS.config.credentials.accessKeyId);
+
+let S3_1 = getS3Connection(AWS, 'team-rot-fatcat-data');
+let S3_2 = getS3Connection(AWS, 'bdcc-testbucket');
