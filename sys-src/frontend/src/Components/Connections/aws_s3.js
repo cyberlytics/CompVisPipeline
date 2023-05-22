@@ -9,6 +9,7 @@ function getAWSSDK() {
     const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
     const region = process.env.AWS_DEFAULT_REGION;
 
+
     // set credentials
     AWS.config.update({
         accessKeyId: accessKeyId,
@@ -20,12 +21,11 @@ function getAWSSDK() {
       if (err) console.log(err.stack);
       // credentials not loaded
       else {
-        console.log("AWS Credentials loaded successfully")
+        console.log("AWS Credentials loaded successfully");     
       }
     });
 
     return AWS;
-
 }
 
 // Get connection to S3
@@ -46,4 +46,6 @@ function pushImageToS3() {
 }
 
 // Test script
-getAWSSDK();
+let AWS = getAWSSDK();
+
+console.log(AWS.config.credentials.accessKeyId);
