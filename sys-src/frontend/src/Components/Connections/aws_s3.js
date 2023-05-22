@@ -53,7 +53,7 @@ function getAWSSDK() {
 }
 
 // Get connection to S3
-function getS3Connection(AWS, bucketName='team-rot-fatcat-data') {
+function getS3Connection(AWS) {
     // Creat S3 instance
     let s3 = new AWS.S3();
 
