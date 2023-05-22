@@ -20,6 +20,11 @@ Test S3Connection
     }));
 */
 
+/*
+DelteAllObjectsFromBucket()
+    Check data.deleted.length === objectsToDelete.length
+*/
+
 
 
 // Get AWS SDK
@@ -77,7 +82,7 @@ function deleteAllImagesFromS3(S3, bucketName='team-rot-fatcat-data') {
     // Get list of all objects in bucket
     const params = { Bucket: bucketName };
 
-    S3.listObjects(params, function(err, data) {
+    let data = S3.listObjects(params, function(err, data) {
         if (err) {
             console.log("Error getting objects from S3" , err);
         } else {
@@ -92,14 +97,15 @@ function deleteAllImagesFromS3(S3, bucketName='team-rot-fatcat-data') {
                     Bucket: params.Bucket,
                     Delete: { Objects: allObjectsFromBucket }
                 };
-                // delte objects
-                S3.deleteObjects(deleteObjectsParams, function(err, data) {
-                    if (err) console.log(err); // an error occurred
-                    else     console.log("Images deleted from S3");           // successful response
-                });
+                return data = S3.deleteObjects(deleteObjectsParams, (err, data) => { return data } );
+
+            } else { 
+                return null;
             }
         }
     });
+
+    return data;
 }
 
 
@@ -122,4 +128,4 @@ console.log(AWS.config.credentials.accessKeyId);
 
 let S3_2 = getS3Connection(AWS, 'bdcc-testbucket');
 let S3_1 = getS3Connection(AWS, 'team-rot-fatcat-data');
-deleteAllImagesFromS3(S3_1);
+data = deleteAllImagesFromS3(S3_1);
