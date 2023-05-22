@@ -51,19 +51,24 @@ function getS3Connection(AWS, bucketName='team-rot-fatcat-data') {
     return s3;
 }
 
-function deleteImageFromS3() {
+function deleteImageFromS3(S3, bucketName='team-rot-fatcat-data', imageName) {
+    // deleteObject()
 
+}
+
+function deleteAllImagesFromS3(S3, bucketName='team-rot-fatcat-data') {
+    // deleteObjects()
 }
 
 
 // Get image from S3
-function getImageFromS3() {
+function getImageFromS3(S3, bucketName='team-rot-fatcat-data', imageName) {
 
 }
 
 
 // Upload image to S3
-function pushImageToS3() {
+function pushImageToS3(S3, bucketName='team-rot-fatcat-data', image) {
 
 }
 
