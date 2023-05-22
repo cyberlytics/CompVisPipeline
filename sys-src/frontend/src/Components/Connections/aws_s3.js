@@ -2,6 +2,7 @@
 
 // Get AWS SDK
 function getAWSSDK() {
+    // load AWS SDK
     var AWS = require("aws-sdk");
 
     // get credentials from env
@@ -20,6 +21,7 @@ function getAWSSDK() {
     AWS.config.getCredentials(function(err) {
       if (err) console.log(err.stack);
       // credentials not loaded
+      // TODO: handle error
       else {
         console.log("AWS Credentials loaded successfully");     
       }
