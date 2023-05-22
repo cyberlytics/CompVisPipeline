@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import PipelineSteps from "../../../Components/PipelineSteps/pipelineSteps";
 
-describe.skip("pipelineSteps.js tests", () => {
+describe("pipelineSteps.js tests", () => {
 
   test("card should be visible", () => {
     render(<PipelineSteps />);
@@ -11,7 +11,8 @@ describe.skip("pipelineSteps.js tests", () => {
     expect(cardVisible).toBeVisible();
   });
 
-  test("first pipelinestep should be visible", () => {
+  //Mock?
+  test.skip("first pipelinestep should be visible", () => {
     render(<PipelineSteps />);
     const firstStepVisible = screen.queryByText(/Salt&Pepper-Noise/i); //todo - anpassen wenn availablePipelineSteps.json angepasst wurde
     expect(firstStepVisible).toBeVisible();
