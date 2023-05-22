@@ -1,0 +1,48 @@
+[
+   {
+      "id": 0,
+      "title": "Salt&Pepper-Noise",
+      "info": "function info",
+      "params": [
+         {
+            "title": "Kernelsize",
+            "info": "param info",
+            "defaultValue": 3
+         },
+         {
+            "title": "fatcatScale",
+            "info": "param info",
+            "defaultValue": 0.01
+         },
+         {
+            "title": "mode",
+            "info": "param info",
+            "defaultValue": "red"
+         }
+      ]
+   },
+   {
+      "id": 1,
+      "title": "Medianfilter",
+      "info": "function info",
+      "params": [
+         {
+            "title": "Kernelsize",
+            "info": "param info",
+            "defaultValue": 3
+         }
+      ]
+   },
+   {
+      "id": 2,
+      "title": "template",
+      "info": "function info",
+      "params": [
+         {
+            "title": "Kernelsize",
+            "info": "param info",
+            "defaultValue": 3
+         }
+      ]
+   }
+]

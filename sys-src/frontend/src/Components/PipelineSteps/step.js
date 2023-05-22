@@ -62,14 +62,14 @@ export default function Step(props) {
 
     //returns a single step with containing parameters
     return (
-        <Box ref={drag} style={{ opacity }} sx={{bgcolor: 'background.default' }}>
+    <Box className={'single-step'} ref={drag} style={{ opacity }} sx={{bgcolor: 'background.default' }}>
             <ListItem>
                 {expandButtonActive &&
                     <ListItemIcon onClick={handleExpandClick} >
                         {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                     </ListItemIcon>
                 }
-                <ListItemText primary={title} />
+                <ListItemText data-testid="single-step-title" primary={title} />
                 <InfoOutlinedIcon onClick={handleInfoClick} sx={{ mr: 1 }} />
                 {showButtonActive && <VisibilityOutlinedIcon onClick={handleShowResultClick} sx={{ mr: 1 }} />}
                 {deleteButtonActive && <DeleteOutlineOutlinedIcon onClick={handleDeleteClick} />}
