@@ -82,13 +82,24 @@ function deleteAllImagesFromS3(S3, bucketName='team-rot-fatcat-data') {
             console.log("Error getting objects from S3" , err);
         } else {
             // get list of all objects
-            const objects = data.Contents.map((object) => ({ Key: object.Key }));
+            const allObjectsFromBucket = data.Contents.map((object) => ({ Key: object.Key }));
 
-            console.log(objects);
+            console.log(allObjectsFromBucket);
+
+            if (allObjectsFromBucket.length > 0) {
+                // Define params for deleteObjects()
+                const deleteObjectsParams = {
+                    Bucket: params.Bucket,
+                    Delete: { Objects: allObjectsFromBucket }
+                };
+                // delte objects
+                S3.deleteObjects(deleteObjectsParams, function(err, data) {
+                    if (err) console.log(err); // an error occurred
+                    else     console.log("Images deleted from S3");           // successful response
+                });
+            }
         }
     });
-    
-    // deleteObjects()
 }
 
 
