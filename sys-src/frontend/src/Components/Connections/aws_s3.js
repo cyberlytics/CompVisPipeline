@@ -27,8 +27,13 @@ DelteAllObjectsFromBucket()
 
 
 class S3Manager {
+    // set AWS credentials and bucket name
     constructor() {
-        
+        this.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+        this.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+        this.region = process.env.AWS_DEFAULT_REGION;
+
+        this.bucketName = "team-rot-fatcat-data";
     }
 
     _getAWSSDK() {
