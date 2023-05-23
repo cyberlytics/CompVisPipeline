@@ -70,13 +70,11 @@ function deleteImageFromS3(S3, bucketName='team-rot-fatcat-data', imageName) {
     const params = {
         Bucket: bucketName,
         Key: imageName
-    }
+    };
 
-    //S3.deleteObject(params, (err, data) => { return data })
-
-    S3.deleteObject(params, function(err, data) {
-        if (err) console.log(err, err.stack); // an error occurred
-        else     console.log("Image deleted from S3");           // successful response
+    S3.deleteObject(params, (err, data) => { 
+        if (err) console.log("Error deleting image from S3");
+        else console.log("Image deleted from S3");
     });
 }
 
@@ -99,15 +97,13 @@ function deleteAllImagesFromS3(S3, bucketName='team-rot-fatcat-data') {
                     Bucket: params.Bucket,
                     Delete: { Objects: allObjectsFromBucket }
                 };
-                return data = S3.deleteObjects(deleteObjectsParams, (err, data) => { return data } );
-
-            } else { 
-                return null;
-            }
+                return S3.deleteObjects(deleteObjectsParams, (err, data) => { 
+                    if (err) console.log("Error deleting objects from S3");
+                    else console.log("Objects deleted from S3");
+                 } );
+            }            
         }
     });
-
-    return data;
 }
 
 
@@ -127,12 +123,21 @@ function pushImageToS3(S3, bucketName='team-rot-fatcat-data', image) {
 // Get AWS SDK
 let AWS = getAWSSDK();
 
+let data;
+let err;
+
 console.log(AWS.config.credentials.accessKeyId);
 
 // Get S3 connection
 let S3_1 = getS3Connection(AWS, 'team-rot-fatcat-data');
 
+
 // Delete image from S3
+deleteImageFromS3(S3_1, 'team-rot-fatcat-data', 'test.jpg');
+
+//console.log(err);
+console.log("DATA: ");
+console.log(data);
 
 // Delete all images from S3
-data = deleteAllImagesFromS3(S3_1);
+// data = deleteAllImagesFromS3(S3_1);
