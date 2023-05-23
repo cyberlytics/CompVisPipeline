@@ -27,7 +27,7 @@ DelteAllObjectsFromBucket()
 
 /**
  * Set AWS Credentials from ENV and returns the AWS Instance
- * @return {object} AWS -> AWS Object
+ * @return {AWS-object} AWS -> AWS Object
  */
 function getAWSSDK() {
   // load AWS SDK
@@ -55,8 +55,8 @@ function getAWSSDK() {
 
 /**
  * Get connection to S3 Buckets
- * @param {object} AWS
- * @return {object} S3 -> S3 Instance
+ * @param {AWS-object} AWS
+ * @return {S3-object} S3 -> S3 Instance
  */
 function getS3Connection(AWS) {
   // Creat S3 instance
@@ -67,7 +67,7 @@ function getS3Connection(AWS) {
 
 /**
  * Delete one object from S3 Bucket
- * @param {object} S3
+ * @param {S3-object} S3
  * @param {string} bucketName  ->   Name of the bucket to delete from
  * @param {string} imageName   ->   Name/Path of the image to delete
  */
@@ -90,7 +90,7 @@ function deleteImageFromS3(S3, bucketName = "team-rot-fatcat-data", imageName) {
 
 /**
  * Delete all objects from S3 Bucket
- * @param {object} S3
+ * @param {S3-object} S3
  * @param {string} bucketName  ->   Name of the bucket to delete from
  */
 function deleteAllImagesFromS3(S3, bucketName = "team-rot-fatcat-data") {
@@ -132,9 +132,19 @@ function deleteAllImagesFromS3(S3, bucketName = "team-rot-fatcat-data") {
 }
 
 // Get image from S3
-function getImageFromS3(S3, bucketName = "team-rot-fatcat-data", imageName) {}
+function getImageFromS3(S3, bucketName = "team-rot-fatcat-data", imageKey) {
+    // define params
 
-// Upload image to S3
+}
+
+
+/**
+ * Upload image to S3 Bucket
+ * @param {S3-object} S3      ->   S3 connection
+ * @param {string} bucketName ->   name of the S3 bucket
+ * @param {image-object}      ->   image to upload to S3
+ * @param {*} imageKey        ->   name/path of the image to upload
+ */
 function pushImageToS3(S3, bucketName = "team-rot-fatcat-data", image, imageKey) {
     // define params 
     const params = {
@@ -173,6 +183,7 @@ const path = "/Users/andrekestler/Downloads/test2.jpg"
 const image = fs.readFileSync(path);
 response = pushImageToS3(S3_1, "team-rot-fatcat-data", image, "test.jpg");
 
+console.log(typeof(image));
 
 response
     .then((res) => {
