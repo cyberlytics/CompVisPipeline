@@ -102,6 +102,7 @@ function deleteAllImagesFromS3(S3, bucketName='team-rot-fatcat-data') {
     // Get list of all objects in bucket
     const params = { Bucket: bucketName };
 
+    /*
     S3.listObjects(params, function(err, data) {
         if (err) {
             console.log("Error getting objects from S3" , err);
@@ -122,6 +123,32 @@ function deleteAllImagesFromS3(S3, bucketName='team-rot-fatcat-data') {
             }            
         }
     });
+    */
+
+    return S3.listObjects(params).promise()
+        .then( (res) => {
+            // if no objects in bucket
+            if (res.Contents.length === 0) {
+                return Promise.resolve("No objects in bucket");
+            }
+            
+            // get list of all objects
+            const allObjectsFromBucket = res.Contents.map((object) => ({ Key: object.Key }));
+
+            // define params for deleteObjects()
+            const deleteObjectsParams = {
+                Bucket: params.Bucket,
+                Delete: { Objects: allObjectsFromBucket }
+            };
+            
+            // delete all objects from bucket
+            return S3.deleteObjects(deleteObjectsParams).promise()
+                .then( (res) => {return Promise.resolve(res);})
+                .catch( (err) => {return Promise.reject(err);});
+        } )
+        .catch( (err) => {
+            return Promise.reject(err);
+        });
 }
 
 
@@ -153,15 +180,17 @@ let S3_1 = getS3Connection(AWS, 'team-rot-fatcat-data');
 
 
 // Delete image from S3
-response = deleteImageFromS3(S3_1, 'team-rot-fatcat-data', 'test.jpg');
+// response = deleteImageFromS3(S3_1, 'team-rot-fatcat-data', 'test.jpg');
 
-response
-    .then( () => {
-        console.log("Success");
-} )
-    .catch( (err) => {
-        console.log("Error");
-    } );
 
 // Delete all images from S3
-// deleteAllImagesFromS3(S3_1);
+let response = deleteAllImagesFromS3(S3_1, 'team-rot-fatcat-data');
+
+response
+    .then( (res) => {
+        console.log("Success", res);
+    })
+    .catch( (err) => {
+        console.log("Error");
+    }
+);
