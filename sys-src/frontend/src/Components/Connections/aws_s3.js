@@ -25,6 +25,40 @@ DelteAllObjectsFromBucket()
     Check data.deleted.length === objectsToDelete.length
 */
 
+
+class S3Manager {
+    constructor() {
+        
+    }
+
+    _getAWSSDK() {
+
+    }
+
+    _getS3Connection() {
+
+    }
+
+    deleteImageFromS3() {
+
+    }
+
+    deleteAllImagesFromS3() {
+
+    }
+
+    getImageFromS3() {
+
+    }
+
+    pushImageToS3() {
+
+    }
+}
+
+
+
+
 /**
  * Set AWS Credentials from ENV and returns the AWS Instance
  * @return {AWS-object} AWS -> AWS Object
