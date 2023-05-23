@@ -88,6 +88,10 @@ class S3Manager {
         return this.S3.deleteObject(params).promise();
     }
 
+    /**
+     * Delete all images from S3 Bucket
+     * @returns {Promise} -> Promise of the delete action
+     */
     deleteAllImagesFromS3() {
         // set bucket params
         const params = {
@@ -119,7 +123,11 @@ class S3Manager {
             });
     }
 
-
+    /**
+     * Get one image from S3 Bucket
+     * @param {string} imageKey -> name/path of the image to get
+     * @returns {Promise}       -> Promise of the get action, data is in res.Body
+     */
     getImageFromS3(imageKey) {
         // define params
         const params = {
