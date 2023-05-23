@@ -154,29 +154,4 @@ class S3Manager {
     }
 }
 
-
-let s3Manager = new S3Manager();
-let response;
-
-const fs = require("fs");
-const path = "/Users/andrekestler/Downloads/test.jpg";
-const image = fs.readFileSync(path);
-
-// response = s3Manager.deleteImageFromS3("test2.jpg");
-// response = s3Manager.deleteAllImagesFromS3();
-// response = s3Manager.getImageFromS3("test.jpg");
-response = s3Manager.pushImageToS3(image, "test2.jpg");
-
-
-
-response
-    .then( (res) => {
-        console.log("Success")
-        console.log(res);
-    } )
-    .catch( (err) => {
-        console.log("Error")
-        console.log(err);
-    } );
-
-// export default S3Manager;
+export default S3Manager;
