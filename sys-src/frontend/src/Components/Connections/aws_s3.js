@@ -139,7 +139,15 @@ class S3Manager {
         return this.S3.getObject(params).promise();
     }
     
-    
+    /**
+     * 
+     * Upload image to S3 Bucket
+     * @param {S3-object} S3      ->   S3 connection
+     * @param {string} bucketName ->   name of the S3 bucket
+     * @param {image-object}      ->   image to upload to S3
+     * @param {*} imageKey        ->   name/path of the image to upload
+     * @return {Promise}          ->   Promise of the upload action
+    */
     pushImageToS3(image, imageKey) {
         // define params 
         const params = {
