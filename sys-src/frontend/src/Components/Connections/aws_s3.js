@@ -22,6 +22,15 @@ Error Code
  * @method deleteAllImagesFromS3()  ->   Delete all images from S3 Bucket
  * @method getImageFromS3()         ->   Get one image from S3 Bucket
  * @method pushImageToS3()          ->   Push one image to S3 Bucket
+ * 
+ * deleteImageFromS3(), deleteAllImagesFromS3(), getImageFromS3(), pushImageToS3()
+ * - are all async functions
+ * - they all return a Promise
+ * use it like this:
+ * response = function();
+ * response
+ *    .then( (res) => { Do stuff with success }
+ *    .catch( (err) => { Do stuff with error } );
  */
 class S3Manager {
     constructor() {
@@ -142,8 +151,6 @@ class S3Manager {
     /**
      * 
      * Upload image to S3 Bucket
-     * @param {S3-object} S3      ->   S3 connection
-     * @param {string} bucketName ->   name of the S3 bucket
      * @param {image-object}      ->   image to upload to S3
      * @param {*} imageKey        ->   name/path of the image to upload
      * @return {Promise}          ->   Promise of the upload action
