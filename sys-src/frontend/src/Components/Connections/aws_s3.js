@@ -45,17 +45,14 @@ function getAWSSDK() {
         region: region
     })
 
-    AWS.config.getCredentials(function(err) {
-      if (err) console.log(err.stack);
-      // credentials not loaded
-      // TODO: handle error
-      else {
-        console.log("AWS Credentials loaded successfully");     
-      }
+    AWS.config.getCredentials( (err) => {
+        if (err) console.log("AWS Credentials error", err.stack);
+        else console.log("AWS Credentials loaded successfully");
     });
 
     return AWS;
 }
+
 
 // Get connection to S3
 function getS3Connection(AWS) {
@@ -64,6 +61,7 @@ function getS3Connection(AWS) {
 
     return s3;
 }
+
 
 function deleteImageFromS3(S3, bucketName='team-rot-fatcat-data', imageName) {
     // deleteObject()
@@ -77,6 +75,7 @@ function deleteImageFromS3(S3, bucketName='team-rot-fatcat-data', imageName) {
         else console.log("Image deleted from S3");
     });
 }
+
 
 function deleteAllImagesFromS3(S3, bucketName='team-rot-fatcat-data') {
     // Get list of all objects in bucket
