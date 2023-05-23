@@ -131,7 +131,14 @@ function deleteAllImagesFromS3(S3, bucketName = "team-rot-fatcat-data") {
     });
 }
 
-// Get image from S3
+
+/**
+ * Get image from S3 Bucket
+ * @param {S3-object} S3      ->   S3 connection
+ * @param {string} bucketName ->   name of the S3 bucket
+ * @param {*} imageKey        ->   name/path of the image
+ * @return {image-object}     ->   image from S3 
+*/
 function getImageFromS3(S3, bucketName = "team-rot-fatcat-data", imageKey) {
     // define params
 
@@ -144,7 +151,7 @@ function getImageFromS3(S3, bucketName = "team-rot-fatcat-data", imageKey) {
  * @param {string} bucketName ->   name of the S3 bucket
  * @param {image-object}      ->   image to upload to S3
  * @param {*} imageKey        ->   name/path of the image to upload
- */
+*/
 function pushImageToS3(S3, bucketName = "team-rot-fatcat-data", image, imageKey) {
     // define params 
     const params = {
