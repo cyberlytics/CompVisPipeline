@@ -69,7 +69,7 @@ export default function Step(props) {
                         {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                     </ListItemIcon>
                 }
-                <ListItemText data-testid="single-step-title" primary={title} />
+                <ListItemText primary={title} />
                 <InfoOutlinedIcon onClick={handleInfoClick} sx={{ mr: 1 }} />
                 {showButtonActive && <VisibilityOutlinedIcon onClick={handleShowResultClick} sx={{ mr: 1 }} />}
                 {deleteButtonActive && <DeleteOutlineOutlinedIcon onClick={handleDeleteClick} />}

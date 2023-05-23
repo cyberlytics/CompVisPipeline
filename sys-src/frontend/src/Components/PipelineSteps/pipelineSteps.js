@@ -9,7 +9,7 @@ import Controller from '../../controller';
 import AvailablePipelineSteps from './availablePipelineSteps.json';
 
 export default function PipelineSteps() {
-    const [pipelineSteps, setPipelineSteps] = React.useState([])
+    const [pipelineSteps, setPipelineSteps] = useState([])
 
     //use this variable to map with local defined steps
     const localPipelineSteps = AvailablePipelineSteps
