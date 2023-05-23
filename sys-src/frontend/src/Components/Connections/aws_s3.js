@@ -34,14 +34,45 @@ class S3Manager {
         this.region = process.env.AWS_DEFAULT_REGION;
 
         this.bucketName = "team-rot-fatcat-data";
+
+        // start connection to AWS
+        this.AWS = this._getAWSSDK();
+
+        // start connection to S3
+        this.S3 = this._getS3Connection();
     }
 
+    /**
+     * Get AWS SDK object
+     * @return {AWS-object} AWS -> AWS Object
+     */
     _getAWSSDK() {
+        // load AWS SDK
+        let AWS = require("aws-sdk");
 
+        // set credentials
+        AWS.config.update({
+            accessKeyId: accessKeyId,
+            secretAccessKey: secretAccessKey,
+            region: region,
+        });
+
+        AWS.config.getCredentials((err) => {
+            if (err) console.log("AWS Credentials error", err.stack);
+            else console.log("AWS Credentials loaded successfully");
+        });
+
+        return AWS
     }
 
+    /**
+     * Set S3 connection
+     * @return {S3-object} S3 -> S3 Instance to interact with the S3 Buckets
+    */
     _getS3Connection() {
+        let S3 = new this.AWS.S3();
 
+        return S3;
     }
 
     deleteImageFromS3() {
