@@ -25,7 +25,7 @@ export default function Parameter(props) {
     return (
         <ListItem sx={{ pl: 4 }}>
             <ListItemIcon>
-                <InfoOutlinedIcon fontSize='small' onClick={handleInfoClick} />
+                <InfoOutlinedIcon className="infoOutlinedIcon" fontSize='small' onClick={handleInfoClick} />
             </ListItemIcon>
             <ListItemText primary={parameterName} />
             <TextField type={typeof defaultValue == 'number' ? 'number' : 'text'} variant="outlined" defaultValue={defaultValue} sx={{ ml: 1, width: 150 }} />
