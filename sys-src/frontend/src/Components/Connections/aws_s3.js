@@ -195,7 +195,7 @@ const fs = require("fs");
 const path = "/Users/andrekestler/Downloads/test2.jpg"
 const image = fs.readFileSync(path);
 
-response = getImageFromS3(S3_1, "team-rot-fatcat-data", "tes.jpg");
+response = getImageFromS3(S3_1, "team-rot-fatcat-data", "test.jpg");
 
 response
     .then( (res) => {
@@ -203,19 +203,16 @@ response
         console.log(res);
     } )
     .catch( (err) => {
-        console.log("Error");
-        console.log(err);
+        console.log("Error code: ", err.code);
     } );
 
-response = pushImageToS3(S3_1, "team-rot-fatcat-data", image, "test.jpg");
-
-console.log(typeof(image));
+response = pushImageToS3(S3_1, "team-rot-fatcat-data", image, "test2.jpg");
 
 response
-    .then((res) => {
-        console.log("Success", res);
-    })
-    .catch((err) => {
-        console.log("Error");
-        console.log(err);
-    });
+    .then( (res) => {
+        console.log("Success");
+        console.log(res);
+    } )
+    .catch( (err) => {
+        console.log("Error code: ", err.code);
+    } );
