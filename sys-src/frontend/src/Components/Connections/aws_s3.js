@@ -26,8 +26,10 @@ DelteAllObjectsFromBucket()
 */
 
 
-
-// Get AWS SDK
+/**
+* Set AWS Credentials from ENV and returns the AWS Instance
+* @return {object} AWS -> AWS Object
+*/
 function getAWSSDK() {
     // load AWS SDK
     var AWS = require("aws-sdk");
@@ -54,12 +56,16 @@ function getAWSSDK() {
 }
 
 
-// Get connection to S3
+/**
+* Get connection to S3 Buckets
+* @param {object} AWS
+* @return {object} S3 -> S3 Instance
+*/
 function getS3Connection(AWS) {
     // Creat S3 instance
-    let s3 = new AWS.S3();
+    let S3 = new AWS.S3();
 
-    return s3;
+    return S3;
 }
 
 
@@ -72,7 +78,7 @@ function deleteImageFromS3(S3, bucketName='team-rot-fatcat-data', imageName) {
 
     S3.deleteObject(params, (err, data) => { 
         if (err) console.log("Error deleting image from S3");
-        else console.log("Image deleted from S3");
+        else console.log("Object deleted from S3");
     });
 }
 
@@ -87,8 +93,6 @@ function deleteAllImagesFromS3(S3, bucketName='team-rot-fatcat-data') {
         } else {
             // get list of all objects
             const allObjectsFromBucket = data.Contents.map((object) => ({ Key: object.Key }));
-
-            console.log(allObjectsFromBucket);
 
             if (allObjectsFromBucket.length > 0) {
                 // Define params for deleteObjects()
@@ -109,6 +113,7 @@ function deleteAllImagesFromS3(S3, bucketName='team-rot-fatcat-data') {
 // Get image from S3
 function getImageFromS3(S3, bucketName='team-rot-fatcat-data', imageName) {
 
+
 }
 
 
@@ -121,9 +126,7 @@ function pushImageToS3(S3, bucketName='team-rot-fatcat-data', image) {
 // Test script
 // Get AWS SDK
 let AWS = getAWSSDK();
-
-let data;
-let err;
+console.log(typeof AWS);
 
 console.log(AWS.config.credentials.accessKeyId);
 
@@ -132,11 +135,7 @@ let S3_1 = getS3Connection(AWS, 'team-rot-fatcat-data');
 
 
 // Delete image from S3
-deleteImageFromS3(S3_1, 'team-rot-fatcat-data', 'test2.jpg');
-
-//console.log(err);
-console.log("DATA: ");
-console.log(data);
+// deleteImageFromS3(S3_1, 'team-rot-fatcat-data', 'test2.jpg');
 
 // Delete all images from S3
-// data = deleteAllImagesFromS3(S3_1);
+// deleteAllImagesFromS3(S3_1);
