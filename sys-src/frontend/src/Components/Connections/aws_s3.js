@@ -69,6 +69,12 @@ function getS3Connection(AWS) {
 }
 
 
+/**
+* Delete one object from S3 Bucket
+* @param {object} S3
+* @param {string} bucketName  ->   Name of the bucket to delete from
+* @param {string} imageName   ->   Name/Path of the image to delete
+*/
 function deleteImageFromS3(S3, bucketName='team-rot-fatcat-data', imageName) {
     // deleteObject()
     const params = {
@@ -83,6 +89,11 @@ function deleteImageFromS3(S3, bucketName='team-rot-fatcat-data', imageName) {
 }
 
 
+/**
+ * Delete all objects from S3 Bucket
+ * @param {object} S3
+ * @param {string} bucketName  ->   Name of the bucket to delete from
+*/
 function deleteAllImagesFromS3(S3, bucketName='team-rot-fatcat-data') {
     // Get list of all objects in bucket
     const params = { Bucket: bucketName };
