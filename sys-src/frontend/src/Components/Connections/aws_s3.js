@@ -120,11 +120,19 @@ class S3Manager {
     }
 
 
-    getImageFromS3() {
-
+    getImageFromS3(imageKey) {
+        // define params
+        const params = {
+            Bucket: this.bucketName,
+            Key: imageKey,
+        };
+        
+        // get image from S3
+        return this.S3.getObject(params).promise();
     }
-
-    pushImageToS3() {
+    
+    
+    pushImageToS3(image, imageKey) {
 
     }
 }
