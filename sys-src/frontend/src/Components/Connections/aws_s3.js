@@ -141,7 +141,13 @@ function deleteAllImagesFromS3(S3, bucketName = "team-rot-fatcat-data") {
 */
 function getImageFromS3(S3, bucketName = "team-rot-fatcat-data", imageKey) {
     // define params
+    const params = {
+        Bucket: bucketName,
+        Key: imageKey,
+    };
 
+    // get image from S3
+    return S3.getObject(params).promise();
 }
 
 
@@ -188,6 +194,19 @@ let S3_1 = getS3Connection(AWS, "team-rot-fatcat-data");
 const fs = require("fs");
 const path = "/Users/andrekestler/Downloads/test2.jpg"
 const image = fs.readFileSync(path);
+
+response = getImageFromS3(S3_1, "team-rot-fatcat-data", "tes.jpg");
+
+response
+    .then( (res) => {
+        console.log("Success");
+        console.log(res);
+    } )
+    .catch( (err) => {
+        console.log("Error");
+        console.log(err);
+    } );
+
 response = pushImageToS3(S3_1, "team-rot-fatcat-data", image, "test.jpg");
 
 console.log(typeof(image));
