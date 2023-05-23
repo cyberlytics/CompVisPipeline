@@ -82,7 +82,7 @@ function deleteAllImagesFromS3(S3, bucketName='team-rot-fatcat-data') {
     // Get list of all objects in bucket
     const params = { Bucket: bucketName };
 
-    let data = S3.listObjects(params, function(err, data) {
+    S3.listObjects(params, function(err, data) {
         if (err) {
             console.log("Error getting objects from S3" , err);
         } else {
