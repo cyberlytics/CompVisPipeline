@@ -4,10 +4,7 @@ Error Code
     - 403: AccessDenied
     - 404: NoSuchKey
     - 400: NoSuchBucket
-
 */
-
-
 
 /**
  * Class to manage S3 Bucket
