@@ -132,7 +132,7 @@ let S3_1 = getS3Connection(AWS, 'team-rot-fatcat-data');
 
 
 // Delete image from S3
-deleteImageFromS3(S3_1, 'team-rot-fatcat-data', 'test.jpg');
+deleteImageFromS3(S3_1, 'team-rot-fatcat-data', 'test2.jpg');
 
 //console.log(err);
 console.log("DATA: ");
