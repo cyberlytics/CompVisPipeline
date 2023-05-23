@@ -72,6 +72,8 @@ function deleteImageFromS3(S3, bucketName='team-rot-fatcat-data', imageName) {
         Key: imageName
     }
 
+    //S3.deleteObject(params, (err, data) => { return data })
+
     S3.deleteObject(params, function(err, data) {
         if (err) console.log(err, err.stack); // an error occurred
         else     console.log("Image deleted from S3");           // successful response
@@ -122,10 +124,15 @@ function pushImageToS3(S3, bucketName='team-rot-fatcat-data', image) {
 
 
 // Test script
+// Get AWS SDK
 let AWS = getAWSSDK();
 
 console.log(AWS.config.credentials.accessKeyId);
 
-let S3_2 = getS3Connection(AWS, 'bdcc-testbucket');
+// Get S3 connection
 let S3_1 = getS3Connection(AWS, 'team-rot-fatcat-data');
+
+// Delete image from S3
+
+// Delete all images from S3
 data = deleteAllImagesFromS3(S3_1);
