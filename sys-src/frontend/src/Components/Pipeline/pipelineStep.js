@@ -21,7 +21,7 @@ export default function PipelineStep(props) {
     const ref = useRef(null)
 
     const [{ handlerId }, drop] = useDrop({
-        accept: 'pipelineStep',
+        accept: ['PipelineStep'],
         collect(monitor) {
             return {
                 handlerId: monitor.getHandlerId(),
@@ -61,7 +61,7 @@ export default function PipelineStep(props) {
     })
 
     const [{ isDragging }, drag] = useDrag({
-        type: 'pipelineStep',
+        type: 'PipelineStep',
         item: () => {
             return { id, index }
         },

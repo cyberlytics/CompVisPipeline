@@ -29,10 +29,10 @@ export default function PipelineSteps() {
                 <Box sx={{ width: '100%' }}>
                     <SearchBar spacing={1} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
                     <Stack spacing={1} style={{ maxHeight: '900px', overflow: 'auto', marginTop: '1rem' }}>
-                        {localPipelineSteps.map((step, index) => {
+                        {pipelineSteps.map((step, index) => {
                             if (step.title.toLowerCase().startsWith(searchQuery.toLowerCase())) {
                                 return (
-                                    <AvailableStep title={step.title} params={step.params} info={step.info} id={step.id} />
+                                    <AvailableStep key={index} title={step.title} params={step.params} info={step.info} id={step.id} />
                                 );
                             };
                         })}

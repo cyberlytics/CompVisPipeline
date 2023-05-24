@@ -15,7 +15,7 @@ export default function Pipeline() {
 
     //function for drag and drop in pipeline
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
-        accept: ['Step', 'PipelineStep'],
+        accept: ['AvailableStep'],
         drop: (item, monitor) => {
             if (!monitor.didDrop()) {
                 const newItem = {
