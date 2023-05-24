@@ -1,0 +1,21 @@
+import cv2
+
+from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
+
+class Sobel(BaseStep):
+    def __call__(self, img, parameters):
+        #TODO: implement sobel edge detector.
+        pass
+
+    def describe(self):
+        return {
+            "title": "Sobel Edge Detector",
+            "info": "Perform edge detection using sobel kernel.",
+            "params": [
+                {
+                    "title": "Kernel size",
+                    "info": "Size of sobel kernel. Must be 1, 3, 5, or 7.",
+                    "defaultValue": 3
+                },
+            ],
+        }
