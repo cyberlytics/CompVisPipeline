@@ -1,22 +1,28 @@
-import React, { useState } from 'react';
+import update from 'immutability-helper'
+import React, { useCallback, useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { useDrop } from 'react-dnd'
-import Step from './PipelineSteps/step';
+import PipelineStep from './pipelineStep';
 import Box from '@mui/material/Box';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Pipeline() {
-    const [steps, setSteps] = useState([{ dragDropEnabled: false, expandButtonActive: false, showButtonActive: false, deleteButtonActive: false, title: "Uploaded Picture", params: [], info: "Uploaded Image as default." }]);
+    const [steps, setSteps] = useState([{ key: -1, deleteStep: null, expandIconActive: false, deleteButtonActive: false, index: -1, title: "Uploaded Picture", params: [], info: "Uploaded Image as default.", id: -1, uuid: -1 }]);
 
-    //function for move and copy from pipelinesteps
+    //function for drag and drop in pipeline
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
-        accept: 'Step',
+        accept: ['Step', 'PipelineStep'],
         drop: (item, monitor) => {
             if (!monitor.didDrop()) {
-                setSteps((prevSteps) => [...prevSteps, item]);
+                const newItem = {
+                    ...item,
+                    uuid: uuidv4(), //unique uuid for each item in list
+                };
+                setSteps((prevSteps) => [...prevSteps, newItem]);
             }
         },
         collect: (monitor) => ({
@@ -35,12 +41,41 @@ export default function Pipeline() {
         boxBackgroundColor = 'darkkhaki'
     }
 
-    //function to delete a single step from list
-    const deleteStep = (index) => {
-        const updatedSteps = [...steps];    
-        updatedSteps.splice(index, 1);      
-        setSteps(updatedSteps);            
+    // Function to delete a single step from list
+    const deleteStep = (uuid) => {
+        setSteps((prevSteps) => prevSteps.filter((step) => step.uuid !== uuid));
     };
+
+    // Function to move the items in the stack
+    const moveStep = useCallback((dragIndex, hoverIndex) => {
+        setSteps((prevCards) =>
+            update(prevCards, {
+                $splice: [
+                    [dragIndex, 1],
+                    [hoverIndex, 0, prevCards[dragIndex]],
+                ],
+            }),
+        )
+    }, [])
+
+    // Function to rerender the steps
+    const renderStep = useCallback((step, index) => {
+        return (
+            <PipelineStep
+                key={step.uuid}
+                deleteStep={deleteStep}
+                expandIconActive={step.expandIconActive}
+                deleteButtonActive={step.deleteButtonActive}
+                index={index}
+                title={step.title}
+                params={step.params}
+                info={step.info}
+                id={step.id}
+                moveStep={moveStep}
+                uuid={step.uuid}
+            />
+        )
+    }, [])
 
     //returns the view for the pipeline configuration
     return (
@@ -51,7 +86,7 @@ export default function Pipeline() {
             <CardContent>
                 <Stack spacing={1} sx={{ width: '100%', maxHeight: '740px', overflow: 'auto' }}>
                     {steps.map((step, index) => (
-                        <Step key={index} deleteStep={deleteStep} index={index} dragDropEnabled={step.dragDropEnabled} expandButtonActive={step.expandButtonActive} showButtonActive={step.showButtonActive} deleteButtonActive={step.deleteButtonActive} title={step.title} params={step.params} info={step.info} />
+                        renderStep(step, index)
                     ))}
                 </Stack>
                 {dropfieldIsVisible &&

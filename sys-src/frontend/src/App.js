@@ -3,7 +3,7 @@ import Header from './Components/header';
 import Upload from './Components/upload';
 import ImageView from './Components/imageView';
 import ImageDetails from './Components/imageDetails';
-import Pipeline from './Components/pipeline';
+import Pipeline from './Components/Pipeline/pipeline';
 import PipelineSteps from './Components/PipelineSteps/pipelineSteps';
 import StartPipeline from './Components/startPipeline';
 import Grid from '@mui/material/Grid';
