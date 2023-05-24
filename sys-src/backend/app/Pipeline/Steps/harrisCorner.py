@@ -1,0 +1,31 @@
+import cv2
+
+from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
+
+class HarrisCorner(BaseStep):
+    def __call__(self, img, parameters):
+        #TODO: implement harris corner detection.
+        pass
+
+    def describe(self):
+        return {
+            "title": "Harris Corner Detection",
+            "info": "Perform corner detection.",
+            "params": [
+                {
+                    "title": "Blocksize",
+                    "info": "Neighborhood considered for corner detection.",
+                    "defaultValue": 1
+                },
+                {
+                    "title": "k-Size",
+                    "info": "Aperture parameter for the sobel operator.",
+                    "defaultValue": 3
+                },
+                {
+                    "title": "K",
+                    "info": "Harris detector free parameter.",
+                    "defaultValue": 1
+                },
+            ],
+        }
