@@ -125,7 +125,15 @@ describe("S3Manager.getImageFromS3() test", () => {
         expect(getImageFromS3Mock).toHaveBeenCalledTimes(1);
     });
 
+    test("Check if method is called with correct parameters", async () => {
+        let s3Manager = new S3Manager();
+        s3Manager.getImageFromS3 = getImageFromS3Mock;
+
+        await s3Manager.getImageFromS3("test_key.jpg");
+        expect(getImageFromS3Mock).toHaveBeenCalledWith("test_key.jpg");
+    });
     
+
     
     test("S3Manager.getImageFromS3 - call of the method", async () => {
 
