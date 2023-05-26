@@ -95,18 +95,18 @@ describe("S3Manager.getImageFromS3() test", () => {
     beforeEach(() => {
         getImageFromS3Mock.mockImplementation((imageKey) => {
             return new Promise((resolve, reject) => {
-                if (imageKey === "error.jpg") {
-                    const error = {
-                        code: 'NoSuchKey',
-                        statusCode: 404
-                    };
-                    return reject(error);
-                } else {
+                if (imageKey === "test_key.jpg") {
                     const result = {
                         ContentType: 'image/jpeg',
                         Body: 'Mock Data'
                     };
                     return resolve(result);
+                } else {
+                    const error = {
+                        code: 'NoSuchKey',
+                        statusCode: 404
+                    };
+                    return reject(error);
                 }
             })
         });
@@ -132,26 +132,26 @@ describe("S3Manager.getImageFromS3() test", () => {
         await s3Manager.getImageFromS3("test_key.jpg");
         expect(getImageFromS3Mock).toHaveBeenCalledWith("test_key.jpg");
     });
-    
 
-    
-    test("S3Manager.getImageFromS3 - call of the method", async () => {
-
+    test("Check success response", async () => {
         let s3Manager = new S3Manager();
         s3Manager.getImageFromS3 = getImageFromS3Mock;
 
         await s3Manager.getImageFromS3("test_key.jpg")
             .then((result) => {
                 console.log(result);
+                expect(result.ContentType).toBe("image/jpeg");
+                expect(result).toHaveProperty("Body");
+                expect(result.Body).toBe("Mock Data");
+            })
+            .catch(() => {
+                // if error is thrown, test fails -> no error should be thrown
+                expect(True).toBe(false);
             });
-        await s3Manager.getImageFromS3("error.jpg")
-            .catch((result) => {
-                console.log(result);
-            });
-
-        
-
     });
+
+
+
 
     //test("S3Manager.getImageFromS3 - get image from S3", async () => { });
 
