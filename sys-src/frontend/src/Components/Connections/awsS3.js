@@ -74,7 +74,6 @@ class S3Manager {
     */
     _getS3Connection() {
         let S3 = new this.AWS.S3();
-
         return S3;
     }
 
