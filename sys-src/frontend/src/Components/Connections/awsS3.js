@@ -165,19 +165,4 @@ class S3Manager {
     }
 }
 
-/*
-let S3ManagerInstance = new S3Manager();
-S3ManagerInstance.getImageFromS3("test_ke.jpg")
-    .then( (res) => {
-        console.log(res);
-        console.log(res.Body);
-        console.log(typeof(res.Body));
-    })
-    .catch( (err) => {
-        console.log(err);
-    });
-
-*/
-
-
 export default S3Manager;

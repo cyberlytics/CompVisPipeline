@@ -165,3 +165,28 @@ describe("S3Manager.getImageFromS3() test", () => {
             });
     });
 });
+
+describe("S3Manager.pushImageToS3() test", () => {
+    // Mock the getImageFromS3 function
+    // S3 returns by success a result object with ETag
+    pushImageFromS3Mock = jest.fn();
+
+    // before each test, mock the function
+    beforeEach(() => {
+        pushImageFromS3Mock.mockImplementation((imageKey, image) => {
+            return new Promise((resolve, reject) => {
+                const result = {
+
+                };
+            });
+        });
+    });
+
+
+
+    // after each test, reset the mock
+    afterEach(() => {
+        pushImageFromS3Mock.mockReset();
+    });
+
+});
