@@ -150,12 +150,18 @@ describe("S3Manager.getImageFromS3() test", () => {
             });
     });
 
+    test("Check error response for NoSuchKey", async () => {
+        let s3Manager = new S3Manager();
+        s3Manager.getImageFromS3 = getImageFromS3Mock;
 
-
-
-    //test("S3Manager.getImageFromS3 - get image from S3", async () => { });
-
-    //test("S3Manager.getImageFromS3 - get image from S3 failed (wrong key)", async () => {});
-
-    //test("S3Manager.pushImageToS3", async () => {});
+        await s3Manager.getImageFromS3("test_key_error.jpg")
+            .then(() => {
+                // if no error is thrown, test fails -> error should be thrown
+                expect(true).toBe(false);
+            })
+            .catch((error) => {
+                expect(error.code).toBe("NoSuchKey");
+                expect(error.statusCode).toBe(404);
+            });
+    });
 });
