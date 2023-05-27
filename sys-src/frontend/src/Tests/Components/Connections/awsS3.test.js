@@ -23,17 +23,62 @@ describe("s3Manager - connection", () => {
         expect(s3Manager.region).toBe(process.env.AWS_DEFAULT_REGION);
     });
 
-    test("Check S3 Access is successfull", () => {
-        //TODO
+    test("Check S3 Access is successfull", async () => {
+        let s3Manager = new S3Manager();
+
+        const params = { Bucket: s3Manager.bucketName };
+        
+        await s3Manager.S3.listObjects(params).promise()
+            .then((result) => {
+                console.log(result);
+                expect(result).not.toBe(null);
+                expect(result).toHaveProperty('Contents');
+                expect(result).toHaveProperty('Name');
+                expect(result.Name).toBe(s3Manager.bucketName);
+            })
+            .catch((err) => {
+                // there should be no error because access to 'team-rot-fatcat-data' is allowed
+                expect(true).toBe(false);
+            });
+
     });
 
-    test("Check S3 Access is denied", () => {
-        //TODO
+    test("Check S3 Access to other buckets then 'team-rot-fatcat-data' is denied", async () => {
+        let s3Manager = new S3Manager();
+        
+        // get list with all available buckets
+        await s3Manager.S3.listBuckets().promise()
+            .then((res) => {
+                console.log(res);
+                const bucketNames = res.Buckets.map((Buckets) => Buckets.Name);
+                console.log(bucketNames);
+                
+                bucketNames.forEach( async ( bucketName ) => {
+                    // if bucketName is not 'team-rot-fatcat-data' then access should be denied
+                    if (bucketName != s3Manager.bucketName) {
+                        await s3Manager.S3.listObjects({ Bucket: bucketName }).promise()
+                            .then(( result ) => {
+                                // there should be no result because access to other buckets is denied!
+                                expect(true).toBe(false);
+                            })
+                            .catch(( err ) => {
+                                expect(err).toHaveProperty('code');
+                                expect(err.code).toBe('AccessDenied');
+                                expect(err).toHaveProperty('statusCode');
+                                expect(err.statusCode).toBe(403);
+                            })
+                    }
+                });
+            })
+            .catch((err) => {
+                // there should be no error with listing the buckets due to successful AWS access
+                expect(true).toBe(false);
+            });
     })
 });
 
 describe("s3Manager - delete Functions", () => {
-    test("Check S3Manager.deleteImageFromS3", async () => {
+    test("Check S3Manager.deleteImageFromS3()", async () => {
         // Mock the deleteImageFromS3 function
         deleteImageFromS3Mock = jest.fn();
         deleteImageFromS3Mock.mockImplementation((imageKey) => {
@@ -63,7 +108,7 @@ describe("s3Manager - delete Functions", () => {
     });
 
     // test if list with all objects is returned
-    test("Check S3Manager.deleteAllImagesFromS3", async () => {
+    test("Check S3Manager.deleteAllImagesFromS3()", async () => {
         // Mock the deleteAllImagesFromS3 function
         deleteAllImagesFromS3Mock = jest.fn();
         deleteAllImagesFromS3Mock.mockImplementation(() => {
@@ -176,8 +221,10 @@ describe("S3Manager.pushImageToS3() test", () => {
         pushImageFromS3Mock.mockImplementation((imageKey, image) => {
             return new Promise((resolve, reject) => {
                 const result = {
-
+                    ETag: 'Mock ETag',
+                    ServerSideEncryption: 'AES256'
                 };
+                return resolve(result);
             });
         });
     });
@@ -187,12 +234,38 @@ describe("S3Manager.pushImageToS3() test", () => {
         pushImageFromS3Mock.mockReset();
     });
 
-    test("Check if method is called", () => {
-    
+    test("Check if method is called", async () => {
+        let s3Manager = new S3Manager();
+        let image = s3Manager._createTestImage();
+
+        s3Manager.pushImageToS3 = pushImageFromS3Mock;
+
+        await s3Manager.pushImageToS3(image, "test_key.jpg");
+        expect(pushImageFromS3Mock).toHaveBeenCalledTimes(1);
     });
 
-    test("Check if method is called with correct parameters", () => {
-        
+    test("Check if method is called with correct parameters", async () => {
+        let s3Manager = new S3Manager();
+        let image = s3Manager._createTestImage();
+
+        s3Manager.pushImageToS3 = pushImageFromS3Mock;
+
+        await s3Manager.pushImageToS3(image, "test_key.jpg");
+        expect(pushImageFromS3Mock).toHaveBeenCalledWith(image, "test_key.jpg");
     });
 
+    test("Check success response", async () => {
+        let s3Manager = new S3Manager();
+        let image = s3Manager._createTestImage();
+
+        s3Manager.pushImageToS3 = pushImageFromS3Mock;
+
+        await s3Manager.pushImageToS3(image, "test_key.jpg")
+            .then((result) => {
+                expect(result).toHaveProperty("ETag");
+                expect(result.ETag).toBe("Mock ETag");
+            });
+        expect(pushImageFromS3Mock).toHaveBeenCalledTimes(1);
+    });
 });
+
