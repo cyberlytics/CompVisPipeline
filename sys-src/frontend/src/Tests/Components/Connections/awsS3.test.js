@@ -30,7 +30,6 @@ describe("s3Manager - connection", () => {
         
         await s3Manager.S3.listObjects(params).promise()
             .then((result) => {
-                console.log(result);
                 expect(result).not.toBe(null);
                 expect(result).toHaveProperty('Contents');
                 expect(result).toHaveProperty('Name');
@@ -50,8 +49,8 @@ describe("s3Manager - connection", () => {
         await s3Manager.S3.listBuckets().promise()
             .then((res) => {
                 const bucketNames = res.Buckets.map((Buckets) => Buckets.Name);
-                console.log(bucketNames);
                 
+                // iterate over all buckets
                 bucketNames.forEach( async ( bucketName ) => {
                     // if bucketName is not 'team-rot-fatcat-data' then access should be denied
                     if (bucketName != s3Manager.bucketName) {
@@ -183,7 +182,6 @@ describe("S3Manager.getImageFromS3() test", () => {
 
         await s3Manager.getImageFromS3("test_key.jpg")
             .then((result) => {
-                console.log(result);
                 expect(result.ContentType).toBe("image/jpeg");
                 expect(result).toHaveProperty("Body");
                 expect(result.Body).toBe("Mock Data");
