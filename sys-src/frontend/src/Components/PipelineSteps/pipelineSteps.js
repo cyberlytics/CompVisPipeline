@@ -1,15 +1,17 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Step from './step';
+import AvailableStep from './availableStep';
 import Controller from '../../controller';
 import AvailablePipelineSteps from './availablePipelineSteps.json';
+import SearchBar from './searchBar';
 
 export default function PipelineSteps() {
     const [pipelineSteps, setPipelineSteps] = useState([])
+    const [searchQuery, setSearchQuery] = useState("");
 
     //use this variable to map with local defined steps
     const localPipelineSteps = AvailablePipelineSteps
@@ -25,11 +27,14 @@ export default function PipelineSteps() {
             </CardContent>
             <CardContent>
                 <Box sx={{ width: '100%' }}>
-                    <Stack spacing={1} style={{ maxHeight: '900px', overflow: 'auto' }}>
+                    <SearchBar spacing={1} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+                    <Stack spacing={1} style={{ maxHeight: '830px', overflow: 'auto', marginTop: '1rem' }}>
                         {pipelineSteps.map((step, index) => {
-                            return (
-                                <Step key={index} dragDropEnabled={true} expandButtonActive={false} showButtonActive={false} deleteButtonActive={false} title={step.title} params={step.params} info={step.info} />
-                            );
+                            if (step.title.toLowerCase().startsWith(searchQuery.toLowerCase())) {
+                                return (
+                                    <AvailableStep key={index} title={step.title} params={step.params} info={step.info} id={step.id} />
+                                );
+                            };
                         })}
                     </Stack>
                 </Box>

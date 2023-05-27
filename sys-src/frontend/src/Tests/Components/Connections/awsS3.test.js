@@ -5,6 +5,7 @@ Error Code
     - 404: NoSuchKey
     - 400: NoSuchBucket
 */
+import "@testing-library/jest-dom/extend-expect";
 import S3Manager from "../../../Components/Connections/awsS3";
 
 describe("s3Manager - connection", () => {

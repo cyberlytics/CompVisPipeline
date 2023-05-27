@@ -2,12 +2,80 @@ from uuid import uuid4
 from app.Pipeline.Steps.baseStep import ImageProcessingError
 from app.Pipeline.Steps.bilateralFilter import BilateralFilter
 from app.Pipeline.Steps.gaussianBlur import GaussianBlur
+from app.Pipeline.Steps.anisotropicDiffusion import AnisotropicDiffusion
+from app.Pipeline.Steps.averagingFilter import AveragingFilter
+from app.Pipeline.Steps.bottomHat import BottomHat
+from app.Pipeline.Steps.cannyEdge import CannyEdge
+from app.Pipeline.Steps.clahe import CLAHE
+from app.Pipeline.Steps.closing import Closing
+from app.Pipeline.Steps.connectedComponents import ConnectedComponents
+from app.Pipeline.Steps.convertColor import ConvertColor
+from app.Pipeline.Steps.crop import Crop
+from app.Pipeline.Steps.dilation import Dilation
+from app.Pipeline.Steps.erosion import Erosion
+from app.Pipeline.Steps.flip import Flip
+from app.Pipeline.Steps.gaussianNoise import GaussianNoise
+from app.Pipeline.Steps.gammaTransform import GammaTransform
+from app.Pipeline.Steps.watershed import Watershed
+from app.Pipeline.Steps.poissonNoise import PoissonNoise
+from app.Pipeline.Steps.harrisCorner import HarrisCorner
+from app.Pipeline.Steps.histogramEqualization import HistogramEqualization
+from app.Pipeline.Steps.houghCircle import HoughCircle
+from app.Pipeline.Steps.holeFilling import HoleFilling
+from app.Pipeline.Steps.logTransform import LogTransform
+from app.Pipeline.Steps.medianFilter import MedianFilter
+from app.Pipeline.Steps.nonLocalMeansFilter import NonLocalMeansFilter
+from app.Pipeline.Steps.opening import Opening
+from app.Pipeline.Steps.randomWalker import RandomWalker
+from app.Pipeline.Steps.topHat import TopHat
+from app.Pipeline.Steps.thresholdOtsu import ThresholdOtsu
+from app.Pipeline.Steps.threshold import Thershold
+from app.Pipeline.Steps.speckleNoise import SpeckleNoise
+from app.Pipeline.Steps.thresholdMultiOtsu import ThresholdMultiOtsu
+from app.Pipeline.Steps.sobel import Sobel
+from app.Pipeline.Steps.saltAndPepperNoise import SaltAndPepperNoise
+from app.Pipeline.Steps.rotate import Rotate
+from app.Pipeline.Steps.houghLines import HoughLines
 
 from app.connections.aws_s3 import S3Manager
 
 FUNCTION_LIST = [
     BilateralFilter(),
     GaussianBlur(),
+    AnisotropicDiffusion(),
+    AveragingFilter(),
+    BottomHat(),
+    CannyEdge(),
+    CLAHE(),
+    Closing(),
+    ConnectedComponents(),
+    ConvertColor(),
+    Crop(),
+    Dilation(),
+    Erosion(),
+    Flip(),
+    GaussianNoise(),
+    GammaTransform(),
+    Watershed(),
+    PoissonNoise(),
+    HarrisCorner(),
+    HistogramEqualization(),
+    HoughCircle(),
+    HoleFilling(),
+    LogTransform(),
+    MedianFilter(),
+    NonLocalMeansFilter(),
+    Opening(),
+    RandomWalker(),
+    TopHat(),
+    ThresholdOtsu(),
+    Thershold(),
+    SpeckleNoise(),
+    ThresholdMultiOtsu(),
+    Sobel(),
+    SaltAndPepperNoise(),
+    Rotate(),
+    HoughLines()
 ]
 
 

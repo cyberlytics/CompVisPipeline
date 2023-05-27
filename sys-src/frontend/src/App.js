@@ -3,7 +3,7 @@ import Header from './Components/header';
 import Upload from './Components/upload';
 import ImageView from './Components/imageView';
 import ImageDetails from './Components/imageDetails';
-import Pipeline from './Components/pipeline';
+import Pipeline from './Components/Pipeline/pipeline';
 import PipelineSteps from './Components/PipelineSteps/pipelineSteps';
 import StartPipeline from './Components/startPipeline';
 import Grid from '@mui/material/Grid';
@@ -33,8 +33,8 @@ function App() {
 
   return (
     <ThemeProvider theme={appliedTheme}>
-      <CssBaseline />
-      <DndProvider backend={HTML5Backend}>
+      <CssBaseline className={"App-CssBaseline"} />
+      <DndProvider className={"App-DndProvider"} backend={HTML5Backend}>
         <Grid style={{ paddingTop: 20, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
           <Header theme={theme} setTheme={setTheme} />
         </Grid>
