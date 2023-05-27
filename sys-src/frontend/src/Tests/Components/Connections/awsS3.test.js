@@ -182,11 +182,17 @@ describe("S3Manager.pushImageToS3() test", () => {
         });
     });
 
-
-
     // after each test, reset the mock
     afterEach(() => {
         pushImageFromS3Mock.mockReset();
+    });
+
+    test("Check if method is called", () => {
+    
+    });
+
+    test("Check if method is called with correct parameters", () => {
+        
     });
 
 });
