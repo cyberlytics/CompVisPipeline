@@ -4,9 +4,11 @@ FROM node:20-alpine as build-react-app
 
 WORKDIR workdir
 COPY . .
+RUN apk add --no-cache python3
+RUN apk add --no-cache build-base cairo-dev pango-dev libjpeg-turbo-dev giflib-dev librsvg-dev
 RUN npm install -g npm@latest
-RUN npm install @mui/material @emotion/react @emotion/styled -f
-RUN npm i -f
+RUN npm install @mui/material @emotion/react @emotion/styled
+RUN npm i
 RUN npm run build
 
 # stage 1, nginx
