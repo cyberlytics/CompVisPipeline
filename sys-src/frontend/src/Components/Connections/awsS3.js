@@ -1,3 +1,7 @@
+///////////////////////////////////
+/////  Do not use it now due to no
+/////  AWS credentials -> change it next week
+///////////////////////////////////
 // Connection for AWS S3
 /*
 Error Code
