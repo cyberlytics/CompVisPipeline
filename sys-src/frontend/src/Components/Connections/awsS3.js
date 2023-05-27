@@ -60,10 +60,12 @@ class S3Manager {
             region: this.region,
         });
 
+        /* 
         AWS.config.getCredentials((err) => {
             if (err) console.log("AWS Credentials error", err.stack);
             else console.log("AWS Credentials loaded successfully");
         });
+        */
 
         return AWS
     }
@@ -100,7 +102,7 @@ class S3Manager {
      * @param {string} imageKey -> name/path of the image to delete
      * @return {Promise}        -> Promise of the delete action
      */
-    deleteImageFromS3(imageKey) {
+    async deleteImageFromS3(imageKey) {
         // set delete params
         const params = {
             Bucket: this.bucketName,
@@ -115,7 +117,7 @@ class S3Manager {
      * Delete all images from S3 Bucket
      * @returns {Promise} -> Promise of the delete action
      */
-    deleteAllImagesFromS3() {
+    async deleteAllImagesFromS3() {
         // set bucket params
         const params = {
             Bucket: this.bucketName,
@@ -151,7 +153,7 @@ class S3Manager {
      * @param {string} imageKey -> name/path of the image to get
      * @returns {Promise}       -> Promise of the get action, data is in res.Body
      */
-    getImageFromS3(imageKey) {
+    async getImageFromS3(imageKey) {
         // define params
         const params = {
             Bucket: this.bucketName,
@@ -169,7 +171,7 @@ class S3Manager {
      * @param {*} imageKey        ->   name/path of the image to upload
      * @return {Promise}          ->   Promise of the upload action
     */
-    pushImageToS3(image, imageKey) {
+    async pushImageToS3(image, imageKey) {
         // define params 
         const params = {
             Bucket: this.bucketName,

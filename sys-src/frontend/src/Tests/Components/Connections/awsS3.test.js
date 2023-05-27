@@ -49,7 +49,6 @@ describe("s3Manager - connection", () => {
         // get list with all available buckets
         await s3Manager.S3.listBuckets().promise()
             .then((res) => {
-                console.log(res);
                 const bucketNames = res.Buckets.map((Buckets) => Buckets.Name);
                 console.log(bucketNames);
                 
