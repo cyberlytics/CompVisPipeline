@@ -13,10 +13,9 @@ describe("pipeline.js tests", () => {
     expect(cardVisible).toBeVisible();
   });
 
-  test("initial step should be visible", () => {
-    render(<DndProvider backend={HTML5Backend}><Pipeline /></DndProvider>);
-    const initialStepVisible = screen.queryByText(/Uploaded Picture/i);
-    expect(initialStepVisible).toBeVisible();
+  test("uploaded picture step should be visible", () => {
+    const pipeline = render(<DndProvider backend={HTML5Backend}><Pipeline /></DndProvider>);
+    expect(pipeline.container.getElementsByClassName("step-uploadedPicture")).toHaveLength(1);
   });
 
 });
