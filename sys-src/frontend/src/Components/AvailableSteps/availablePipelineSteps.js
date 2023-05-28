@@ -29,7 +29,7 @@ export default function AvailablePipelineSteps() {
                 <Box sx={{ width: '100%' }}>
                     <SearchBar spacing={1} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
                     <Stack spacing={1} style={{ maxHeight: '830px', overflow: 'auto', marginTop: '1rem' }}>
-                        {localAvailablePipelineSteps.map((step, index) => {
+                        {availablePipelineSteps.map((step, index) => {
                             if (step.title.toLowerCase().startsWith(searchQuery.toLowerCase())) {
                                 return (
                                     <AvailableStep key={index} title={step.title} params={step.params} info={step.info} id={step.id} />
