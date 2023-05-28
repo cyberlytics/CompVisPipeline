@@ -71,7 +71,7 @@ export default function PipelineStep(props) {
     })
 
     // Opacity for current selected item
-    const opacity = isDragging ? 0 : 1 
+    const opacity = isDragging ? 0.3 : 1 
 
     drag(drop(ref))
 
