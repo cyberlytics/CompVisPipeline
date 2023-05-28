@@ -5,6 +5,7 @@ from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
 
 class GaussianNoise(BaseStep):
     def __call__(self, img, parameters):
+        #TODO: add error handling
         try:
             p0 = float(parameters[0])
             gauss = np.random.normal(0, p0, img.shape)
