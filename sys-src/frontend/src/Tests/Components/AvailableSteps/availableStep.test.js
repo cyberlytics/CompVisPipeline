@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import AvailableStep from "../../../Components/PipelineSteps/availableStep";
+import AvailableStep from "../../../Components/AvailableSteps/availableStep";
 
 describe("availableStep.js tests", () => {
 

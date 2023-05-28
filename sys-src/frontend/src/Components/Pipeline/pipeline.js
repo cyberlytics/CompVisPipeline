@@ -9,9 +9,12 @@ import PipelineStep from './pipelineStep';
 import Box from '@mui/material/Box';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { v4 as uuidv4 } from 'uuid';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
 export default function Pipeline() {
-    const [steps, setSteps] = useState([{ key: -1, deleteStep: null, expandIconActive: false, deleteButtonActive: false, index: -1, title: "Uploaded Picture", params: [], info: "Uploaded Image as default.", id: -1, uuid: -1 }]);
+    const [steps, setSteps] = useState([]);
 
     //function for drag and drop in pipeline
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -44,6 +47,11 @@ export default function Pipeline() {
     // Function to delete a single step from list
     const deleteStep = (uuid) => {
         setSteps((prevSteps) => prevSteps.filter((step) => step.uuid !== uuid));
+    };
+
+    //function to show uploaded picture
+    const handleShowUploadedPictureClick = () => {
+        //todo - Bild anzeigen 
     };
 
     // Function to move the items in the stack
@@ -85,6 +93,12 @@ export default function Pipeline() {
             </CardContent>
             <CardContent>
                 <Stack spacing={1} sx={{ width: '100%', maxHeight: '740px', overflow: 'auto' }}>
+                    <Box className={'step-uploadedPicture'} sx={{ bgcolor: 'background.default' }}>
+                        <ListItem>
+                            <ListItemText primary={'Uploaded Picture'} />
+                            <VisibilityOutlinedIcon onClick={handleShowUploadedPictureClick} sx={{ mr: 1 }} />
+                        </ListItem>
+                    </Box>
                     {steps.map((step, index) => (
                         renderStep(step, index)
                     ))}

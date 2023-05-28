@@ -9,10 +9,10 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import Collapse from '@mui/material/Collapse';
-import Parameter from '../PipelineSteps/parameter.js'
 import { useDrag, useDrop } from 'react-dnd'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import InformationPopup from '../../ModalWindow/InformationPopup.js';
+import Parameter from './parameter.js';
 
 export default function PipelineStep(props) {
     const { deleteStep, expandIconActive, deleteButtonActive, index, title, params, info, id, moveStep, uuid } = props;
@@ -71,7 +71,7 @@ export default function PipelineStep(props) {
     })
 
     // Opacity for current selected item
-    const opacity = isDragging ? 0 : 1 
+    const opacity = isDragging ? 0.3 : 1 
 
     drag(drop(ref))
 
