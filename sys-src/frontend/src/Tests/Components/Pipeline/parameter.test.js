@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import Parameter from "../../../Components/PipelineSteps/parameter";
+import Parameter from "../../../Components/Pipeline/parameter";
 
 describe("parameter.js tests", () => {
 
