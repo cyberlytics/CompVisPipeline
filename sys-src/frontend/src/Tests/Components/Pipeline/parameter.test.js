@@ -22,4 +22,31 @@ describe("parameter.js tests", () => {
     expect(beforeClick).toBeNull()
   });
 
+  test("parameter type number should be visible", () => {
+    let title = "Parametertestname"
+    let value = 123
+    const parameter = render(<Parameter parameterName={title} defaultValue={value} />)
+    expect(parameter.container.getElementsByClassName("parameter-type-number")).toHaveLength(1);
+    expect(parameter.container.getElementsByClassName("parameter-type-text")).toHaveLength(0);
+    expect(parameter.container.getElementsByClassName("parameter-type-boolean")).toHaveLength(0);
+  });
+
+  test("parameter type text should be visible", () => {
+    let title = "Parametertestname"
+    let value = "defaultValue"
+    const parameter = render(<Parameter parameterName={title} defaultValue={value} />)
+    expect(parameter.container.getElementsByClassName("parameter-type-number")).toHaveLength(0);
+    expect(parameter.container.getElementsByClassName("parameter-type-text")).toHaveLength(1);
+    expect(parameter.container.getElementsByClassName("parameter-type-boolean")).toHaveLength(0);
+  });
+
+  test("parameter type boolean should be visible", () => {
+    let title = "Parametertestname"
+    let value = 'false'
+    const parameter = render(<Parameter parameterName={title} defaultValue={value} />)
+    expect(parameter.container.getElementsByClassName("parameter-type-number")).toHaveLength(0);
+    expect(parameter.container.getElementsByClassName("parameter-type-text")).toHaveLength(0);
+    expect(parameter.container.getElementsByClassName("parameter-type-boolean")).toHaveLength(1);
+  });
+
 });

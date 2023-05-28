@@ -42,6 +42,11 @@
             "title": "Kernelsize",
             "info": "param info",
             "defaultValue": 3
+         },
+         {
+            "title": "TrueFalseParam",
+            "info": "param info",
+            "defaultValue": "true"
          }
       ]
    },
