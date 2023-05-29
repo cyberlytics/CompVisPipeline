@@ -3,9 +3,23 @@ import cv2
 from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
 
 class Erosion(BaseStep):
+    def __get_kernel(self, shape, kernel_width, kernel_height):
+        if shape == 0:
+            return cv2.getStructuringElement(cv2.MORPH_RECT, (kernel_height, kernel_width))
+        elif shape == 1:
+            return cv2.getStructuringElement(cv2.MORPH_CROSS, (kernel_height, kernel_width))
+        elif shape == 2:
+            return cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (kernel_height, kernel_width))
+
+
     def __call__(self, img, parameters):
-        #TODO: implement erosion.
-        pass
+        try:
+            params = [int(param) for param in parameters]
+            kernel = self.__get_kernel(params[0], params[1], params[2])
+            return cv2.erode(img, kernel, iterations = params[3])
+        except Exception:
+            raise ImageProcessingError(message="Erosion failed to process image")
+
 
     def describe(self):
         return {
