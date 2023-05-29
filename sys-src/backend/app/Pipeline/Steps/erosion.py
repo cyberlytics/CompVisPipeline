@@ -3,6 +3,15 @@ import cv2
 from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
 
 class Erosion(BaseStep):
+    def __validate_kernel_shape(self, shape):
+        return (shape == 1 or shape == 2 or shape == 3)
+    
+    def __validate_kernel_size(self, size):
+        return (size > 1)
+    
+    def __validate_iterations(self, iterations):
+        return (iterations > 0)
+
     def __get_kernel(self, shape, kernel_width, kernel_height):
         if shape == 0:
             return cv2.getStructuringElement(cv2.MORPH_RECT, (kernel_height, kernel_width))
@@ -15,8 +24,19 @@ class Erosion(BaseStep):
     def __call__(self, img, parameters):
         try:
             params = [int(param) for param in parameters]
-            kernel = self.__get_kernel(params[0], params[1], params[2])
-            return cv2.erode(img, kernel, iterations = params[3])
+
+            #If kernel shape not valid, set to default
+            kernel_shape = params[0] if self.__validate_kernel_shape(params[0]) else 0
+
+            #If kernel size not valid, set to default
+            kernel_width = params[1] if self.__validate_kernel_size(params[1]) else 3
+            kernel_height = params[2] if self.__validate_kernel_size(params[2]) else 3
+
+            #If iterations not valid, set to default
+            iterations = params[3]  if self.__validate_iterations(params[3]) else 1
+
+            kernel = self.__get_kernel(kernel_shape, kernel_width, kernel_height)
+            return cv2.erode(img, kernel, iterations = iterations)
         except Exception:
             raise ImageProcessingError(message="Erosion failed to process image")
 
