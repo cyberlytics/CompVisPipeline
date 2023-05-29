@@ -8,8 +8,10 @@ class GaussianNoise(BaseStep):
         #TODO: add error handling
         try:
             p0 = float(parameters[0])
-            gauss = np.random.normal(0, p0, img.shape)
+            
+            if p0 < 0: p0 = 1
 
+            gauss = np.random.normal(0, p0, img.shape)
             if len(img.shape) > 2:
                 gauss = gauss.reshape(img.shape[0], img.shape[1], img.shape(2)).astype("uint8")
             else:

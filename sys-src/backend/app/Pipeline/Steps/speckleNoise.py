@@ -1,11 +1,25 @@
 import cv2
+import numpy as np
 
 from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
 
 class SpeckleNoise(BaseStep):
     def __call__(self, img, parameters):
-        #TODO: implement Speckle Noise
-        pass
+        #TODO: add error handling
+        try:
+            p0 = float(parameters[0])
+            gauss = np.random.normal(0, p0, img.shape)
+
+            if p0 < 0: p0 = 1
+
+            if len(img.shape) > 2:
+                gauss = gauss.reshape(img.shape[0], img.shape[1], img.shape(2)).astype("uint8")
+            else:
+                gauss = gauss.reshape(img.shape[0], img.shape[1]).astype("uint8")
+
+            return cv2.add(img, img*gauss)
+        except Exception:
+            raise ImageProcessingError(message="SpeckleNoise failed to process image")
 
     def describe(self):
         return {
