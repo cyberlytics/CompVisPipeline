@@ -6,6 +6,8 @@ class Controller {
             .then(response => response.json())
             .then(response => set(response))
     }
+
+
 }
 
 export default Controller;
