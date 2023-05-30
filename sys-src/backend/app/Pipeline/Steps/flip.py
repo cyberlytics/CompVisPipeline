@@ -14,7 +14,7 @@ class Flip(BaseStep):
             "params": [
                 {
                     "title": "Axis",
-                    "info:": "Axis on which the image is flipped. 0 means vertical, positive numbers mean horizontal, negative numbers mean both.",
+                    "info": "Axis on which the image is flipped. 0 means vertical, positive numbers mean horizontal, negative numbers mean both.",
                     "defaultValue": 0
                 },
             ],
