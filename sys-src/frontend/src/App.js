@@ -31,6 +31,8 @@ function App() {
   const [theme, setTheme] = useState(true)
   const appliedTheme = createTheme(theme ? lightTheme : darkTheme)
 
+  const [steps, setSteps] = useState([]);
+
   return (
     <ThemeProvider theme={appliedTheme}>
       <CssBaseline className={"App-CssBaseline"} />
@@ -58,10 +60,10 @@ function App() {
           <Grid item md={4} style={{ paddingRight: 10 }}>
             <Grid container direction="column">
               <Grid item xs style={{ paddingBottom: 10 }}>
-                <Pipeline />
+                <Pipeline steps={steps} setSteps={setSteps} />
               </Grid>
               <Grid item xs>
-                <StartPipeline />
+                <StartPipeline steps={steps}/>
               </Grid>
             </Grid>
           </Grid>
