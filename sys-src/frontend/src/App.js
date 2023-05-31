@@ -31,6 +31,8 @@ function App() {
   const [theme, setTheme] = useState(true)
   const appliedTheme = createTheme(theme ? lightTheme : darkTheme)
 
+  const [originalImageID, setOriginalImageID] = useState(null);
+
   return (
     <ThemeProvider theme={appliedTheme}>
       <CssBaseline className={"App-CssBaseline"} />
@@ -44,7 +46,7 @@ function App() {
           <Grid item md={4} style={{ paddingRight: 10 }}>
             <Grid container direction="column">
               <Grid item xs style={{ paddingBottom: 10 }}>
-                <Upload />
+                <Upload originalImageID={originalImageID} setOriginalImageID={setOriginalImageID}/>
               </Grid>
               <Grid item xs style={{ paddingBottom: 10 }}>
                 <ImageView />
