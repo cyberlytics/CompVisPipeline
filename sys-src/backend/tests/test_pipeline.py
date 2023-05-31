@@ -32,8 +32,8 @@ def test_pipeline_result_is_saved_to_s3(fakeS3Manager, create_rgb_image):
     results = pipeline.start()
     assert len(results) == 2
     assert results[0] == "42"
-    assert (fakeS3Manager.getImageFromS3(results[0])[1] == create_rgb_image).all()
-    assert (fakeS3Manager.getImageFromS3(results[1])[1] == create_rgb_image).all()
+    assert (fakeS3Manager.getImageFromS3(results[0]) == create_rgb_image).all()
+    assert (fakeS3Manager.getImageFromS3(results[1]) == create_rgb_image).all()
 
 
 def test_pipeline_all_steps_are_executed(fakeS3Manager, create_rgb_image):
@@ -44,7 +44,7 @@ def test_pipeline_all_steps_are_executed(fakeS3Manager, create_rgb_image):
     assert len(results) == len(steps) + 1
     assert results[0] == "42"
     for result in results:
-        assert (fakeS3Manager.getImageFromS3(result)[1] == create_rgb_image).all()
+        assert (fakeS3Manager.getImageFromS3(result) == create_rgb_image).all()
 
 
 def test_pipeline_steps_are_executed_in_correc_order(fakeS3Manager, mocker):
@@ -69,6 +69,6 @@ def test_pipeline_steps_are_executed_in_correc_order(fakeS3Manager, mocker):
     results = pipeline.start()
     assert len(results) == 4
     assert results[0] == "42"
-    assert fakeS3Manager.getImageFromS3(results[1])[1] == 1
-    assert fakeS3Manager.getImageFromS3(results[2])[1] == 2
-    assert fakeS3Manager.getImageFromS3(results[3])[1] == 3
+    assert fakeS3Manager.getImageFromS3(results[1]) == 1
+    assert fakeS3Manager.getImageFromS3(results[2]) == 2
+    assert fakeS3Manager.getImageFromS3(results[3]) == 3
