@@ -16,7 +16,6 @@ export default function Upload({setOriginalImageID}) {
         s3Manager.pushImageToS3(imageFile, uuid)
             .then((result) => {
                 console.log("Upload successful");
-                console.log(result)
                 setOriginalImageID(uuid);
             })
             .catch( (error) => {
@@ -32,7 +31,7 @@ export default function Upload({setOriginalImageID}) {
                 <Typography sx={{ width: '100%' }} align="center" variant="h5" component="div">Upload</Typography>
                 
                 <label htmlFor="upload-image">
-                    <input id="upload-image" type="file" accept=".jpg" onChange={handleUpload} /> 
+                    <input id="upload-image" type="file" accept=".jpg" onChange={handleUpload} style={{ display: "none" }}/> 
                     <Button variant="contained" color="primary" component="span" startIcon={<FileUploadOutlinedIcon />}>
                         Upload Image
                     </Button>
