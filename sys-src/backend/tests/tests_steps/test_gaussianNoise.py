@@ -9,6 +9,7 @@ def test_gaussian_noise_with_expected_result():
 
     params = [1]
     result = gaussian_noise_step(image, params)
+
     assert (image != result).any()
 
 def test_gaussian_noise_with_invalid_strength():
@@ -18,6 +19,7 @@ def test_gaussian_noise_with_invalid_strength():
 
     params = [-11]
     result = gaussian_noise_step(image, params)
+
     assert (image != result).any()
 
 def test_gaussian_noise_with_zero_strength():
@@ -27,6 +29,7 @@ def test_gaussian_noise_with_zero_strength():
 
     params = [0]
     result = gaussian_noise_step(image, params)
+    
     assert (image == result).all()
 
 def test_gaussian_noise_with_rgb_image():
@@ -36,4 +39,5 @@ def test_gaussian_noise_with_rgb_image():
 
     params = [1]
     result = gaussian_noise_step(image, params)
+    
     assert (image != result).any()
