@@ -10,7 +10,6 @@ import { act } from "react-dom/test-utils";
 
 
 describe("upload.js tests", () => {
-
   test("card should be visible", () => {
     render(<Upload />);
     const cardVisible = screen.getByTestId(/upload-card/i);
