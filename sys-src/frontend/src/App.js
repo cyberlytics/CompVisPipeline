@@ -3,8 +3,8 @@ import Header from './Components/header';
 import Upload from './Components/upload';
 import ImageView from './Components/imageView';
 import ImageDetails from './Components/imageDetails';
-import Pipeline from './Components/pipeline';
-import PipelineSteps from './Components/PipelineSteps/pipelineSteps';
+import Pipeline from './Components/Pipeline/pipeline';
+import AvailablePipelineSteps from './Components/AvailableSteps/availablePipelineSteps';
 import StartPipeline from './Components/startPipeline';
 import Grid from '@mui/material/Grid';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -69,7 +69,7 @@ function App() {
           <Grid item md={4}>
             <Grid container direction="column">
               <Grid item xs>
-                <PipelineSteps />
+                <AvailablePipelineSteps />
               </Grid>
             </Grid>
           </Grid>
