@@ -16,11 +16,13 @@ export default function Upload({setOriginalImageID}) {
         s3Manager.pushImageToS3(imageFile, uuid)
             .then((result) => {
                 console.log("Upload successful");
+                console.log(result)
                 setOriginalImageID(uuid);
             })
             .catch( (error) => {
                 // error handling
                 console.log("Upload failed");
+                console.log(error);
             });
     }
 
