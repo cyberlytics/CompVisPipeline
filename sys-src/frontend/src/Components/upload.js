@@ -1,10 +1,9 @@
 import React from 'react';
-//import Card from '@mui/material/Card';
-//import CardContent from '@mui/material/CardContent';
-//import Typography from '@mui/material/Typography';
-
 import { Card, CardContent, Typography, Button } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
+
+import { v4 as uuidv4 } from 'uuid';
+import {S3Manager} from './Connections/awsS3';
 
 export default function Upload({originalImageID, setOriginalImageID}) {
 
@@ -16,11 +15,13 @@ export default function Upload({originalImageID, setOriginalImageID}) {
         <Card style={{ height: 90 }}>
             <CardContent>
                 <Typography sx={{ width: '100%' }} align="center" variant="h5" component="div">Upload</Typography>
-                <Button variant="contained" color="primary">
-                    {/* <AddIcon />  */}
-                    Upload Image
-                    <input type="file" accept=".jpg" onChange={setOriginalImageID} hidden />
-                </Button>
+                
+                <input id="upload-photo" type="file" accept=".jpg" onChange={setOriginalImageID} style={{ display: "none"}} />
+                <label htmlFor="upload-photo">
+                    <Button variant="contained" color="primary" component="span" startIcon={<FileUploadOutlinedIcon />}>
+                        Upload Image
+                    </Button>
+                </label>
             </CardContent>
         </Card>
     );
