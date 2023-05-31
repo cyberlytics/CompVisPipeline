@@ -15,15 +15,15 @@ export default function Upload({setOriginalImageID}) {
     const handleUpload = (event) => {
         const imageFile = event.target.files[0];
 
-        let s3Manager = new S3Manager();
-        let uuid = uuidv4();
+        const s3Manager = new S3Manager();
+        const imageKey = uuidv4() + '.jpg';
 
         console.log(event.target.id);
 
-        s3Manager.pushImageToS3(imageFile, uuid)
+        s3Manager.pushImageToS3(imageFile, imageKey)
             .then((result) => {
                 console.log("Upload successful");
-                setOriginalImageID(uuid);
+                setOriginalImageID(imageKey);
                 
                 setImageDefaultFlag(false);
                 setImageFileFlag(true);
@@ -57,7 +57,7 @@ export default function Upload({setOriginalImageID}) {
                     </label>
                     </div>
                     <label htmlFor="upload-default-image"> 
-                        <Button size="small" style={{backgroundColor: "#1976d2"}} variant="contained" onClick={handleDefaultUpload} startIcon={ imageDefaultFlag ? <AddPhotoAlternateIcon /> : <AddPhotoAlternateOutlinedIcon /> }>
+                        <Button size="small" variant="contained" color="primary" onClick={handleDefaultUpload} startIcon={ imageDefaultFlag ? <AddPhotoAlternateIcon /> : <AddPhotoAlternateOutlinedIcon /> }>
                             Default Image
                         </Button>
                     </label>
