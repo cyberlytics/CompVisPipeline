@@ -5,7 +5,7 @@ import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import { v4 as uuidv4 } from 'uuid';
 import S3Manager from './Connections/awsS3';
 
-export default function Upload({originalImageID, setOriginalImageID}) {
+export default function Upload({setOriginalImageID}) {
 
     const handleUpload = (event) => {
         const imageFile = event.target.files[0];
@@ -15,11 +15,12 @@ export default function Upload({originalImageID, setOriginalImageID}) {
 
         s3Manager.pushImageToS3(imageFile, uuid)
             .then((result) => {
+                console.log("Upload successful");
                 setOriginalImageID(uuid);
             })
             .catch( (error) => {
+                // error handling
                 console.log("Upload failed");
-                console.log(error);
             });
     }
 
@@ -28,8 +29,8 @@ export default function Upload({originalImageID, setOriginalImageID}) {
             <CardContent>
                 <Typography sx={{ width: '100%' }} align="center" variant="h5" component="div">Upload</Typography>
                 
-                <input id="upload-photo" type="file" accept=".jpg" onChange={handleUpload} style={{ display: "none"}} />
-                <label htmlFor="upload-photo">
+                <label htmlFor="upload-image">
+                    <input id="upload-image" type="file" accept=".jpg" onChange={handleUpload} /> 
                     <Button variant="contained" color="primary" component="span" startIcon={<FileUploadOutlinedIcon />}>
                         Upload Image
                     </Button>
