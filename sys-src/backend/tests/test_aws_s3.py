@@ -2,10 +2,10 @@ import os
 import numpy as np
 import pytest
 
-import boto3
 from botocore.exceptions import ClientError
+import boto3
 
-from app.connections.aws_s3 import S3Manager
+from app.connections.aws_s3 import S3Manager, AWSError
 
 
 @pytest.mark.aws
@@ -53,24 +53,22 @@ def test_get_s3_object(create_rgb_image, create_grayscale_image):
     s3Manager = S3Manager()
 
     # send data to s3 bucket
-    _ = s3Manager.pushImageToS3("test_rgb_image.jpg", create_rgb_image)
-    _ = s3Manager.pushImageToS3("test_grayscale_image.jpg", create_grayscale_image)
+    s3Manager.pushImageToS3("test_rgb_image.jpg", create_rgb_image)
+    s3Manager.pushImageToS3("test_grayscale_image.jpg", create_grayscale_image)
 
     # get data to s3 bucket
-    response_get_rgb, get_image = s3Manager.getImageFromS3("test_rgb_image.jpg")
-    response_get_gray, get_grayscale_image = s3Manager.getImageFromS3(
+    get_image = s3Manager.getImageFromS3("test_rgb_image.jpg")
+    get_grayscale_image = s3Manager.getImageFromS3(
         "test_grayscale_image.jpg"
     )
 
     # Check if send data is same like get data - rgb
-    assert response_get_rgb["HTTPStatusCode"] == 200  # check if upload was successful
     assert np.array_equal(
         create_rgb_image, get_image
     )  # check if send data is same like get data
     assert create_rgb_image.shape == get_image.shape  # check if shape is correct
 
     # Check if send data is same like get data - grayscale
-    assert response_get_gray["HTTPStatusCode"] == 200  # check if upload was successful
     assert np.array_equal(
         create_grayscale_image, get_grayscale_image
     )  # check if send data is same like get data
@@ -88,24 +86,20 @@ def test_put_s3_object(create_rgb_image, create_grayscale_image):
     s3Manager = S3Manager()
 
     # send data to s3 bucket
-    response_put_rgb = s3Manager.pushImageToS3("test_rgb_image.jpg", create_rgb_image)
-    response_put_gray = s3Manager.pushImageToS3(
-        "test_grayscale_image.jpg", create_grayscale_image
-    )
+    s3Manager.pushImageToS3("test_rgb_image.jpg", create_rgb_image)
+    s3Manager.pushImageToS3("test_grayscale_image.jpg", create_grayscale_image)
 
     # get data to s3 bucket
-    _, get_image = s3Manager.getImageFromS3("test_rgb_image.jpg")
-    _, get_grayscale_image = s3Manager.getImageFromS3("test_grayscale_image.jpg")
+    get_image = s3Manager.getImageFromS3("test_rgb_image.jpg")
+    get_grayscale_image = s3Manager.getImageFromS3("test_grayscale_image.jpg")
 
     # Check for rgb image
-    assert response_put_rgb["HTTPStatusCode"] == 200  # check if upload was successful
     assert np.array_equal(
         create_rgb_image, get_image
     )  # check if send data is same like get data
     assert create_rgb_image.shape == get_image.shape  # check if shape is correct
 
     # Check for grayscale image
-    assert response_put_gray["HTTPStatusCode"] == 200  # check if upload was successful
     assert np.array_equal(
         create_grayscale_image, get_grayscale_image
     )  # check if send data is same like get data
@@ -123,22 +117,17 @@ def test_delete_s3_object(create_rgb_image, create_grayscale_image):
     s3Manager = S3Manager()
 
     # send data to s3 bucket
-    _ = s3Manager.pushImageToS3("test_rgb_image.jpg", create_rgb_image)
-    _ = s3Manager.pushImageToS3("test_grayscale_image.jpg", create_grayscale_image)
+    s3Manager.pushImageToS3("test_rgb_image.jpg", create_rgb_image)
+    s3Manager.pushImageToS3("test_grayscale_image.jpg", create_grayscale_image)
+    
+    assert s3Manager.getImageFromS3("test_rgb_image.jpg") is not None
+    assert s3Manager.getImageFromS3("test_grayscale_image.jpg") is not None
 
     # delete data from s3 bucket
-    response_delete_rgb = s3Manager.deleteImageFromS3("test_rgb_image.jpg")
-    response_delete_gray = s3Manager.deleteImageFromS3("test_grayscale_image.jpg")
+    s3Manager.deleteImageFromS3("test_rgb_image.jpg")
+    s3Manager.deleteImageFromS3("test_grayscale_image.jpg")
 
-    # Check
-    assert (
-        response_delete_rgb["HTTPStatusCode"] == 204
-    )  # check if delete was successful
-    assert (
-        response_delete_gray["HTTPStatusCode"] == 204
-    )  # check if delete was successful
-
-    with pytest.raises(ClientError):
+    with pytest.raises(AWSError):
         s3Manager.getImageFromS3("test_rgb_image.jpg")
         s3Manager.getImageFromS3("test_grayscale_image.jpg")
 
@@ -148,12 +137,20 @@ def test_delete_all_s3_objects(create_rgb_image, create_grayscale_image):
     s3Manager = S3Manager()
 
     # send data to s3 bucket
-    _ = s3Manager.pushImageToS3("test_rgb_image.jpg", create_rgb_image)
-    _ = s3Manager.pushImageToS3("test_grayscale_image.jpg", create_grayscale_image)
+    s3Manager.pushImageToS3("test_rgb_image.jpg", create_rgb_image)
+    s3Manager.pushImageToS3("test_grayscale_image.jpg", create_grayscale_image)
+
+    assert s3Manager.getImageFromS3("test_rgb_image.jpg") is not None
+    assert s3Manager.getImageFromS3("test_grayscale_image.jpg") is not None
 
     # delete all data from s3 bucket
-    response_delete_all = s3Manager.deleteAllImagesFromS3()
+    s3Manager.deleteAllImagesFromS3()
+    with pytest.raises(AWSError):
+        s3Manager.getImageFromS3("test_rgb_image.jpg")
+        s3Manager.getImageFromS3("test_grayscale_image.jpg")
 
-    # Check if all data was deleted
-    for response in response_delete_all:
-        assert response["HTTPStatusCode"] == 204  # check if delete was successful
+@pytest.mark.aws
+def test_getImageFromS3_raises_AWSError_if_key_not_exists():
+    s3Manager = S3Manager()
+    with pytest.raises(AWSError):
+        s3Manager.getImageFromS3("THIS_KEY_SHOULD_NOT_EXIST")

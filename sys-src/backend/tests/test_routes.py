@@ -15,7 +15,7 @@ def test_hello_world_route(client):
     response = client.get("/")
     assert response.status_code == 200
 
-
+@pytest.mark.aws
 def test_startPipeline_route(client, create_rgb_image):
     s3Manager = S3Manager()
     s3Manager.pushImageToS3("123", create_rgb_image)
