@@ -11,22 +11,16 @@ export default function Upload({originalImageID, setOriginalImageID}) {
         const imageFile = event.target.files[0];
 
         let s3Manager = new S3Manager();
-        console.log(s3Manager.AWS.config.credentials);
-
         let uuid = uuidv4();
-        console.log('UUID: ', uuid);
 
-        s3Manager.pushImageToS3(imageFile, uuid).then((result) => {
-            console.log("Upload done");
-            console.log("uuid: " + uuid);
-            console.log(result);
-            // setOriginalImageID(uuid);
-        })
-        .catch( (error) => {
-            console.log(error);
-        });
-
-
+        s3Manager.pushImageToS3(imageFile, uuid)
+            .then((result) => {
+                setOriginalImageID(uuid);
+            })
+            .catch( (error) => {
+                console.log("Upload failed");
+                console.log(error);
+            });
     }
 
     return (
