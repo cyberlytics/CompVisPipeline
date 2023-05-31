@@ -6,6 +6,7 @@ import "@testing-library/jest-dom/extend-expect";
 
 import Upload from "../../Components/upload";
 import S3Manager from "../../Components/Connections/awsS3";
+import { act } from "react-dom/test-utils";
 
 
 describe("upload.js tests", () => {
@@ -20,6 +21,12 @@ describe("upload.js tests", () => {
     render(<Upload />);
     const uploadButton = screen.getByText(/Upload Image/i);
     expect(uploadButton).toBeInTheDocument();
+  });
+
+  test("renders default image button", () => {
+    render(<Upload />);
+    const defaultImageButton = screen.getByText(/Default Image/i);
+    expect(defaultImageButton).toBeInTheDocument();
   });
 
   test("handler function is called - S3Manager.pushImageToS3 -> resolve", async () => {
@@ -60,6 +67,22 @@ describe("upload.js tests", () => {
     userEvent.upload(inputElement, {target: {files: [file]}});
 
     expect(mockHandleUpload).toHaveBeenCalledTimes(1);
+  });
+
+  test("handler function is called - defaultImage", async () => {
+    const mockHandleDefaultUpload = jest.fn();
+    const mockSetOriginalImageID = jest.fn();
+
+    render(<Upload setOriginalImageID={mockSetOriginalImageID} />);
+    
+    const defaultImageButton = screen.getByText(/Default Image/i);
+    defaultImageButton.addEventListener("click", mockHandleDefaultUpload);
+    
+    act(() => {
+      userEvent.click(defaultImageButton);
+    });
+    
+    expect(mockHandleDefaultUpload).toHaveBeenCalledTimes(1);
   });
 
 });

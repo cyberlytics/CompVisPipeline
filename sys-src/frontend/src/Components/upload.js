@@ -13,6 +13,8 @@ export default function Upload({setOriginalImageID}) {
         let s3Manager = new S3Manager();
         let uuid = uuidv4();
 
+        console.log(event.target.id);
+
         s3Manager.pushImageToS3(imageFile, uuid)
             .then((result) => {
                 console.log("Upload successful");
@@ -23,7 +25,11 @@ export default function Upload({setOriginalImageID}) {
                 console.log("Upload failed");
                 console.log(error);
             });
-    }
+    };
+
+    const handleDefaultUpload = () => {
+        setOriginalImageID("defaultImage.jpg");
+    };
 
     return (
         <Card style={{ height: 90 }} data-testid='upload-card'>
@@ -31,10 +37,17 @@ export default function Upload({setOriginalImageID}) {
                 <Typography sx={{ width: '100%' }} align="center" variant="h5" component="div">Upload</Typography>
                 
                 <div style={{ display: 'flex', justifyContent: 'center'}}>
+                    <div style={{ marginRight: "20px"}}>
                     <label htmlFor="upload-image">
                         <input id="upload-image" type="file" accept=".jpg" onChange={handleUpload} style={{ display: "none" }}/> 
                         <Button variant="contained" color="primary" component="span" startIcon={<AddPhotoAlternateIcon />}>
                             Upload Image
+                        </Button>
+                    </label>
+                    </div>
+                    <label htmlFor="upload-default-image"> 
+                        <Button variant="contained" color="primary" startIcon={<AddPhotoAlternateIcon />} onClick={handleDefaultUpload}>
+                            Default Image
                         </Button>
                     </label>
                 </div>
