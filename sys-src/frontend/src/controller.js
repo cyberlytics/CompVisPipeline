@@ -8,6 +8,7 @@ class Controller {
             .then(response => set(response))
     }
 
+    //todo Dritten Parameter imageID entfernen
     static async sendPipelineSteps(props, setLoading, imageID) {
         const base = "http://127.0.0.1:5000/start-pipeline/";
         const path = base + imageID;
