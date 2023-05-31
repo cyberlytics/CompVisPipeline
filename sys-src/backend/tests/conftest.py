@@ -21,11 +21,15 @@ def create_grayscale_image():
     return grayimg
 
 @pytest.fixture
-def prepaired_grey_scale_img():
+def prepared_grey_scale_img():
     img = cv2.imread('./tests/testimages/mountain.png')
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     return img
 
+@pytest.fixture
+def prepared_bgr_img():
+    img = cv2.imread('./tests/testimages/mountain.png')
+    return img
 
 @pytest.fixture
 def fakeS3Manager():
