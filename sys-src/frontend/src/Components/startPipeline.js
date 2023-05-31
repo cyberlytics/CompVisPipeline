@@ -6,7 +6,7 @@ export default function StartPipeline(props) {
 
     const handleButtonClick = async () => {
         console.log(props.steps)
-        const endpoint = "/start-pipeline/";
+        const endpoint = "http://127.0.0.1:5000/start-pipeline/";
         const imageID = 4;
         const path = endpoint + imageID;
         setLoading(true);

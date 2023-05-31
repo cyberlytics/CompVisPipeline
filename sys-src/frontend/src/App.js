@@ -30,7 +30,6 @@ const darkTheme = createTheme({
 function App() {
   const [theme, setTheme] = useState(true)
   const appliedTheme = createTheme(theme ? lightTheme : darkTheme)
-
   const [steps, setSteps] = useState([]);
 
   return (
