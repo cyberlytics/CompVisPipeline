@@ -41,7 +41,7 @@ class Metadata:
 
         fig, _ = plt.subplots()
         for i,color in enumerate(colors):
-            hist = cv2.calcHist([img],[i],None,[256],[0,256])
+            hist = cv2.calcHist([image],[i],None,[256],[0,256])
             plt.plot(hist,color = color)     
         plt.legend(legend)
         plt.xlabel("Intensity")

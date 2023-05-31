@@ -1,6 +1,8 @@
 import numpy as np
 import pytest
+import cv2
 from botocore.exceptions import ClientError
+
 
 from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
 
@@ -17,6 +19,12 @@ def create_grayscale_image():
     grayimg = np.ones((200, 200), dtype=np.uint8)
     grayimg *= 127  # gray image
     return grayimg
+
+@pytest.fixture
+def prepaired_grey_scale_img():
+    img = cv2.imread('./tests/testimages/mountain.png')
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    return img
 
 
 @pytest.fixture
