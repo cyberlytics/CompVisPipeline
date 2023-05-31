@@ -1,29 +1,12 @@
 import { useState } from 'react';
 import { Card, CardContent, Button } from '@mui/material';
+import Controller from "../controller";
 
 export default function StartPipeline(props) {
     const [loading, setLoading] = useState(false);
 
     const handleButtonClick = async () => {
-        console.log(props.steps)
-        const endpoint = "http://127.0.0.1:5000/start-pipeline/";
-        const imageID = 4;
-        const path = endpoint + imageID;
-        setLoading(true);
-
-        try {
-            const response = await fetch(path, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(props.steps)
-            });
-            setLoading(false);
-        } catch (error) {
-            console.error('Fehler beim Aufrufen des Endpunkts:', error);
-            setLoading(false);
-        }
+        await Controller.sendPipelineSteps(props, setLoading)
     };
 
     return (
