@@ -32,6 +32,8 @@ function App() {
   const appliedTheme = createTheme(theme ? lightTheme : darkTheme)
 
   const [originalImageID, setOriginalImageID] = useState(null);
+  // for Image showing in ImageView
+  const [currentImageID, setCurrentImageId] = useState(null);
 
   return (
     <ThemeProvider theme={appliedTheme}>
