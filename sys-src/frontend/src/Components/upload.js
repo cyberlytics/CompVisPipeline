@@ -10,27 +10,21 @@ export default function Upload({originalImageID, setOriginalImageID}) {
     const handleUpload = (event) => {
         const imageFile = event.target.files[0];
 
-        console.log("S3 Manager");
         let s3Manager = new S3Manager();
+        console.log(s3Manager.AWS.config.credentials);
 
         let uuid = uuidv4();
         console.log('UUID: ', uuid);
-        console.log("Image File: ", imageFile);
-    
-        s3Manager.deleteAllImagesFromS3().then((res) => {
-            console.log("Delete done");
-            console.log(res);
-        })
 
-        // s3Manager.pushImageToS3(imageFile, uuid).then((result) => {
-        //     console.log("Upload done");
-        //     console.log("uuid: " + uuid);
-        //     console.log(result);
-        //     // setOriginalImageID(uuid);
-        // })
-        // .catch( (error) => {
-        //     console.log(error);
-        // });
+        s3Manager.pushImageToS3(imageFile, uuid).then((result) => {
+            console.log("Upload done");
+            console.log("uuid: " + uuid);
+            console.log(result);
+            // setOriginalImageID(uuid);
+        })
+        .catch( (error) => {
+            console.log(error);
+        });
 
 
     }
@@ -40,7 +34,7 @@ export default function Upload({originalImageID, setOriginalImageID}) {
             <CardContent>
                 <Typography sx={{ width: '100%' }} align="center" variant="h5" component="div">Upload</Typography>
                 
-                <input id="upload-photo" type="file" accept=".jpg" onClick={handleUpload} style={{ display: "none"}} />
+                <input id="upload-photo" type="file" accept=".jpg" onChange={handleUpload} style={{ display: "none"}} />
                 <label htmlFor="upload-photo">
                     <Button variant="contained" color="primary" component="span" startIcon={<FileUploadOutlinedIcon />}>
                         Upload Image
