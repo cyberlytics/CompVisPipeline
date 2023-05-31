@@ -47,17 +47,17 @@ export default function Upload({setOriginalImageID}) {
             <CardContent>
                 <Typography sx={{ width: '100%' }} align="center" variant="h5" component="div">Upload</Typography>
                 
-                <div style={{ display: 'flex', justifyContent: 'center'}}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: "5px"}}>
                     <div style={{ marginRight: "20px"}}>
                     <label htmlFor="upload-image">
                         <input id="upload-image" type="file" accept=".jpg" onChange={handleUpload} style={{ display: "none" }}/> 
-                        <Button variant="contained" color="primary" component="span" startIcon={ imageFileFlag ? <AddPhotoAlternateIcon /> : <AddPhotoAlternateOutlinedIcon /> }>
+                        <Button size="small" variant="contained" color="primary" component="span" startIcon={ imageFileFlag ? <AddPhotoAlternateIcon /> : <AddPhotoAlternateOutlinedIcon /> }>
                             Upload Image
                         </Button>
                     </label>
                     </div>
                     <label htmlFor="upload-default-image"> 
-                        <Button variant="contained" color="primary" onClick={handleDefaultUpload} startIcon={ imageDefaultFlag ? <AddPhotoAlternateIcon /> : <AddPhotoAlternateOutlinedIcon /> }>
+                        <Button size="small" style={{backgroundColor: "#1976d2"}} variant="contained" onClick={handleDefaultUpload} startIcon={ imageDefaultFlag ? <AddPhotoAlternateIcon /> : <AddPhotoAlternateOutlinedIcon /> }>
                             Default Image
                         </Button>
                     </label>
