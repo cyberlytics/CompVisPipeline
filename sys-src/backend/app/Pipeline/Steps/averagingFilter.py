@@ -11,13 +11,12 @@ class AveragingFilter(BaseStep):
             kernel_height = params[1]
 
             if kernel_height < 0 or kernel_width < 0:
-                return img
+                raise ImageProcessingError(message="Kernelsize has to be positive")
 
             return cv2.blur(img, (kernel_width, kernel_height))
 
-
-        except:
-            print("Ein unerwarteter Fehler ist aufgetreten. Filter: AveragingFilter")
+        except Exception:
+            raise ImageProcessingError(message="Unexpected Error in AveragingFilter")
 
     def describe(self):
         return {
