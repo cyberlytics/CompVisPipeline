@@ -24,7 +24,7 @@ export default function Upload({originalImageID, setOriginalImageID}) {
     }
 
     return (
-        <Card style={{ height: 90 }}>
+        <Card style={{ height: 90 }} data-testid='upload-card'>
             <CardContent>
                 <Typography sx={{ width: '100%' }} align="center" variant="h5" component="div">Upload</Typography>
                 
