@@ -42,8 +42,6 @@ export default function Upload({setOriginalImageID}) {
         setImageFileFlag(false);
     };
 
-    imageDefaultFlag ? console.log("Default image") : console.log("Not default image");
-
     return (
         <Card style={{ height: 90 }} data-testid='upload-card'>
             <CardContent>
