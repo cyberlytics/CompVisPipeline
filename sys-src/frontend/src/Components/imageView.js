@@ -9,6 +9,8 @@ export default function ImageView({ currentImageID }) {
     const [imageKey, setImageKey] = useState(null);
     const [imageURL, setImageURL] = useState(null);
 
+    // just load image from S3 Bucket if a new image key is needed
+    // without if -> React would make to many requests to S3 even if image to load has not changed
     if (imageKey !== currentImageID) {
         const s3Manager = new S3Manager();
         setImageKey(currentImageID);
