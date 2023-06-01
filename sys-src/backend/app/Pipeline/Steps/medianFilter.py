@@ -6,7 +6,7 @@ from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError, WrongPar
 class MedianFilter(BaseStep):
 
     def is_valid_kernel_size(self, kernel_size):
-        return kernel_size < 0 or kernel_size % 2 == 0
+        return kernel_size < 1 or kernel_size % 2 == 0
     def __call__(self, img, parameters):
         try:
             kernel_size = parameters[0]
