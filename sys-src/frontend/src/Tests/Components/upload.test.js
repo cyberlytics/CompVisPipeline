@@ -35,10 +35,9 @@ describe("upload.js tests", () => {
 
     const mockHandleUpload = jest.fn();
     const mockSetOriginalImageID = jest.fn();
+    const mockSerCurrentImageID = jest.fn();
 
-    const mockPushImageToS3 = jest.fn();
-
-    render(<Upload setOriginalImageID={mockSetOriginalImageID} />);
+    render(<Upload setOriginalImageID={mockSetOriginalImageID} setCurrentImageID={mockSerCurrentImageID}/>);
     const file = new File(["test data body"], "test.jpg", {type: "image/jpeg"});
 
     const inputElement = screen.getByLabelText(/Upload Image/i);
@@ -55,10 +54,9 @@ describe("upload.js tests", () => {
 
     const mockHandleUpload = jest.fn();
     const mockSetOriginalImageID = jest.fn();
+    const mockSerCurrentImageID = jest.fn();
 
-    const mockPushImageToS3 = jest.fn();
-
-    render(<Upload setOriginalImageID={mockSetOriginalImageID} />);
+    render(<Upload setOriginalImageID={mockSetOriginalImageID} setCurrentImageID={mockSerCurrentImageID}/>);
     const file = new File(["test data body"], "test.jpg", {type: "image/jpeg"});
 
     const inputElement = screen.getByLabelText(/Upload Image/i);
@@ -71,8 +69,9 @@ describe("upload.js tests", () => {
   test("handler function is called - defaultImage", async () => {
     const mockHandleDefaultUpload = jest.fn();
     const mockSetOriginalImageID = jest.fn();
+    const mockSerCurrentImageID = jest.fn();
 
-    render(<Upload setOriginalImageID={mockSetOriginalImageID} />);
+    render(<Upload setOriginalImageID={mockSetOriginalImageID} setCurrentImageID={mockSerCurrentImageID}/>);
     
     const defaultImageButton = screen.getByText(/Default Image/i);
     defaultImageButton.addEventListener("click", mockHandleDefaultUpload);

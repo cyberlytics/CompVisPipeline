@@ -32,8 +32,7 @@ function App() {
   const appliedTheme = createTheme(theme ? lightTheme : darkTheme)
 
   const [originalImageID, setOriginalImageID] = useState(null);
-  // for Image showing in ImageView
-  const [currentImageID, setCurrentImageId] = useState(null);
+  const [currentImageID, setCurrentImageID] = useState(null);
 
   return (
     <ThemeProvider theme={appliedTheme}>
@@ -48,10 +47,10 @@ function App() {
           <Grid item md={4} style={{ paddingRight: 10 }}>
             <Grid container direction="column">
               <Grid item xs style={{ paddingBottom: 10 }}>
-                <Upload setOriginalImageID={setOriginalImageID} setCurrentImageId={setCurrentImageId}/>
+                <Upload setOriginalImageID={setOriginalImageID} setCurrentImageID={setCurrentImageID}/>
               </Grid>
               <Grid item xs style={{ paddingBottom: 10 }}>
-                <ImageView />
+                <ImageView currentImageID={currentImageID}/>
               </Grid>
               <Grid item xs >
                 <ImageDetails />
