@@ -6,7 +6,7 @@ import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternate
 import { v4 as uuidv4 } from 'uuid';
 import S3Manager from './Connections/awsS3';
 
-export default function Upload({setOriginalImageID}) {
+export default function Upload({setOriginalImageID, setCurrentImageId}) {
     const handleUpload = (event) => {
         const imageFile = event.target.files[0];
 
@@ -19,6 +19,7 @@ export default function Upload({setOriginalImageID}) {
             .then((result) => {
                 console.log("Upload successful");
                 setOriginalImageID(imageKey);
+                setCurrentImageId(imageKey);
             })
             .catch( (error) => {
                 // error handling
@@ -29,7 +30,9 @@ export default function Upload({setOriginalImageID}) {
 
     const handleDefaultUpload = () => {
         setOriginalImageID("defaultImage.jpg");
+        setCurrentImageId("defaultImage.jpg");
     };
+
     return (
         <Card style={{ height: "90px" }} data-testid='upload-card'>
           <CardContent style={{ height: "100%" }}>
