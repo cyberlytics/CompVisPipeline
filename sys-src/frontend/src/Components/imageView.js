@@ -9,6 +9,10 @@ export default function ImageView() {
         <Card style={{ height: 445 }}>
             <CardContent>
                 <Typography sx={{ width: '100%' }} align="center" variant="h5" component="div">Image</Typography>
+                <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+                    Test
+                </Box>
+                
             </CardContent>
         </Card>
     );
