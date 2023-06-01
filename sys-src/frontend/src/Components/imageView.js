@@ -1,18 +1,15 @@
-import React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
+import React, { useState } from 'react';
+import { Card, CardContent, Box } from '@mui/material';
 
-export default function ImageView() {
+export default function ImageView({ currentImageID }) {
+    console.log("ImageView: " + currentImageID);
 
     return (
-        <Card style={{ height: 445 }}>
-            <CardContent>
-                <Typography sx={{ width: '100%' }} align="center" variant="h5" component="div">Image</Typography>
+        <Card style={{ height: "445px" }}>
+            <CardContent style={{ height: "100%" }}>
                 <Box display="flex" justifyContent="center" alignItems="center" height="100%">
                     Test
                 </Box>
-                
             </CardContent>
         </Card>
     );
