@@ -16,6 +16,7 @@ class AWSError(Exception):
 
 # ====================================================================================================
 # Get AWS S3 connection
+# TODO: ERROR-hanlding
 class S3Manager:
     def __init__(self):
         self.acessKeyId = os.environ["AWS_ACCESS_KEY_ID"]

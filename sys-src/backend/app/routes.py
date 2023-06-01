@@ -2,6 +2,7 @@ from flask import Flask, request
 from flask_cors import CORS
 from pydantic import ValidationError
 
+from app.metadata import Metadata, MetadataError
 from app.Models.startPipelineModels import PipelineStep
 from app.Pipeline.pipeline import FUNCTION_LIST, Pipeline, PipelineError
 
@@ -44,6 +45,26 @@ def getAvailableSteps():
         description["id"] = id
         result.append(description)
     return result
+
+
+@app.route("/image-metadata/<imageId>", methods=["GET"])
+def sendMetadata(imageId):
+    metadata = Metadata(imageId)
+    try:
+        result = metadata.getMetadata()
+    except MetadataError as e:
+        return app.response_class(
+            response=f"Failed to get metadata: {e.message}",
+            status=400,
+            content_type="application/json",
+        )
+    return {
+        "histId": result[0],
+        "height": result[1],
+        "width": result[2],
+        "channels": result[3],
+            }
+
 
 
 if __name__ == "__main__":
