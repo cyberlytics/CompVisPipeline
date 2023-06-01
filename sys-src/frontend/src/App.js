@@ -48,7 +48,7 @@ function App() {
           <Grid item md={4} style={{ paddingRight: 10 }}>
             <Grid container direction="column">
               <Grid item xs style={{ paddingBottom: 10 }}>
-                <Upload setOriginalImageID={setOriginalImageID}/>
+                <Upload setOriginalImageID={setOriginalImageID} setCurrentImageId={setCurrentImageId}/>
               </Grid>
               <Grid item xs style={{ paddingBottom: 10 }}>
                 <ImageView />
