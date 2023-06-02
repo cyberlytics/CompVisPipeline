@@ -10,10 +10,19 @@ export default function Upload({setOriginalImageID, setCurrentImageID}) {
     const handleUpload = (event) => {
         const imageFile = event.target.files[0];
 
+        let fileExtension;
+        let contentType;
+
         // get file extension from imageFile
-        const fileName = imageFile.name;
-        const fileExtension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
-        const contentType = imageFile.type;
+        if (imageFile && imageFile.name) {
+            const fileName = imageFile.name;
+            fileExtension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
+            contentType = imageFile.type;
+        } else {
+            // default values if no extension can read from file (normally just for testing purposes)
+            fileExtension = ".jpg";
+            contentType = "image/jpeg";
+        }
 
         const s3Manager = new S3Manager();
         const imageKey = uuidv4() + fileExtension;

@@ -38,7 +38,7 @@ describe("upload.js tests", () => {
     const mockSerCurrentImageID = jest.fn();
 
     render(<Upload setOriginalImageID={mockSetOriginalImageID} setCurrentImageID={mockSerCurrentImageID}/>);
-    const file = new File(["test data body"], "test.jpg", {type: "image/jpeg"});
+    const file = new File(["test data body"], "test.jpg", {name: "test.jpg", type: "image/jpeg"});
 
     const inputElement = screen.getByLabelText(/Upload Image/i);
     inputElement.addEventListener("change", mockHandleUpload);
