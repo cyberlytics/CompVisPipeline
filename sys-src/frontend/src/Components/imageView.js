@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardContent, Box } from '@mui/material';
+import { Card, CardContent, Box, Typography } from '@mui/material';
 
 import S3Manager from './Connections/awsS3';
 
@@ -28,10 +28,11 @@ export default function ImageView({ currentImageID }) {
     }
 
     return (
-        <Card style={{ height: "445px" }} data-testid='imageview-card' >
+        <Card style={{ height: "485px", overflow: "hidden"}} data-testid='imageview-card' >
             <CardContent style={{ height: "100%" }}>
-                <Box display="flex" justifyContent="center" alignItems="center" height="100%">
-                    {imageKey && <img src={imageURL} />}
+                <Typography sx={{ width: "100%"}} align="center" variant="h5" component="div">Selected Image</Typography>
+                <Box style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%"}}>
+                    {imageKey && <img src={imageURL} alt="" style={{ maxWidth: "100%", maxHeight: "100%" }}/>}
                 </Box>
             </CardContent>
         </Card>

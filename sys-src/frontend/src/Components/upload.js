@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card, CardContent, Box, Button } from '@mui/material';
+import { Card, Box, Button } from '@mui/material';
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 
 import { v4 as uuidv4 } from 'uuid';
@@ -34,7 +34,7 @@ export default function Upload({setOriginalImageID, setCurrentImageID}) {
             <Box display="flex" justifyContent="center" alignItems="center" height="100%">
                 <div style={{ marginRight: "40px"}}>
                     <label htmlFor="upload-image">
-                        <input id="upload-image" type="file" accept=".jpg" onChange={handleUpload} style={{ display: "none" }}/> 
+                        <input id="upload-image" type="file" accept=".jpg, .jpeg" onChange={handleUpload} style={{ display: "none" }}/> 
                         <Button size="small" variant="contained" style={{backgroundColor: "#d22819", width: "160px"}} component="span" startIcon={ <AddPhotoAlternateOutlinedIcon /> }>
                             Upload Image
                         </Button>
