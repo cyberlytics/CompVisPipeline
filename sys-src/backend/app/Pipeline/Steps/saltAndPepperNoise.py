@@ -36,9 +36,13 @@ class SaltAndPepperNoise(BaseStep):
             "params": [
                 {"title": "Salt VS Pepper",
                  "info": "Ratio between 'Salt' and 'Pepper' pixels. Number between 0 and 1, where 1 means only 'Salt' and 0 means only 'Pepper'.",
-                 "defaultValue": 0.5},
+                 "defaultValue": 0.5,
+                 "value": 0.5
+                 },
                  {"title": "Noise Strength",
                   "info": "Amount of noise to be added to the image. Must be a positive number.",
-                  "defaultValue": 0.05},
+                  "defaultValue": 0.05,
+                  "value": 0.05
+                  },
             ],
         }

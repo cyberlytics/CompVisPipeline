@@ -15,12 +15,14 @@ class GammaTransform(BaseStep):
                 {
                     "title": "Gamma",
                     "info": "Gamma-Value used for transformation. Must be positive number.",
-                    "defaultValue": 1
+                    "defaultValue": 1,
+                    "value": 1
                 },
                 {
                     "title": "Gain",
                     "info": "Constant which determines strength of transformation.",
-                    "defaultValue": 1
+                    "defaultValue": 1,
+                    "value": 1
                 },
             ],
         }

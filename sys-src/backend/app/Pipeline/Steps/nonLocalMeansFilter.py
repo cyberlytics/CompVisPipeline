@@ -15,17 +15,20 @@ class NonLocalMeansFilter(BaseStep):
                 {
                     "title": "Filter Strength",
                     "info": "Strength of filter used inside the window. Large value perfectly removes noise but also removes details.",
-                    "defaultValue": 3
+                    "defaultValue": 3,
+                    "value": 3
                 },
                 {
                     "title": "Template Window Size",
                     "info": "Size of template window used to compute weights. Should be an odd number.",
-                    "defaultValue": 7
+                    "defaultValue": 7,
+                    "value": 7
                 },
                 {
                     "title": "Search Window Size",
                     "info": "Size of window used to compute weighted average for given pixel. Should be an odd number.",
-                    "defaultValue": 21
+                    "defaultValue": 21,
+                    "value": 21
                 },
             ],
         }

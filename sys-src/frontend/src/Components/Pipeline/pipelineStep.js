@@ -15,7 +15,7 @@ import InformationPopup from '../../ModalWindow/InformationPopup.js';
 import Parameter from './parameter.js';
 
 export default function PipelineStep(props) {
-    const { deleteStep, index, title, params, info, id, moveStep, uuid } = props;
+    const { stepIndex, deleteStep, title, params, info, id, moveStep, uuid } = props;
     const [isExpanded, setIsExpandend] = useState(false)
     const [informationPopupIsOpen, setInformationPopupIsOpen] = useState(false);
     const ref = useRef(null)
@@ -32,7 +32,7 @@ export default function PipelineStep(props) {
                 return
             }
             const dragIndex = item.index
-            const hoverIndex = index
+            const hoverIndex = stepIndex
             // Don't replace items with themselves
             if (dragIndex === hoverIndex) {
                 return
@@ -63,7 +63,7 @@ export default function PipelineStep(props) {
     const [{ isDragging }, drag] = useDrag({
         type: 'PipelineStep',
         item: () => {
-            return { id, index }
+            return { id, stepIndex }
         },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
@@ -100,13 +100,17 @@ export default function PipelineStep(props) {
         deleteStep(uuid)
     };
 
+    function setValue(index, newValue) {
+        params[index].value = newValue;
+    }
+
     //returns a single step with containing parameters
     return (
         <Box className={'single-step'} ref={ref} style={{ opacity }} sx={{ bgcolor: 'background.default' }}>
             <ListItem>
                 {params.length !== 0 &&
                     <ListItemIcon onClick={handleExpandClick}>
-                        {isExpanded ? <ExpandLessIcon/> : <ExpandMoreIcon />}
+                        {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                     </ListItemIcon>
                 }
                 <ListItemText primary={title} />
@@ -119,7 +123,7 @@ export default function PipelineStep(props) {
                     <List component="div" disablePadding>
                         {params.map((param, index) => {
                             return (
-                                <Parameter key={index} sx={{ pl: 4 }} parameterName={param.title} defaultValue={param.defaultValue} info={param.info} />
+                                <Parameter key={index} index={index} sx={{ pl: 4 }} parameterName={param.title} defaultValue={param.defaultValue} value={param.value} setValue={setValue} info={param.info} />
                             );
                         })}
                     </List>

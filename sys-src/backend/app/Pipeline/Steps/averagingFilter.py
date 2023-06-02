@@ -26,12 +26,14 @@ class AveragingFilter(BaseStep):
                 {
                     "title": "Kernel Width",
                     "info": "Width of kernel used for averaging. Must be bigger than 0",
-                    "defaultValue": 3
+                    "defaultValue": 3,
+                    "value": 3
                 },
                 {
                     "title": "Kernel Height",
                     "info": "Height of kernel used for averaging. Must be bigger than 0",
-                    "defaultValue": 3
+                    "defaultValue": 3,
+                    "value": 3
                 },
             ],
         }

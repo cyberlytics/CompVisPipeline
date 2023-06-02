@@ -15,17 +15,20 @@ class HoughLines(BaseStep):
                 {
                     "title": "Rho",
                     "info": "Distance resolution of the accumulator in pixels.",
-                    "defaultValue": 1
+                    "defaultValue": 1,
+                    "value": 1
                 },
                 {
                     "title": "Theta",
                     "info": "Angle resolution of the accumulator in radians.",
-                    "defaultValue": 1
+                    "defaultValue": 1,
+                    "value": 1
                 },
                 {
                     "title": "Threshold",
                     "info": "Threshold value for lines.",
-                    "defaultValue": 100
+                    "defaultValue": 100,
+                    "value": 100
                 },
             ],
         }

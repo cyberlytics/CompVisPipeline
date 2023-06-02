@@ -15,17 +15,20 @@ class CLAHE(BaseStep):
                 {
                     "title": "Clip Limit",
                     "info": "Threshold for contrast limiting.",
-                    "defaultValue": 40
+                    "defaultValue": 40,
+                    "value": 40
                 },
                 {
                     "title": "Grid Width",
                     "info": "Grid width for histogram equalization. Must be bigger than 0.",
-                    "defaultValue": 8
+                    "defaultValue": 8,
+                    "value": 8
                 },
                 {
                     "title": "Grid Height",
                     "info": "Grid height for histogram equalization. Must be bigger than 0.",
-                    "defaultValue": 8
+                    "defaultValue": 8,
+                    "value": 8
                 },
             ],
         }

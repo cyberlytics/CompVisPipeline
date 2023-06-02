@@ -15,7 +15,8 @@ class Rotate(BaseStep):
                 {
                     "title":"Rotation",
                     "info": "Amount to rotate the image by. 0 means 90, 1 means 180 and 2 means 270 degrees clockwise.",
-                    "defaultValue": 0
+                    "defaultValue": 0,
+                    "value": 0
                 }
             ],
         }

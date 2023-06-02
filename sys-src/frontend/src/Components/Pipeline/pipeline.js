@@ -72,7 +72,7 @@ export default function Pipeline() {
             <PipelineStep
                 key={step.uuid}
                 deleteStep={deleteStep}
-                index={index}
+                stepIndex={index}
                 title={step.title}
                 params={step.params}
                 info={step.info}

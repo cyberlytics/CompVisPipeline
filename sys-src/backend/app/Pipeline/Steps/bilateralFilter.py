@@ -23,17 +23,21 @@ class BilateralFilter(BaseStep):
             "params": [
                 {
                     "title": "Neighborhood Diameter", 
-                    "info": "Diameter of each pixel neighborhood used during filtering. Must be greater than 0", "defaultValue": 3
+                    "info": "Diameter of each pixel neighborhood used during filtering. Must be greater than 0", 
+                    "defaultValue": 3,
+                    "value": 3
                 },
                 {
                     "title": "Sigma Color", 
                     "info": "Filter sigma in the color space. Large value means farther colors of neigborhood will be mixed together.", 
-                    "defaultValue": 0.01
+                    "defaultValue": 0.01,
+                    "value": 0.01
                 },
                 {
                     "title": "Sigma Space", 
                     "info": "Filter sigma in the coordinate space. Large value means farther pixels will influence each other.", 
-                    "defaultValue": 0.01
+                    "defaultValue": 0.01,
+                    "value": 0.01
                 },
             ],
         }

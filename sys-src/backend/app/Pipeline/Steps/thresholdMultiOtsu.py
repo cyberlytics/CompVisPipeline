@@ -15,7 +15,8 @@ class ThresholdMultiOtsu(BaseStep):
                 {
                     "title": "Regions",
                     "info": "Number of regions into which the image should be segmented. Must be bigger than 1",
-                    "defaultValue": 2
+                    "defaultValue": 2,
+                    "value": 2
                 }
             ],
         }
