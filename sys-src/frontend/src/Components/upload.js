@@ -13,7 +13,9 @@ export default function Upload({setOriginalImageID, setCurrentImageID}) {
         // get file extension from imageFile
         const fileName = imageFile.name;
         const fileExtension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
+        const contentType = imageFile.type;
         console.log(fileExtension)
+        console.log(contentType)
 
         const s3Manager = new S3Manager();
         const imageKey = uuidv4() + fileExtension;
