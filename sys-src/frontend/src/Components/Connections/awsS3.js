@@ -179,13 +179,13 @@ class S3Manager {
      * @param {*} imageKey        ->   name/path of the image to upload
      * @return {Promise}          ->   Promise of the upload action
     */
-    async pushImageToS3(image, imageKey) {
+    async pushImageToS3(image, imageKey, type="image/jpeg") {
         // define params 
         const params = {
             Bucket: this.bucketName,
             Key: imageKey,
             Body: image,
-            ContentType: "image/jpeg"
+            ContentType: type
         };
   
         // upload image to S3
