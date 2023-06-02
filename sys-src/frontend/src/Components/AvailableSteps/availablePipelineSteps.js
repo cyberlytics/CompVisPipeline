@@ -6,15 +6,11 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import AvailableStep from './availableStep';
 import Controller from '../../controller';
-import LocalAvailablePipelineSteps from './localAvailablePipelineSteps.json';
 import SearchBar from './searchBar';
 
 export default function AvailablePipelineSteps() {
     const [availablePipelineSteps, setAvailablePipelineSteps] = useState([])
     const [searchQuery, setSearchQuery] = useState("");
-
-    //use this variable to map with local defined steps
-    const localAvailablePipelineSteps = LocalAvailablePipelineSteps
 
     //get pipelinesteps from backend
     Controller.getPipelineStepsFromBackend(setAvailablePipelineSteps);
