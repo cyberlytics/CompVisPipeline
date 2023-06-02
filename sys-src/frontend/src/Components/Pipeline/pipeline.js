@@ -24,6 +24,7 @@ export default function Pipeline() {
                 const newItem = {
                     ...item,
                     uuid: uuidv4(), //unique uuid for each item in list
+                    params: JSON.parse(JSON.stringify(item.params))
                 };
                 setSteps((prevSteps) => [...prevSteps, newItem]);
             }
