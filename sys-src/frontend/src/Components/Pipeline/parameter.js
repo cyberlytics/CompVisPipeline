@@ -16,7 +16,7 @@ export default function Parameter(props) {
 
     const initalizeParameterType = () => {
         if (typeof defaultValue === 'number') return ParameterType.Number
-        else if (defaultValue === 'true' || defaultValue === 'false') return ParameterType.Boolean
+        else if (defaultValue === false || defaultValue === true) return ParameterType.Boolean
         else return ParameterType.Text
     }
 
