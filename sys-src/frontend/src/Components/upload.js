@@ -10,8 +10,13 @@ export default function Upload({setOriginalImageID, setCurrentImageID}) {
     const handleUpload = (event) => {
         const imageFile = event.target.files[0];
 
+        // get file extension from imageFile
+        const fileName = imageFile.name;
+        const fileExtension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
+        console.log(fileExtension)
+
         const s3Manager = new S3Manager();
-        const imageKey = uuidv4() + '.jpg';
+        const imageKey = uuidv4() + fileExtension;
 
         s3Manager.pushImageToS3(imageFile, imageKey)
             .then((result) => {
@@ -34,7 +39,7 @@ export default function Upload({setOriginalImageID, setCurrentImageID}) {
             <Box display="flex" justifyContent="center" alignItems="center" height="100%">
                 <div style={{ marginRight: "40px"}}>
                     <label htmlFor="upload-image">
-                        <input id="upload-image" type="file" accept=".jpg, .jpeg" onChange={handleUpload} style={{ display: "none" }}/> 
+                        <input id="upload-image" type="file" accept=".jpg, .jpeg, .png" onChange={handleUpload} style={{ display: "none" }}/> 
                         <Button size="small" variant="contained" style={{backgroundColor: "#d22819", width: "160px"}} component="span" startIcon={ <AddPhotoAlternateOutlinedIcon /> }>
                             Upload Image
                         </Button>
