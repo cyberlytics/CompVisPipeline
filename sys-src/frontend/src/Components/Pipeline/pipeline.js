@@ -72,8 +72,6 @@ export default function Pipeline() {
             <PipelineStep
                 key={step.uuid}
                 deleteStep={deleteStep}
-                expandIconActive={step.expandIconActive}
-                deleteButtonActive={step.deleteButtonActive}
                 index={index}
                 title={step.title}
                 params={step.params}
