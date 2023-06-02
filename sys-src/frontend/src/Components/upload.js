@@ -30,24 +30,22 @@ export default function Upload({setOriginalImageID, setCurrentImageID}) {
     };
 
     return (
-        <Card style={{ height: "90px" }} data-testid='upload-card'>
-          <CardContent style={{ height: "100%" }}>
+        <Card style={{ height: "50px" }} data-testid='upload-card'>
             <Box display="flex" justifyContent="center" alignItems="center" height="100%">
                 <div style={{ marginRight: "40px"}}>
                     <label htmlFor="upload-image">
                         <input id="upload-image" type="file" accept=".jpg" onChange={handleUpload} style={{ display: "none" }}/> 
-                        <Button size="medium" variant="contained" style={{backgroundColor: "#d22819"}} component="span" startIcon={ <AddPhotoAlternateOutlinedIcon /> }>
+                        <Button size="small" variant="contained" style={{backgroundColor: "#d22819", width: "160px"}} component="span" startIcon={ <AddPhotoAlternateOutlinedIcon /> }>
                             Upload Image
                         </Button>
                     </label>
                 </div>
                 <label htmlFor="upload-default-image"> 
-                    <Button size="medium" variant="contained" style={{backgroundColor: "#d22819"}} onClick={handleDefaultUpload} startIcon={<AddPhotoAlternateOutlinedIcon /> }>
+                    <Button size="small" variant="contained" style={{backgroundColor: "#d22819", width: "160px"}} onClick={handleDefaultUpload} startIcon={<AddPhotoAlternateOutlinedIcon /> }>
                         Default Image
                     </Button>
                 </label>
             </Box>
-          </CardContent>
         </Card>
       );
 }
