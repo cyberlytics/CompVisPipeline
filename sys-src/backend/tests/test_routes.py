@@ -24,8 +24,14 @@ def test_startPipeline_route(client, create_rgb_image):
         json=[],
     )
     assert len(response.json) == 1
+    assert "imageId" in response.json[0]
+    assert "histId" in response.json[0]
+    assert "height" in response.json[0]
+    assert "width" in response.json[0]
+    assert "channels" in response.json[0]
     s3Manager.deleteImageFromS3("123")
-    s3Manager.deleteImageFromS3(response.json[0])
+    s3Manager.deleteImageFromS3(response.json[0]["imageId"])
+    s3Manager.deleteImageFromS3(response.json[0]["histId"])
 
 
 def test_availableSteps_route(client):
@@ -54,10 +60,9 @@ def test_imageMetadata_route(client, prepared_bgr_img):
     s3Manager.deleteImageFromS3("123")
     s3Manager.deleteImageFromS3(response.json["histId"])
 
-@pytest.mark.xfail(reason="TODO: ERROR-hanlding aws controller")
 @pytest.mark.aws
 def test_imageMetadata_route(client):
     response = client.get(
         "/image-metadata/this_is_an_invalid_image_id"
     )
-    assert response.status == 400
+    assert response.status_code == 400
