@@ -18,7 +18,7 @@ export default function ImageView({ currentImageID }) {
         s3Manager.getImageFromS3(currentImageID)
             .then( (res) => {
                 // success handling
-                setImageURL(URL.createObjectURL(new Blob([res.Body], {type: "image/jpg"})));
+                setImageURL(URL.createObjectURL(new Blob([res.Body], {type: res.ContentType})));
             })
             .catch( (err) => {
                 // error handling
@@ -28,8 +28,8 @@ export default function ImageView({ currentImageID }) {
     }
 
     return (
-        <Card style={{ height: "485px", overflow: "hidden"}} data-testid='imageview-card' >
-            <CardContent style={{ height: "100%" }}>
+        <Card style={{ height: "485px"}} data-testid='imageview-card' >
+            <CardContent style={{ height: "470px" }}>
                 <Typography sx={{ width: "100%"}} align="center" variant="h5" component="div">Selected Image</Typography>
                 <Box style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%"}}>
                     {imageKey && <img src={imageURL} alt="" style={{ maxWidth: "100%", maxHeight: "100%" }}/>}

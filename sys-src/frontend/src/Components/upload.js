@@ -14,13 +14,11 @@ export default function Upload({setOriginalImageID, setCurrentImageID}) {
         const fileName = imageFile.name;
         const fileExtension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
         const contentType = imageFile.type;
-        console.log(fileExtension)
-        console.log(contentType)
 
         const s3Manager = new S3Manager();
         const imageKey = uuidv4() + fileExtension;
 
-        s3Manager.pushImageToS3(imageFile, imageKey)
+        s3Manager.pushImageToS3(imageFile, imageKey, contentType)
             .then((result) => {
                 setOriginalImageID(imageKey);
                 setCurrentImageID(imageKey);
@@ -30,7 +28,7 @@ export default function Upload({setOriginalImageID, setCurrentImageID}) {
                 // console.log(error);
             });
     };
-
+    
     const handleDefaultUpload = () => {
         setOriginalImageID("defaultImage.jpg");
         setCurrentImageID("defaultImage.jpg");
@@ -39,16 +37,16 @@ export default function Upload({setOriginalImageID, setCurrentImageID}) {
     return (
         <Card style={{ height: "50px" }} data-testid='upload-card'>
             <Box display="flex" justifyContent="center" alignItems="center" height="100%">
-                <div style={{ marginRight: "40px"}}>
+                <div style={{ marginRight: "30px"}}>
                     <label htmlFor="upload-image">
                         <input id="upload-image" type="file" accept=".jpg, .jpeg, .png" onChange={handleUpload} style={{ display: "none" }}/> 
-                        <Button size="small" variant="contained" style={{backgroundColor: "#d22819", width: "160px"}} component="span" startIcon={ <AddPhotoAlternateOutlinedIcon /> }>
+                        <Button size="small" variant="contained" style={{backgroundColor: "#d22819", width: "155px"}} component="span" startIcon={ <AddPhotoAlternateOutlinedIcon /> }>
                             Upload Image
                         </Button>
                     </label>
                 </div>
                 <label htmlFor="upload-default-image"> 
-                    <Button size="small" variant="contained" style={{backgroundColor: "#d22819", width: "160px"}} onClick={handleDefaultUpload} startIcon={<AddPhotoAlternateOutlinedIcon /> }>
+                    <Button size="small" variant="contained" style={{backgroundColor: "#d22819", width: "155px"}} onClick={handleDefaultUpload} startIcon={<AddPhotoAlternateOutlinedIcon /> }>
                         Default Image
                     </Button>
                 </label>
