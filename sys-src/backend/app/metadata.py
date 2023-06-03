@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 from uuid import uuid4
 from matplotlib import pyplot as plt
-from app.connections.aws_s3 import S3Manager
+from app.connections.aws_s3 import AWSError, S3Manager
 
 
 class MetadataError(Exception):
@@ -12,16 +12,10 @@ class MetadataError(Exception):
 
 
 class Metadata:
-    def __init__(self, imageId, s3Manager=None):
-        self.imageId = imageId
+    def __init__(self, s3Manager=None):
         self.s3Manager = s3Manager or S3Manager()
 
-    def getMetadata(self):
-
-        response_metadata, image = self.s3Manager.getImageFromS3(self.imageId)
-        if response_metadata["HTTPStatusCode"] != 200:
-            raise MetadataError(message="failed to load image from s3 bucket")
-        
+    def getMetadata(self, image):      
         if len(image.shape) == 2:
             height, width= image.shape 
             channels = 1
@@ -57,9 +51,7 @@ class Metadata:
         hist_bgr = cv2.cvtColor(hist_bgr, cv2.COLOR_RGB2BGR)
 
         histId = str(uuid4())
-        response_metadata = self.s3Manager.pushImageToS3(histId, hist_bgr)
-        if response_metadata["HTTPStatusCode"] != 200:
-            raise MetadataError(message="failed to save histogram to s3 bucket")
+        self.s3Manager.pushImageToS3(histId, hist_bgr)
 
         return (histId, height, width, channels)
     
