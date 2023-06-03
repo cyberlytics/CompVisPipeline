@@ -15,7 +15,7 @@ import InformationPopup from '../../ModalWindow/InformationPopup.js';
 import Parameter from './parameter.js';
 
 export default function PipelineStep(props) {
-    const { deleteStep, expandIconActive, deleteButtonActive, index, title, params, info, id, moveStep, uuid } = props;
+    const { stepIndex, deleteStep, title, params, info, id, moveStep, uuid } = props;
     const [isExpanded, setIsExpandend] = useState(false)
     const [informationPopupIsOpen, setInformationPopupIsOpen] = useState(false);
     const ref = useRef(null)
@@ -32,7 +32,7 @@ export default function PipelineStep(props) {
                 return
             }
             const dragIndex = item.index
-            const hoverIndex = index
+            const hoverIndex = stepIndex
             // Don't replace items with themselves
             if (dragIndex === hoverIndex) {
                 return
@@ -63,7 +63,7 @@ export default function PipelineStep(props) {
     const [{ isDragging }, drag] = useDrag({
         type: 'PipelineStep',
         item: () => {
-            return { id, index }
+            return { id, stepIndex }
         },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
@@ -71,7 +71,7 @@ export default function PipelineStep(props) {
     })
 
     // Opacity for current selected item
-    const opacity = isDragging ? 0.3 : 1 
+    const opacity = isDragging ? 0.3 : 1
 
     drag(drop(ref))
 
@@ -100,29 +100,35 @@ export default function PipelineStep(props) {
         deleteStep(uuid)
     };
 
+    function setValue(index, newValue) {
+        params[index].value = newValue;
+    }
+
     //returns a single step with containing parameters
     return (
         <Box className={'single-step'} ref={ref} style={{ opacity }} sx={{ bgcolor: 'background.default' }}>
             <ListItem>
-                {expandIconActive &&
-                    <ListItemIcon onClick={handleExpandClick} >
+                {params.length !== 0 &&
+                    <ListItemIcon onClick={handleExpandClick}>
                         {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                     </ListItemIcon>
                 }
                 <ListItemText primary={title} />
                 <InfoOutlinedIcon onClick={handleInfoClick} sx={{ mr: 1 }} />
                 <VisibilityOutlinedIcon onClick={handleShowResultClick} sx={{ mr: 1 }} />
-                {deleteButtonActive && <DeleteOutlineOutlinedIcon onClick={handleDeleteClick} />}
+                <DeleteOutlineOutlinedIcon onClick={handleDeleteClick} />
             </ListItem>
-            <Collapse in={isExpanded} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                    {params.map((param, index) => {
-                        return (
-                            <Parameter key={index} sx={{ pl: 4 }} parameterName={param.title} defaultValue={param.defaultValue} info={param.info} />
-                        );
-                    })}
-                </List>
-            </Collapse>
+            {params.length !== 0 &&
+                <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                        {params.map((param, index) => {
+                            return (
+                                <Parameter key={index} index={index} sx={{ pl: 4 }} parameterName={param.title} defaultValue={param.defaultValue} value={param.value} setValue={setValue} info={param.info} />
+                            );
+                        })}
+                    </List>
+                </Collapse>
+            }
             <InformationPopup open={informationPopupIsOpen} onClose={handleClosePopup} headerText={title} text={info} />
         </Box>
     );

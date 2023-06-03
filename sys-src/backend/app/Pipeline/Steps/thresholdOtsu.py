@@ -15,7 +15,8 @@ class ThresholdOtsu(BaseStep):
                 {
                     "title": "Invert Threshold",
                     "info": "Inverts the binary image that is created by thresholding.",
-                    "defaultValue": False
+                    "defaultValue": False,
+                    "value": False
                 },
             ],
         }

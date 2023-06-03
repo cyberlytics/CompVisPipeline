@@ -1,8 +1,11 @@
 import numpy as np
 import pytest
+import cv2
 from botocore.exceptions import ClientError
 
+
 from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
+from app.connections.aws_s3 import AWSError
 
 
 @pytest.fixture
@@ -18,6 +21,16 @@ def create_grayscale_image():
     grayimg *= 127  # gray image
     return grayimg
 
+@pytest.fixture
+def prepared_grey_scale_img():
+    img = cv2.imread('./tests/testimages/mountain.png')
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    return img
+
+@pytest.fixture
+def prepared_bgr_img():
+    img = cv2.imread('./tests/testimages/mountain.png')
+    return img
 
 @pytest.fixture
 def fakeS3Manager():
@@ -27,22 +40,18 @@ def fakeS3Manager():
 
         def getImageFromS3(self, objectKey):
             try:
-                return {"HTTPStatusCode": 200}, self.savedImages[objectKey]
+                return self.savedImages[objectKey]
             except KeyError:
-                return {"HTTPStatusCode": 400}, None
+                raise AWSError(message="failed to get Image from S3 bucket")
 
         def pushImageToS3(self, objectKey, img):
             self.savedImages[objectKey] = img
-            return {"HTTPStatusCode": 200}
 
         def deleteImageFromS3(self, objectKey):
             self.savedImages.pop(objectKey)
-            return {"HTTPStatusCode": 204}
 
         def deleteAllImagesFromS3(self):
-            response = [{"HTTPStatusCode": 204} for _ in self.savedImages.keys()]
             self.savedImages = {}
-            return response
 
     return FakeS3Manager()
 

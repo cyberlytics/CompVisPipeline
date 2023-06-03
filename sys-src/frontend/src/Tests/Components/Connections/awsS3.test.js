@@ -19,13 +19,13 @@ describe("s3Manager - connection", () => {
         expect(s3Manager.region).not.toBe("");
 
         // check if credentials are set to env
-        expect(s3Manager.accessKeyId).toBe(process.env.AWS_ACCESS_KEY_ID);
-        expect(s3Manager.secretAccessKey).toBe(process.env.AWS_SECRET_ACCESS_KEY);
-        expect(s3Manager.region).toBe(process.env.AWS_DEFAULT_REGION);
+        expect(s3Manager.accessKeyId).toBe("AKIAZUXPDVDVIX7TZC6V");
+        expect(s3Manager.secretAccessKey).toBe("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");
+        expect(s3Manager.region).toBe("eu-central-1");
     });
 
     // skip test because no access to S3 -> will be changed next week
-    test.skip("Check S3 Access is successfull", async () => {
+    test("Check S3 Access is successfull", async () => {
         let s3Manager = new S3Manager();
 
         const params = { Bucket: s3Manager.bucketName };
@@ -45,7 +45,7 @@ describe("s3Manager - connection", () => {
     });
 
     // skip test because no access to S3 -> will be changed next week
-    test.skip("Check S3 Access to other buckets then 'team-rot-fatcat-data' is denied", async () => {
+    test("Check S3 Access to other buckets then 'team-rot-fatcat-data' is denied", async () => {
         let s3Manager = new S3Manager();
         
         // get list with all available buckets
@@ -127,7 +127,9 @@ describe("s3Manager - delete Functions", () => {
             // check if promise is resolved
             .then((result) => {
                 expect(result).toEqual(["test_key1.jpg", "test_key2.jpg", "test_key3.jpg"]);
+                expect(s3Manager.deleteAllImagesFromS3).toHaveBeenCalledTimes(1);
             });
+        
     });
 });
 

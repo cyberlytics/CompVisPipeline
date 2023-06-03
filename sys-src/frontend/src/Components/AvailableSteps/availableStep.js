@@ -13,7 +13,7 @@ export default function AvailableStep(props) {
     //function for move and copy to pipeline
     const [{ isDragging }, drag] = useDrag(() => ({
         type: 'AvailableStep',
-        item: { deleteButtonActive: true, expandIconActive: true, title: title, params: params, info: info, id:id },
+        item: { title: title, params: params, info: info, id:id },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
             handlerId: monitor.getHandlerId(),

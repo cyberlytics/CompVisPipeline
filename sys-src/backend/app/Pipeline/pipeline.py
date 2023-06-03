@@ -37,7 +37,7 @@ from app.Pipeline.Steps.saltAndPepperNoise import SaltAndPepperNoise
 from app.Pipeline.Steps.rotate import Rotate
 from app.Pipeline.Steps.houghLines import HoughLines
 
-from app.connections.aws_s3 import S3Manager
+from app.connections.aws_s3 import AWSError, S3Manager
 
 FUNCTION_LIST = [
     BilateralFilter(),
@@ -92,8 +92,9 @@ class Pipeline:
         self.functionList = functionList
 
     def start(self):
-        metaData, lastImage = self.s3Manager.getImageFromS3(self.image)
-        if metaData["HTTPStatusCode"] != 200:
+        try:
+            lastImage = self.s3Manager.getImageFromS3(self.image)
+        except AWSError as e:
             raise PipelineError(message="failed to load image from s3 bucket")
         allResults = [self.image]
         for step in self.steps:
@@ -102,8 +103,9 @@ class Pipeline:
             except ImageProcessingError as e:
                 raise PipelineError(message=e.message)
             id = str(uuid4())
-            metaData = self.s3Manager.pushImageToS3(id, lastImage)
-            if metaData["HTTPStatusCode"] != 200:
+            try:
+                self.s3Manager.pushImageToS3(id, lastImage)
+            except AWSError:
                 raise PipelineError(message="failed to save image to s3 bucket")
             allResults.append(id)
         return allResults

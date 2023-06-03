@@ -15,7 +15,8 @@ class ConvertColor(BaseStep):
                 {
                     "title": "Color Space",
                     "info": "Colorspace to convert into. Possible values are: 'gray', 'rgb', 'hsv' and 'bgr'.",
-                    "defaultValue": "gray"
+                    "defaultValue": "gray",
+                    "value": "gray"
                 },
             ],
         }

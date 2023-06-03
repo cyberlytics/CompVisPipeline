@@ -7,6 +7,14 @@ class ImageProcessingError(Exception):
     def __init__(self, message):
         self.message = message
 
+class WrongParameterError(Exception):
+    """
+    This Exception is raised when the user typed in wrong Parameters
+    """
+
+    def __init__(self, message):
+        self.message = message
+
 
 class BaseStep:
     """
@@ -37,17 +45,20 @@ class BaseStep:
                 {
                     "title": "parameter 1",
                     "info": "param info",
-                    "defaultValue": 3
+                    "defaultValue": 3,
+                    "value": 3
                 },
                 {
                     "title": "parameter 2",
                     "info": "param info",
-                    "defaultValue": 0.01
+                    "defaultValue": 0.01,
+                    "value": 0.01
                 },
                 {
                     "title": "parameter 3",
                     "info": "param info",
-                    "defaultValue": "red"
+                    "defaultValue": "red",
+                    "value": "red"
                 }
             ]
         }
