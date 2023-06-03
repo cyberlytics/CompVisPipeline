@@ -22,22 +22,26 @@ class GaussianBlur(BaseStep):
                 {
                     "title":"Kernel Width",
                     "info":"Width of kernel used for gaussian blur. Must be bigger than 0",
-                    "defaultValue":3
+                    "defaultValue":3,
+                    "value":3
                 },
                 {
                     "title":"Kernel Height",
                     "info":"Height of kernel used for gaussian blur. Must be bigger than 0",
-                    "defaultValue":3
+                    "defaultValue":3,
+                    "value":3
                 },
                 {
                     "title": "Sigma X", 
                     "info": "Standard deviation of gaussian kernel in X direction", 
-                    "defaultValue": 0
+                    "defaultValue": 0,
+                    "value": 0
                 },
                 {
                     "title": "Sigma Y", 
                     "info": "Standard deviation of gaussian kernel in Y direction", 
-                    "defaultValue": 0
+                    "defaultValue": 0,
+                    "value": 0
                 },
             ],
         }

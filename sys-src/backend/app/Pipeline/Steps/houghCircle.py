@@ -15,17 +15,20 @@ class HoughCircle(BaseStep):
                 {
                     "title": "Minimum Distance",
                     "info": "Minimum distance between the centers of the detected circles.",
-                    "defaultValue": 20
+                    "defaultValue": 20,
+                    "value": 20
                 },
                 {
                     "title": "First method-specific Parameter",
                     "info": "Threshold value for the canny edge detector.",
-                    "defaultValue": 10
+                    "defaultValue": 10,
+                    "value": 10
                 },
                 {
                     "title": "Second method-specific Parameter",
                     "info": "Accumulator threshold for the circle centers at the detection stage.",
-                    "defaultValue": 20
+                    "defaultValue": 20,
+                    "value": 20
                 },
             ]
         }

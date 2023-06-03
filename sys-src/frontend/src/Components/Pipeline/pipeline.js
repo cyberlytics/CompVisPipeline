@@ -24,6 +24,7 @@ export default function Pipeline() {
                 const newItem = {
                     ...item,
                     uuid: uuidv4(), //unique uuid for each item in list
+                    params: JSON.parse(JSON.stringify(item.params))
                 };
                 setSteps((prevSteps) => [...prevSteps, newItem]);
             }
@@ -72,9 +73,7 @@ export default function Pipeline() {
             <PipelineStep
                 key={step.uuid}
                 deleteStep={deleteStep}
-                expandIconActive={step.expandIconActive}
-                deleteButtonActive={step.deleteButtonActive}
-                index={index}
+                stepIndex={index}
                 title={step.title}
                 params={step.params}
                 info={step.info}

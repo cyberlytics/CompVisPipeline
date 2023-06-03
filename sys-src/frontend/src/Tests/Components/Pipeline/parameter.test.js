@@ -42,7 +42,7 @@ describe("parameter.js tests", () => {
 
   test("parameter type boolean should be visible", () => {
     let title = "Parametertestname"
-    let value = 'false'
+    let value = false
     const parameter = render(<Parameter parameterName={title} defaultValue={value} />)
     expect(parameter.container.getElementsByClassName("parameter-type-number")).toHaveLength(0);
     expect(parameter.container.getElementsByClassName("parameter-type-text")).toHaveLength(0);

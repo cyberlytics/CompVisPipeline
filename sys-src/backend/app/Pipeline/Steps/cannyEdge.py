@@ -15,12 +15,14 @@ class CannyEdge(BaseStep):
                 {
                     "title": "First threshold",
                     "info": "First threshold value for hysteresis thresholding.",
-                    "defaultValue": 100
+                    "defaultValue": 100,
+                    "value": 100
                 },
                 {
                     "title": "Second threshold",
                     "info": "Second threshold value for hysteresis thresholding.",
-                    "defaultValue": 200
+                    "defaultValue": 200,
+                    "value": 200
                 },
             ],
         }

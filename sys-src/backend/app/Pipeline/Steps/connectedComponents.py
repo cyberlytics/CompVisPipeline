@@ -15,7 +15,8 @@ class ConnectedComponents(BaseStep):
                 {
                     "title": "Connectivity",
                     "info": "Neighbor connectivity used for computing connected components. Must be either 4 or 8.",
-                    "defaultValue": 4
+                    "defaultValue": 4,
+                    "value": 4
                 },
             ],
         }

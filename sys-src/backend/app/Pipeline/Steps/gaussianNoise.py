@@ -28,6 +28,8 @@ class GaussianNoise(BaseStep):
             "params": [
                 {"title": "Noise Strength", 
                  "info": "Variance which determines the amount of noise to be added into the image. Must be a positive number.", 
-                 "defaultValue": 1},
+                 "defaultValue": 1,
+                 "value": 1
+                },
             ],
         }

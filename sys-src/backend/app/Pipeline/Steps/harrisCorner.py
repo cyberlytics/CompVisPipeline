@@ -15,17 +15,20 @@ class HarrisCorner(BaseStep):
                 {
                     "title": "Blocksize",
                     "info": "Neighborhood considered for corner detection.",
-                    "defaultValue": 1
+                    "defaultValue": 1,
+                    "value": 1
                 },
                 {
                     "title": "k-Size",
                     "info": "Aperture parameter for the sobel operator.",
-                    "defaultValue": 3
+                    "defaultValue": 3,
+                    "value": 3
                 },
                 {
                     "title": "K",
                     "info": "Harris detector free parameter.",
-                    "defaultValue": 1
+                    "defaultValue": 1,
+                    "value": 1
                 },
             ],
         }

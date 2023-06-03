@@ -15,12 +15,14 @@ class LogTransform(BaseStep):
                 {
                     "title": "Gain",
                     "info": "Constant which determines strength of transformation.",
-                    "defaultValue": 1
+                    "defaultValue": 1,
+                    "value": 1
                 },
                 {
                     "title": "Inverse Transformation",
                     "info": "Perform inverse logarithmic correction.",
-                    "defaultValue": False
+                    "defaultValue": False,
+                    "value": False
                 },
             ],
         }

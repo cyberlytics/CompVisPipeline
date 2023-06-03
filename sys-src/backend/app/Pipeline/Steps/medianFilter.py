@@ -29,7 +29,8 @@ class MedianFilter(BaseStep):
                 {
                     "title": "Kernel Size",
                     "info": "Must be a odd number greater than 1",
-                    "defaultValue": 3
+                    "defaultValue": 3,
+                    "value": 3
                 }
             ],
         }

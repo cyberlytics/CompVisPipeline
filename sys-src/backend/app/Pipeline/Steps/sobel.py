@@ -15,7 +15,8 @@ class Sobel(BaseStep):
                 {
                     "title": "Kernel size",
                     "info": "Size of sobel kernel. Must be 1, 3, 5, or 7.",
-                    "defaultValue": 3
+                    "defaultValue": 3,
+                    "value": 3
                 },
             ],
         }
