@@ -50,8 +50,12 @@ export default function LoginWindow({ open, onClose, setState }) {
         </DialogContentText>
         <TextField autoFocus margin="dense" label="Username" type="text" fullWidth value={username} onChange={(e) => setUsername(e.target.value)} onKeyPress={handleKeyPress}/>
         <TextField margin="dense" label="Password" type="password" fullWidth value={password} onChange={(e) => setPassword(e.target.value)} onKeyPress={handleKeyPress}/>
-        {errorMessage && <p>{errorMessage}</p>}
-        <Button variant="contained" onClick={handleLogin} style={{backgroundColor: "#d22819", marginTop: "20px"}} fullWidth> Login </Button>
+        {errorMessage && (
+          <DialogContentText role="alert" style={{ color: "red" }} data-testid='error-message'>
+            {errorMessage}
+          </DialogContentText>
+        )}
+        <Button variant="contained" onClick={handleLogin} style={{backgroundColor: "#d22819", marginTop: "20px"}} fullWidth data-testid='login-button'> Login </Button>
       </DialogContent>
     </Dialog>
   );
