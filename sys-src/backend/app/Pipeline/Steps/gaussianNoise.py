@@ -5,7 +5,6 @@ from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError, WrongPar
 
 class GaussianNoise(BaseStep):
     def __call__(self, img, parameters):
-        #TODO: add error handling
         try:
             p0 = float(parameters[0])
             

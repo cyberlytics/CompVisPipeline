@@ -5,7 +5,6 @@ from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
 
 class PoissonNoise(BaseStep):
     def __call__(self, img, parameters):
-        #TODO: add error handling
         try:
             if len(img.shape) not in (2, 3): raise ImageProcessingError("Invalid image shape!")
 
