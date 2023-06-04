@@ -33,13 +33,14 @@ function App() {
 
   const [originalImageID, setOriginalImageID] = useState(null);
   const [currentImageID, setCurrentImageID] = useState(null);
+  const [developMode, setDevelopMode] = useState(false)
 
   return (
     <ThemeProvider theme={appliedTheme}>
       <CssBaseline className={"App-CssBaseline"} />
       <DndProvider className={"App-DndProvider"} backend={HTML5Backend}>
         <Grid style={{ paddingTop: 20, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
-          <Header theme={theme} setTheme={setTheme} />
+          <Header theme={theme} setTheme={setTheme} developMode={developMode} setDevelopMode={setDevelopMode} />
         </Grid>
 
         <Grid container style={{ paddingTop: 0, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
