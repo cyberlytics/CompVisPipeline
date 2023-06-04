@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import Header from "../../Components/header";
+import Header from "../../../Components/Header/header";
 
 describe("header.js tests", () => {
 

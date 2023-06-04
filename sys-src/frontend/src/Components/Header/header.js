@@ -7,12 +7,13 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import Typography from '@mui/material/Typography';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
-import InformationPopup from '../ModalWindow/InformationPopup';
+import InformationPopup from '../../ModalWindow/InformationPopup';
 import Tooltip from '@mui/material/Tooltip';
 import Snackbar from '@mui/material/Snackbar';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import PersonOffOutlinedIcon from '@mui/icons-material/PersonOffOutlined';
-import LoginWindow from '../ModalWindow/LoginWindow';
+import LoginWindow from '../../ModalWindow/LoginWindow';
+import RollingCat from './rollingCat';
 
 export default function Header(props) {
     const { theme, setTheme, developMode, setDevelopMode } = props;
@@ -59,7 +60,14 @@ export default function Header(props) {
             <CardContent>
                 <Grid container>
                     <Grid item md={4}>
-                        <Typography align="left">Computer Vision Pipeline</Typography>
+                        <Grid container alignItems="center" spacing={1}>
+                            <Grid item>
+                                <Typography align="left">Computer Vision Pipeline</Typography>
+                            </Grid>
+                            <Grid item>
+                                <RollingCat/>
+                            </Grid>
+                        </Grid>
                     </Grid>
                     <Grid item md={8}>
                         <Grid container justifyContent="flex-end" spacing={2}>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Header from './Components/header';
+import Header from './Components/Header/header';
 import Upload from './Components/upload';
 import ImageView from './Components/imageView';
 import ImageDetails from './Components/imageDetails';

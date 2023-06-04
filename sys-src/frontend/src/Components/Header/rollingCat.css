@@ -1,0 +1,51 @@
+@keyframes roll {
+    0% {
+        transform: translateX(0) rotate(0)
+    }
+
+    12.5% {
+        transform: translateX(100px * 0.25) rotate(90deg)
+    }
+
+    25% {
+        transform: translateX(100px * 0.50) rotate(180deg)
+    }
+
+    37.5% {
+        transform: translateX(100px * 0.75) rotate(270deg)
+    }
+
+    50% {
+        transform: translateX(100px) rotate(360deg)
+    }
+
+    62.5% {
+        transform: translateX(100px * 0.75) rotate(-270deg)
+    }
+
+    75% {
+        transform: translateX(100px * 0.50) rotate(-180deg)
+    }
+
+    87.5% {
+        transform: translateX(100px * 0.25) rotate(-90deg)
+    }
+
+    100% {
+        transform: translateX(0) rotate(0)
+    }
+}
+
+.rolling-image {
+    position: relative;
+    display: inline-block;
+}
+
+.rolling-image img {
+    height: 25px;
+    transition: transform 0.5s;
+}
+
+.rolling-image.rolling img {
+    animation: roll 2s linear forwards;
+}
