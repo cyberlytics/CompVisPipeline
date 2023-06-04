@@ -31,6 +31,15 @@ def test_gaussian_noise_with_zero_strength():
     
     assert (image == result).all()
 
+def test_gaussian_noise_with_invalid_image_shape():
+    with pytest.raises(ImageProcessingError):
+        image = np.random.randint(0, 255, 1)
+    
+        gaussian_noise_step = GaussianNoise()
+
+        params = [1]
+        gaussian_noise_step(image, params)
+
 def test_gaussian_noise_with_rgb_image():
     image = np.random.randint(0, 255, (10, 10, 3))
 

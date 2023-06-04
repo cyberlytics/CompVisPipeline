@@ -9,7 +9,7 @@ class GaussianNoise(BaseStep):
         try:
             p0 = float(parameters[0])
             
-            if p0 < 0: raise WrongParameterError(message="Parameter should not be negative!")
+            if p0 < 0: raise WrongParameterError(message="Noise strength should not be negative!")
 
             gauss = np.random.normal(0, p0, img.shape)
             if len(img.shape) > 2:
