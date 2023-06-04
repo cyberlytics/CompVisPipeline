@@ -24,7 +24,10 @@ export default function Header(props) {
 
     useEffect(() => {
         if (developMode) {
-            setToastMessage('Developer mode active');
+            setToastMessage('Enjoy the developer mode.'); 
+        }
+        else {
+            setToastMessage('Enjoy the user mode.');
         }
         handleToastClick()
     }, [developMode]);
@@ -107,7 +110,7 @@ export default function Header(props) {
                     </Grid>
                 </Grid>
             </CardContent>
-            <Snackbar open={toastOpen} autoHideDuration={4000} onClose={handleToastClose} message={toastMessage} />
+            <Snackbar open={toastOpen} autoHideDuration={3000} onClose={handleToastClose} message={toastMessage} />
         </Card>
     );
 }
