@@ -69,7 +69,9 @@ export default function Header(props) {
                                 </Tooltip>
                             </Grid>
                             <Grid item>
-                                <InfoOutlinedIcon fontSize='medium' onClick={handleInfoClick} />
+                                <Tooltip title="Show Information">
+                                    <InfoOutlinedIcon fontSize='medium' onClick={handleInfoClick} />
+                                </Tooltip>
                             </Grid>
                             <InformationPopup open={isOpen} onClose={handleClosePopup} headerText={"Computer Vision Pipeline"} text={infotext} />
                             <Grid item>
@@ -84,7 +86,14 @@ export default function Header(props) {
                                 <LoginWindow open={loginIsOpen} onClose={handleCloseLoginWindow} setState={setDevelopMode} />
                             </Grid>
                             <Grid item>
-                                {theme ? <DarkModeOutlinedIcon onClick={() => setTheme(!theme)} /> : <LightModeOutlinedIcon onClick={() => setTheme(!theme)} />}
+                                {theme ?
+                                    <Tooltip title="Switch to darkmode.">
+                                        <DarkModeOutlinedIcon onClick={() => setTheme(!theme)} />
+                                    </Tooltip> :
+                                    <Tooltip title="Switch to lightmode.">
+                                        <LightModeOutlinedIcon onClick={() => setTheme(!theme)} />
+                                    </Tooltip>
+                                }
                             </Grid>
                         </Grid>
                     </Grid>
