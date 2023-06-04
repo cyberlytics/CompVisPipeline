@@ -73,15 +73,15 @@ export default function Header(props) {
                         <Grid container justifyContent="flex-end" spacing={2}>
                             <Grid item>
                                 <Tooltip title="Refresh page.">
-                                    <RestartAltIcon onClick={refresh} fontSize='medium' />
+                                    <RestartAltIcon onClick={refresh} fontSize='medium' data-testid='refresh-button'/>
                                 </Tooltip>
                             </Grid>
                             <Grid item>
                                 <Tooltip title="Show Information">
-                                    <InfoOutlinedIcon fontSize='medium' onClick={handleInfoClick} />
+                                    <InfoOutlinedIcon fontSize='medium' onClick={handleInfoClick} data-testid='info-button' />
                                 </Tooltip>
                             </Grid>
-                            <InformationPopup open={isOpen} onClose={handleClosePopup} headerText={"Computer Vision Pipeline"} text={infotext} />
+                            <InformationPopup open={isOpen} onClose={handleClosePopup} headerText={"Computer Vision Pipeline"} text={infotext} data-testid='info-dialog'/>
                             <Grid item>
                                 {developMode ?
                                     <Tooltip title="Logout to user mode.">
