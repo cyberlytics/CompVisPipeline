@@ -31,7 +31,7 @@ export default function Header(props) {
             <CardContent>
                 <Grid container>
                     <Grid item md={4}>
-                        <Typography align="left">Welcome</Typography>
+                        <Typography align="left">Computer Vision Pipeline</Typography>
                     </Grid>
                     <Grid item md={8}>
                         <Grid container justifyContent="flex-end" spacing={2}>

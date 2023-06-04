@@ -7,7 +7,7 @@ describe("header.js tests", () => {
 
   test("card should be visible", () => {
     render(<Header />);
-    const cardVisible = screen.queryByText(/Welcome/i);
+    const cardVisible = screen.queryByText(/Computer Vision Pipeline/i);
     expect(cardVisible).toBeVisible();
   });
 
