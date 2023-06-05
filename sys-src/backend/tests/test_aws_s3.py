@@ -58,9 +58,7 @@ def test_get_s3_object(create_rgb_image, create_grayscale_image):
 
     # get data to s3 bucket
     get_image = s3Manager.getImageFromS3("test_rgb_image.jpg")
-    get_grayscale_image = s3Manager.getImageFromS3(
-        "test_grayscale_image.jpg"
-    )
+    get_grayscale_image = s3Manager.getImageFromS3("test_grayscale_image.jpg")
 
     # Check if send data is same like get data - rgb
     assert np.array_equal(
@@ -119,7 +117,7 @@ def test_delete_s3_object(create_rgb_image, create_grayscale_image):
     # send data to s3 bucket
     s3Manager.pushImageToS3("test_rgb_image.jpg", create_rgb_image)
     s3Manager.pushImageToS3("test_grayscale_image.jpg", create_grayscale_image)
-    
+
     assert s3Manager.getImageFromS3("test_rgb_image.jpg") is not None
     assert s3Manager.getImageFromS3("test_grayscale_image.jpg") is not None
 
@@ -148,6 +146,7 @@ def test_delete_all_s3_objects(create_rgb_image, create_grayscale_image):
     with pytest.raises(AWSError):
         s3Manager.getImageFromS3("test_rgb_image.jpg")
         s3Manager.getImageFromS3("test_grayscale_image.jpg")
+
 
 @pytest.mark.aws
 def test_getImageFromS3_raises_AWSError_if_key_not_exists():

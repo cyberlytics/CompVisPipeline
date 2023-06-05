@@ -1,10 +1,9 @@
-import cv2
+from app.Pipeline.Steps.baseStep import BaseStep
 
-from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
 
 class ConnectedComponents(BaseStep):
     def __call__(self, img, parameters):
-        #TODO: implement connected components
+        # TODO: implement connected components
         pass
 
     def describe(self):
@@ -16,7 +15,7 @@ class ConnectedComponents(BaseStep):
                     "title": "Connectivity",
                     "info": "Neighbor connectivity used for computing connected components. Must be either 4 or 8.",
                     "defaultValue": 4,
-                    "value": 4
+                    "value": 4,
                 },
             ],
         }

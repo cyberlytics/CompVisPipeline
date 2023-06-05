@@ -1,5 +1,4 @@
 from uuid import uuid4
-from app.Pipeline.Steps.baseStep import ImageProcessingError
 from app.Pipeline.Steps.bilateralFilter import BilateralFilter
 from app.Pipeline.Steps.gaussianBlur import GaussianBlur
 from app.Pipeline.Steps.anisotropicDiffusion import AnisotropicDiffusion
@@ -37,7 +36,8 @@ from app.Pipeline.Steps.saltAndPepperNoise import SaltAndPepperNoise
 from app.Pipeline.Steps.rotate import Rotate
 from app.Pipeline.Steps.houghLines import HoughLines
 
-from app.connections.aws_s3 import AWSError, S3Manager
+from app.connections.aws_s3 import S3Manager
+from app.metadata import Metadata
 
 FUNCTION_LIST = [
     BilateralFilter(),
@@ -75,37 +75,49 @@ FUNCTION_LIST = [
     Sobel(),
     SaltAndPepperNoise(),
     Rotate(),
-    HoughLines()
+    HoughLines(),
 ]
 
 
-class PipelineError(Exception):
-    def __init__(self, message):
-        self.message = message
-
-
 class Pipeline:
-    def __init__(self, image, steps, s3Manager=None, functionList=FUNCTION_LIST):
+    def __init__(
+        self,
+        image,
+        steps,
+        s3Manager=None,
+        metaDataManager=None,
+        functionList=FUNCTION_LIST,
+    ):
         self.image = image
         self.steps = steps
         self.s3Manager = s3Manager or S3Manager()
+        self.metaDataManager = metaDataManager or Metadata()
         self.functionList = functionList
 
     def start(self):
-        try:
-            lastImage = self.s3Manager.getImageFromS3(self.image)
-        except AWSError as e:
-            raise PipelineError(message="failed to load image from s3 bucket")
-        allResults = [self.image]
+        lastImage = self.s3Manager.getImageFromS3(self.image)
+        metaData = self.metaDataManager.getMetadata(lastImage)
+        allResults = [
+            {
+                "imageId": self.image,
+                "histId": metaData[0],
+                "height": metaData[1],
+                "width": metaData[2],
+                "channels": metaData[3],
+            }
+        ]
         for step in self.steps:
-            try:
-                lastImage = self.functionList[step.id](lastImage, step.params)
-            except ImageProcessingError as e:
-                raise PipelineError(message=e.message)
+            lastImage = self.functionList[step.id](lastImage, step.params)
+            metaData = self.metaDataManager.getMetadata(lastImage)
             id = str(uuid4())
-            try:
-                self.s3Manager.pushImageToS3(id, lastImage)
-            except AWSError:
-                raise PipelineError(message="failed to save image to s3 bucket")
-            allResults.append(id)
+            self.s3Manager.pushImageToS3(id, lastImage)
+            allResults.append(
+                {
+                    "imageId": id,
+                    "histId": metaData[0],
+                    "height": metaData[1],
+                    "width": metaData[2],
+                    "channels": metaData[3],
+                }
+            )
         return allResults

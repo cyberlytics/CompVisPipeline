@@ -1,5 +1,5 @@
 Start local run:
-gunicorn --config gunicorn_config.py main:app
+python main.py
 
 Available at:
 localhost:5000

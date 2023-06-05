@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
-import { Card, CardContent, Box } from '@mui/material';
+import { Card, CardContent, Box, Typography } from '@mui/material';
 
 import S3Manager from './Connections/awsS3';
 
+/**
+ * function to display the image that is currently selected
+ * @param {string} currentImageID    ID of the image to be displayed 
+ * @returns Image view card
+ */
 export default function ImageView({ currentImageID }) {
     // imageKey is the key to check if image has changed -> just load image from S3 Bucket if a new currentImageID is passed in
     // imageURL is the URL to the image to be displayed
@@ -18,7 +23,7 @@ export default function ImageView({ currentImageID }) {
         s3Manager.getImageFromS3(currentImageID)
             .then( (res) => {
                 // success handling
-                setImageURL(URL.createObjectURL(new Blob([res.Body], {type: "image/jpg"})));
+                setImageURL(URL.createObjectURL(new Blob([res.Body], {type: res.ContentType})));
             })
             .catch( (err) => {
                 // error handling
@@ -28,10 +33,11 @@ export default function ImageView({ currentImageID }) {
     }
 
     return (
-        <Card style={{ height: "445px" }} data-testid='imageview-card' >
-            <CardContent style={{ height: "100%" }}>
-                <Box display="flex" justifyContent="center" alignItems="center" height="100%">
-                    {imageKey && <img src={imageURL} />}
+        <Card style={{ height: "485px"}} data-testid='imageview-card' >
+            <CardContent style={{ height: "470px" }}>
+                <Typography sx={{ width: "100%"}} align="center" variant="h5" component="div">Selected Image</Typography>
+                <Box style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%"}}>
+                    {imageKey && <img src={imageURL} alt="" style={{ maxWidth: "100%", maxHeight: "100%" }}/>}
                 </Box>
             </CardContent>
         </Card>

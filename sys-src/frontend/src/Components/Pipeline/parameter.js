@@ -44,7 +44,7 @@ export default function Parameter(props) {
           newValue = e.target.valueAsNumber;
         } 
         else if (parameterType === ParameterType.Boolean) {
-          newValue = e.target.checked;
+          newValue = e.target.value === 'true';
         }
       
         setParameterValue(newValue);

@@ -1,10 +1,12 @@
 from flask import Flask, request
 from flask_cors import CORS
 from pydantic import ValidationError
+from app.connections.aws_s3 import S3Manager
 
-from app.metadata import Metadata, MetadataError
+from app.metadata import Metadata
+from app.exceptions import BaseError
 from app.Models.startPipelineModels import PipelineStep
-from app.Pipeline.pipeline import FUNCTION_LIST, Pipeline, PipelineError
+from app.Pipeline.pipeline import FUNCTION_LIST, Pipeline
 
 app = Flask(__name__)
 CORS(app)  # TODO: do not use this in production
@@ -12,7 +14,7 @@ CORS(app)  # TODO: do not use this in production
 
 @app.route("/", methods=["GET"])
 def getHelloWorld():
-    return {"available routes": ["/start-pipeline/<imageId>", "/available-steps"]}
+    return {"available routes": ["/start-pipeline/<imageId>", "/available-steps", "/image-metadata/<imageId>"]}
 
 
 @app.route("/start-pipeline/<imageId>", methods=["POST"])
@@ -28,9 +30,15 @@ def startPipeline(imageId):
     pipeline = Pipeline(imageId, steps)
     try:
         result = pipeline.start()
-    except PipelineError as e:
+    except BaseError as e:
         return app.response_class(
             response=f"Failed to process image: {e.message}",
+            status=400,
+            content_type="application/json",
+        )
+    except Exception as e:
+        return app.response_class(
+            response=f"Failed to process image: Unknown Exception occured {e}",
             status=400,
             content_type="application/json",
         )
@@ -49,12 +57,19 @@ def getAvailableSteps():
 
 @app.route("/image-metadata/<imageId>", methods=["GET"])
 def sendMetadata(imageId):
-    metadata = Metadata(imageId)
+    metadata = Metadata()
     try:
-        result = metadata.getMetadata()
-    except MetadataError as e:
+        image = S3Manager().getImageFromS3(imageId)
+        result = metadata.getMetadata(image)
+    except BaseError as e:
         return app.response_class(
             response=f"Failed to get metadata: {e.message}",
+            status=400,
+            content_type="application/json",
+        )
+    except Exception as e:
+        return app.response_class(
+            response=f"Failed to get metadata: Unknown Exception occured {e}",
             status=400,
             content_type="application/json",
         )
@@ -63,9 +78,4 @@ def sendMetadata(imageId):
         "height": result[1],
         "width": result[2],
         "channels": result[3],
-            }
-
-
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    }
