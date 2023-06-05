@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -12,8 +12,10 @@ export default function AvailablePipelineSteps() {
     const [availablePipelineSteps, setAvailablePipelineSteps] = useState([])
     const [searchQuery, setSearchQuery] = useState("");
 
-    //get pipelinesteps from backend
-    Controller.getPipelineStepsFromBackend(setAvailablePipelineSteps);
+    // get pipelinesteps from backend
+    useEffect(() => {
+        Controller.getPipelineStepsFromBackend(setAvailablePipelineSteps);
+    }, []); // empty dependency array ensures it runs only once
 
     //returns a list of steps from steps which are defined in availablePipelineSteps.json
     return (
