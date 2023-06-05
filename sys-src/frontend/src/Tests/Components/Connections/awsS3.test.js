@@ -131,6 +131,30 @@ describe("s3Manager - delete Functions", () => {
             });
         
     });
+
+    test("Check if defaultImage.jpg can not be deleted", async () => {
+        deleteImageFromS3Mock = jest.fn();
+        deleteImageFromS3Mock.mockImplementation(() => {
+            return new Promise((resolve, reject) => { {
+                if (imageKey === "defaultImage.jpg") {
+                    reject(new Error("Error"));
+                }
+                resolve({});
+                }
+            });
+        });
+
+        let s3Manager = new S3Manager();
+        s3Manager.deleteImageFromS3 = deleteImageFromS3Mock;
+
+        await s3Manager.deleteImageFromS3("defaultImage.jpg")
+            .then((result) => {
+                expect(True).toBe(False);
+            })
+            .catch((err) => {
+                expect(err).toBeInstanceOf(Error);
+            });
+    });
 });
 
 describe("S3Manager.getImageFromS3() test", () => {

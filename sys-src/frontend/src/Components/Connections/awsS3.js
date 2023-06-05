@@ -112,13 +112,20 @@ class S3Manager {
      */
     async deleteImageFromS3(imageKey) {
         // set delete params
-        const params = {
-            Bucket: this.bucketName,
-            Key: imageKey,
-        };
 
-        // delete image from S3
-        return this.S3.deleteObject(params).promise();
+        if (imageKey === "defaultImage.jpg") {
+            return Promise.reject("Can't delete default image with key: defaultImage.jpg");
+        }
+        else {
+            const params = {
+                Bucket: this.bucketName,
+                Key: imageKey,
+            };
+    
+            // delete image from S3
+            return this.S3.deleteObject(params).promise();
+        }
+
     }
 
     /**
@@ -141,11 +148,13 @@ class S3Manager {
 
                 // get list of all objects
                 const allObjectsFromBucket = res.Contents.map( (object) => ({Key: object.Key, }));
+
+                const allObjectsFiltered = allObjectsFromBucket.filter( (element) => { return element.Key !== "defaultImage.jpg" });
                 
                 // set delete params
                 const deleteParams = {
                     Bucket: this.bucketName,
-                    Delete: { Objects: allObjectsFromBucket}
+                    Delete: { Objects: allObjectsFiltered}
                 };
 
                 // delete all objects from bucket
