@@ -2,8 +2,6 @@ import pytest
 from app.Pipeline.Steps.averagingFilter import AveragingFilter
 import cv2
 
-from app.Pipeline.Steps.baseStep import ImageProcessingError
-
 
 def test_averagingFilterWithFacebookThumbnail():
     # prepare
@@ -28,4 +26,3 @@ def test_kernel_has_to_be_positive_exception():
 
     with pytest.raises(Exception):
         averaging_filter_step(img_ori, params)
-

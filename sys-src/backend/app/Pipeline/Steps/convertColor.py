@@ -1,10 +1,9 @@
-import cv2
+from app.Pipeline.Steps.baseStep import BaseStep
 
-from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
 
 class ConvertColor(BaseStep):
     def __call__(self, img, parameters):
-        #TODO: implement color converting
+        # TODO: implement color converting
         pass
 
     def describe(self):
@@ -16,7 +15,7 @@ class ConvertColor(BaseStep):
                     "title": "Color Space",
                     "info": "Colorspace to convert into. Possible values are: 'gray', 'rgb', 'hsv' and 'bgr'.",
                     "defaultValue": "gray",
-                    "value": "gray"
+                    "value": "gray",
                 },
             ],
         }

@@ -15,6 +15,7 @@ def test_hello_world_route(client):
     response = client.get("/")
     assert response.status_code == 200
 
+
 @pytest.mark.aws
 def test_startPipeline_route(client, create_rgb_image):
     s3Manager = S3Manager()
@@ -49,20 +50,18 @@ def test_availableSteps_route(client):
             assert "info" in param.keys()
             assert "defaultValue" in param.keys()
 
+
 @pytest.mark.aws
 def test_imageMetadata_route(client, prepared_bgr_img):
     s3Manager = S3Manager()
     s3Manager.pushImageToS3("123", prepared_bgr_img)
-    response = client.get(
-        "/image-metadata/123"
-    )
+    response = client.get("/image-metadata/123")
     assert set(response.json.keys()) == set(["histId", "height", "width", "channels"])
     s3Manager.deleteImageFromS3("123")
     s3Manager.deleteImageFromS3(response.json["histId"])
 
+
 @pytest.mark.aws
-def test_imageMetadata_route(client):
-    response = client.get(
-        "/image-metadata/this_is_an_invalid_image_id"
-    )
+def test_imageMetadata_route_invalid_image_id(client):
+    response = client.get("/image-metadata/this_is_an_invalid_image_id")
     assert response.status_code == 400

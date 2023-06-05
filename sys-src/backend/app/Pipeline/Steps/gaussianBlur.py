@@ -1,6 +1,7 @@
 import cv2
 
-from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
+from app.Pipeline.Steps.baseStep import BaseStep
+from app.exceptions import ImageProcessingError
 
 
 class GaussianBlur(BaseStep):
@@ -20,28 +21,28 @@ class GaussianBlur(BaseStep):
             "info": "Reduce Noise using a Gaussian Blur",
             "params": [
                 {
-                    "title":"Kernel Width",
-                    "info":"Width of kernel used for gaussian blur. Must be bigger than 0",
-                    "defaultValue":3,
-                    "value":3
+                    "title": "Kernel Width",
+                    "info": "Width of kernel used for gaussian blur. Must be bigger than 0",
+                    "defaultValue": 3,
+                    "value": 3,
                 },
                 {
-                    "title":"Kernel Height",
-                    "info":"Height of kernel used for gaussian blur. Must be bigger than 0",
-                    "defaultValue":3,
-                    "value":3
+                    "title": "Kernel Height",
+                    "info": "Height of kernel used for gaussian blur. Must be bigger than 0",
+                    "defaultValue": 3,
+                    "value": 3,
                 },
                 {
-                    "title": "Sigma X", 
-                    "info": "Standard deviation of gaussian kernel in X direction", 
+                    "title": "Sigma X",
+                    "info": "Standard deviation of gaussian kernel in X direction",
                     "defaultValue": 0,
-                    "value": 0
+                    "value": 0,
                 },
                 {
-                    "title": "Sigma Y", 
-                    "info": "Standard deviation of gaussian kernel in Y direction", 
+                    "title": "Sigma Y",
+                    "info": "Standard deviation of gaussian kernel in Y direction",
                     "defaultValue": 0,
-                    "value": 0
+                    "value": 0,
                 },
             ],
         }
