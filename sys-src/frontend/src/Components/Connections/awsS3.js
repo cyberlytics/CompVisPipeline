@@ -114,7 +114,7 @@ class S3Manager {
         // set delete params
 
         if (imageKey === "defaultImage.jpg") {
-            return Promise.reject("Can't delete default image with key: defaultImage.jpg");
+            return Promise.reject(new Error("Can't delete default image with key: defaultImage.jpg"));
         }
         else {
             const params = {
@@ -125,7 +125,6 @@ class S3Manager {
             // delete image from S3
             return this.S3.deleteObject(params).promise();
         }
-
     }
 
     /**

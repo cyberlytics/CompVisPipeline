@@ -158,6 +158,71 @@ describe("s3Manager - delete Functions", () => {
     });
 });
 
+describe.only("s3Manager.deleteImageFromS3() - test", () => {
+    let s3Manager;
+    let spyDeleteObject;
+
+    beforeEach(() => {
+        s3Manager = new S3Manager();
+        // mock the deleteObject function from S3
+        spyDeleteObject = jest.spyOn(s3Manager.S3, 'deleteObject');
+    });
+
+    // after each test, reset the mock
+    afterEach(() => {
+        spyDeleteObject.mockReset();
+    });
+
+    test("Check if method is called", async () => {
+        await s3Manager.deleteImageFromS3("test_key.jpg");
+        
+        expect(spyDeleteObject).toHaveBeenCalledTimes(1);
+    });
+
+    test("Check if method is called with correct parameters", async () => {
+        await s3Manager.deleteImageFromS3("test_key.jpg");
+        
+        expect(spyDeleteObject).toHaveBeenCalledWith({
+            Bucket: s3Manager.bucketName,
+            Key: "test_key.jpg"
+        });
+    });
+
+    test("Check if image is deleted", async () => {
+        spyDeleteObject.mockReturnValue({
+            promise: () => Promise.resolve({})
+        });
+
+        await s3Manager.deleteImageFromS3("test_key.jpg")
+            .then((result) => {
+                expect(result).toEqual({});
+            })
+            .catch((err) => {
+                // if error is thrown, test fails -> no error should be thrown
+                expect(true).toBe(false);
+            })
+    });
+
+    test("Check if image defaultImage.jpg can not be deleted", async () => {
+        spyDeleteObject.mockReturnValue({
+            promise: () => Promise.resolve({})
+        });
+
+        await s3Manager.deleteImageFromS3("defaultImage.jpg")
+            .then((result) => {
+                // if no error is thrown, test fails -> error should be thrown because its forbidden to delete the defaultImage.jpg
+                expect(true).toBe(false);
+            })
+            .catch((err) => {
+                expect(err).toBeInstanceOf(Error);
+            });
+    });
+});
+
+describe.skip("s3Manager.delteAllImagesFromS3() - test", () => {
+
+});
+
 describe.only("S3Manager.getImageFromS3() - test", () => {
     let s3Manager;
     let spyGetImage;
