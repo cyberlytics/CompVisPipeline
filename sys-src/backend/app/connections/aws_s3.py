@@ -125,9 +125,12 @@ class S3Manager:
         try:
             connection = self._getConnection()
             bucket = self._getBucket(connection)
-            response = bucket.Object(objectKey).delete()
-            if response["ResponseMetadata"]["HTTPStatusCode"] != 204:
-                raise AWSError(message="Failed to delete Image from S3 bucket")
+            if objectKey == "defaultImage.jpg":
+                raise AWSError(message="Can not delete image with key defaultImage.jpg")
+            else:
+                response = bucket.Object(objectKey).delete()
+                if response["ResponseMetadata"]["HTTPStatusCode"] != 204:
+                    raise AWSError(message="Failed to delete Image from S3 bucket")
         except ClientError:
             raise AWSError(message="Failed to delete Image from S3 bucket")
         finally:
@@ -141,6 +144,8 @@ class S3Manager:
             connection = self._getConnection()
             bucket = self._getBucket(connection)
             for obj in bucket.objects.all():
+                if obj.key == "defaultImage.jpg":
+                    continue
                 response = obj.delete()
                 if response["ResponseMetadata"]["HTTPStatusCode"] != 204:
                     raise AWSError(message="Failed to delete all Data from S3 bucket")

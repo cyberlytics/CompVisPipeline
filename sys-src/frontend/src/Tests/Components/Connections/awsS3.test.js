@@ -301,7 +301,6 @@ describe("s3Manager.delteAllImagesFromS3() - test", () => {
 
         await s3Manager.deleteAllImagesFromS3()
             .then(res => {
-                console.log(res);
                 expect(res).toEqual({Delete: {Objects: [{Key: "test_key1.jpg"}, {Key: "test_key2.jpg"}, {Key: "test_key3.jpg"}]}});
             });
     });
