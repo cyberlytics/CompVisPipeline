@@ -3,6 +3,11 @@ import { Card, CardContent, Box, Typography } from '@mui/material';
 
 import S3Manager from './Connections/awsS3';
 
+/**
+ * function to display the image that is currently selected
+ * @param {string} currentImageID    ID of the image to be displayed 
+ * @returns Image view card
+ */
 export default function ImageView({ currentImageID }) {
     // imageKey is the key to check if image has changed -> just load image from S3 Bucket if a new currentImageID is passed in
     // imageURL is the URL to the image to be displayed
