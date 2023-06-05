@@ -142,7 +142,7 @@ class S3Manager {
             .then( (res) => {
                 // if no objects in bucket
                 if (res.Contents.length === 0) {
-                    return Promise.resolve("No images to delete");
+                    return Promise.reject(new Error("No images to delete"));
                 }
 
                 // get list of all objects

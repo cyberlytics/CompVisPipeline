@@ -158,7 +158,7 @@ describe("s3Manager - delete Functions", () => {
     });
 });
 
-describe.only("s3Manager.deleteImageFromS3() - test", () => {
+describe("s3Manager.deleteImageFromS3() - test", () => {
     let s3Manager;
     let spyDeleteObject;
 
@@ -219,11 +219,113 @@ describe.only("s3Manager.deleteImageFromS3() - test", () => {
     });
 });
 
-describe.skip("s3Manager.delteAllImagesFromS3() - test", () => {
+describe("s3Manager.delteAllImagesFromS3() - test", () => {
+    let s3Manager;
+    let spyDeleteObjects;
 
+    let listObjectsMock = {Contents: [{Key: "test_key1.jpg"}, {Key: "test_key2.jpg"}, {Key: "defaultImage.jpg"}, {Key: "test_key3.jpg"}]};
+    let deleteObjectsMock = {Delete: {Objects: [{Key: "test_key1.jpg"}, {Key: "test_key2.jpg"}, {Key: "test_key3.jpg"}]}};
+
+    beforeEach(() => {
+        s3Manager = new S3Manager();
+
+        // mock the deleteObjects function from S3
+        spyDeleteObjects = jest.spyOn(s3Manager.S3, 'deleteObjects'); 
+    });
+
+    // after each test, reset the mock
+    afterEach(() => {
+        spyDeleteObjects.mockReset();
+    });
+
+    test("Check if method is called", async () => {
+        spyDeleteObjects.mockReturnValue({
+            promise: () => Promise.resolve({})
+        });
+        await s3Manager.deleteAllImagesFromS3();
+
+        expect(spyDeleteObjects).toHaveBeenCalledTimes(1);
+    });
+
+    test("Check if method is called with correct parameters", async () => {
+        let spyListObjects = jest.spyOn(s3Manager.S3, 'listObjects');
+        spyListObjects.mockReturnValue({
+            promise: () => Promise.resolve(listObjectsMock)
+        });
+
+        spyDeleteObjects.mockReturnValue({
+            promise: () => Promise.resolve({
+                Delete: deleteObjectsMock.Delete
+            })
+        });
+
+        await s3Manager.deleteAllImagesFromS3();
+
+        expect(spyDeleteObjects).toHaveBeenCalledWith({
+            Bucket: s3Manager.bucketName,
+            Delete: deleteObjectsMock.Delete
+        });
+    });
+
+    test("Check if error when length of objects==0", async () => {
+        let spyListObjects = jest.spyOn(s3Manager.S3, 'listObjects');
+        spyListObjects.mockReturnValue({
+            promise: () => Promise.resolve({Contents: []})
+        });
+
+        spyDeleteObjects.mockReturnValue({
+            promise: () => Promise.resolve({})
+        });
+
+        await s3Manager.deleteAllImagesFromS3()
+            .then(res => {
+                // error should be thrown because the length of objects is 0
+                expect(true).toBe(false);
+            })
+            .catch((err) => {
+                expect(err).toBeInstanceOf(Error);
+            });
+    });
+
+    test("Check if all images are deleted", async () => {
+        let spyListObjects = jest.spyOn(s3Manager.S3, 'listObjects');
+        spyListObjects.mockReturnValue({
+            promise: () => Promise.resolve({Contents: listObjectsMock.Contents})
+        });
+
+        spyDeleteObjects.mockReturnValue({
+            promise: () => Promise.resolve({
+                Delete: deleteObjectsMock.Delete
+            })
+        });
+
+        await s3Manager.deleteAllImagesFromS3()
+            .then(res => {
+                console.log(res);
+                expect(res).toEqual({Delete: {Objects: [{Key: "test_key1.jpg"}, {Key: "test_key2.jpg"}, {Key: "test_key3.jpg"}]}});
+            });
+    });
+
+    test("Check if defaultImage.jpg can not be deleted", async () => {
+        let spyListObjects = jest.spyOn(s3Manager.S3, 'listObjects');
+        spyListObjects.mockReturnValue({
+            promise: () => Promise.resolve({Contents: listObjectsMock.Contents})
+        });
+
+        spyDeleteObjects.mockReturnValue({
+            promise: () => Promise.resolve({
+                Delete: deleteObjectsMock.Delete
+            })
+        });
+
+        await s3Manager.deleteAllImagesFromS3()
+            .then(res => {
+                expect(res.Delete.Objects).not.toContain({Key: "defaultImage.jpg"});
+            })
+    });
 });
 
-describe.only("S3Manager.getImageFromS3() - test", () => {
+describe("S3Manager.getImageFromS3() - test", () => {
     let s3Manager;
     let spyGetImage;
 
@@ -304,7 +406,7 @@ describe.only("S3Manager.getImageFromS3() - test", () => {
     });
 });
 
-describe.only("S3Manager.pushImageToS3() - test", () => {
+describe("S3Manager.pushImageToS3() - test", () => {
     let s3Manager;
     let image;
     let spyPutObject;
