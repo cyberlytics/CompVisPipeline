@@ -2,8 +2,14 @@ class JSONTransformer {
 
 
     static transformJSON(json) {
-        let obj = JSON.parse(JSON.stringify(json));
-        console.log("Das originale JSON: "+ JSON.stringify(json))
+        let obj = undefined
+        if(!this.isJsonString(json)){
+            obj = JSON.parse(JSON.stringify(json))
+        }
+        else{
+            obj = JSON.parse((json));
+        }
+
         let transformedObj = [];
 
         for (let i = 0; i < obj.length; i++) {
@@ -22,15 +28,20 @@ class JSONTransformer {
 
             transformedObj.push(transformedJSONObj);
         }
-        console.log("Das neue JSON: " + JSON.stringify(transformedObj))
         return transformedObj;
     }
 
-
+    static isJsonString(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
 }
 
 class Controller extends JSONTransformer {
-
 
     //Call to get available steps for
     static async getPipelineStepsFromBackend(set) {
@@ -45,7 +56,6 @@ class Controller extends JSONTransformer {
         setLoading(true);
 
         let newJSON = this.transformJSON(props.steps);
-
 
         try {
             const response = await fetch(path, {
