@@ -148,7 +148,6 @@ class S3Manager {
 
                 // get list of all objects
                 const allObjectsFromBucket = res.Contents.map( (object) => ({Key: object.Key, }));
-
                 const allObjectsFiltered = allObjectsFromBucket.filter( (element) => { return element.Key !== "defaultImage.jpg" });
                 
                 // set delete params
