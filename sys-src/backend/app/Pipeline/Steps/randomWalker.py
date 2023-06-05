@@ -1,10 +1,9 @@
-import cv2
+from app.Pipeline.Steps.baseStep import BaseStep
 
-from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
 
 class RandomWalker(BaseStep):
     def __call__(self, img, parameters):
-        #TODO: implement random walker segmentation.
+        # TODO: implement random walker segmentation.
         pass
 
     def describe(self):

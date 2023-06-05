@@ -1,10 +1,9 @@
-import cv2
+from app.Pipeline.Steps.baseStep import BaseStep
 
-from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
 
 class CLAHE(BaseStep):
     def __call__(self, img, parameters):
-        #TODO: implement CLAHE.
+        # TODO: implement CLAHE.
         pass
 
     def describe(self):
@@ -16,19 +15,19 @@ class CLAHE(BaseStep):
                     "title": "Clip Limit",
                     "info": "Threshold for contrast limiting.",
                     "defaultValue": 40,
-                    "value": 40
+                    "value": 40,
                 },
                 {
                     "title": "Grid Width",
                     "info": "Grid width for histogram equalization. Must be bigger than 0.",
                     "defaultValue": 8,
-                    "value": 8
+                    "value": 8,
                 },
                 {
                     "title": "Grid Height",
                     "info": "Grid height for histogram equalization. Must be bigger than 0.",
                     "defaultValue": 8,
-                    "value": 8
+                    "value": 8,
                 },
             ],
         }

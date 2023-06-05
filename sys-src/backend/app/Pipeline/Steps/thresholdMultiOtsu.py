@@ -1,10 +1,9 @@
-import cv2
+from app.Pipeline.Steps.baseStep import BaseStep
 
-from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
 
 class ThresholdMultiOtsu(BaseStep):
     def __call__(self, img, parameters):
-        #TODO: implement multi otsu threshold
+        # TODO: implement multi otsu threshold
         pass
 
     def describe(self):
@@ -16,7 +15,7 @@ class ThresholdMultiOtsu(BaseStep):
                     "title": "Regions",
                     "info": "Number of regions into which the image should be segmented. Must be bigger than 1",
                     "defaultValue": 2,
-                    "value": 2
+                    "value": 2,
                 }
             ],
         }

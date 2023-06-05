@@ -4,15 +4,11 @@ import os
 from io import BytesIO
 
 import numpy as np
+from app.exceptions import AWSError
 import cv2
 import boto3
 from botocore.exceptions import ClientError
 
-
-class AWSError(Exception):
-    def __init__(self, message, *args: object) -> None:
-        self.message = message
-        super().__init__(*args)
 
 # ====================================================================================================
 # Get AWS S3 connection
@@ -100,13 +96,14 @@ class S3Manager:
             _, buffer = cv2.imencode(
                 ".jpg", img
             )  # compresses opencv image and stores it in the memory buffer
-            img_as_bytes = BytesIO(buffer).getvalue()  # convert buffer to BytesIO object
+            img_as_bytes = BytesIO(
+                buffer
+            ).getvalue()  # convert buffer to BytesIO object
         except Exception:
             raise AWSError(message="Failed to encode image")
 
-
         # upload object to s3 bucket
-        try:        
+        try:
             connection = self._getConnection()
             bucket = self._getBucket(connection)
             obj = bucket.Object(objectKey)  # build object
@@ -117,7 +114,6 @@ class S3Manager:
             raise AWSError(message="Failed to push image to s3 bucket")
         finally:
             self._closeConnection(connection)
-
 
     def deleteImageFromS3(self, objectKey):
         """
@@ -136,7 +132,6 @@ class S3Manager:
             raise AWSError(message="Failed to delete Image from S3 bucket")
         finally:
             self._closeConnection(connection)
-        
 
     def deleteAllImagesFromS3(self):
         """
@@ -153,4 +148,3 @@ class S3Manager:
             raise AWSError(message="Failed to delete all Data from S3 bucket")
         finally:
             self._closeConnection(connection)
-        

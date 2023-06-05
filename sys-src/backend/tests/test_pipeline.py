@@ -1,10 +1,10 @@
 import pytest
 import numpy as np
 from app.Models.startPipelineModels import PipelineStep
-from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
+from app.Pipeline.Steps.baseStep import BaseStep
 from app.Pipeline.pipeline import Pipeline
-from app.connections.aws_s3 import AWSError
 from app.metadata import Metadata
+from app.exceptions import AWSError, ImageProcessingError
 
 
 def test_pipeline_raises_aws_error_failed_to_load_image_from_s3(fakeS3Manager):
@@ -20,7 +20,11 @@ def test_pipeline_raises_image_processing_error_image_processing_failed(
     fakeS3Manager.pushImageToS3("42", create_rgb_image)
     metadata = Metadata(fakeS3Manager)
     pipeline = Pipeline(
-        "42", [PipelineStep(id=0, params=[])], fakeS3Manager, metadata, [pipelineStepRaisesError]
+        "42",
+        [PipelineStep(id=0, params=[])],
+        fakeS3Manager,
+        metadata,
+        [pipelineStepRaisesError],
     )
     with pytest.raises(ImageProcessingError) as e:
         pipeline.start()
@@ -36,8 +40,12 @@ def test_pipeline_result_is_saved_to_s3(fakeS3Manager, create_rgb_image):
     results = pipeline.start()
     assert len(results) == 2
     assert results[0]["imageId"] == "42"
-    assert (fakeS3Manager.getImageFromS3(results[0]["imageId"]) == create_rgb_image).all()
-    assert (fakeS3Manager.getImageFromS3(results[1]["imageId"]) == create_rgb_image).all()
+    assert (
+        fakeS3Manager.getImageFromS3(results[0]["imageId"]) == create_rgb_image
+    ).all()
+    assert (
+        fakeS3Manager.getImageFromS3(results[1]["imageId"]) == create_rgb_image
+    ).all()
     for result in results:
         assert "channels" in result.keys()
         assert "height" in result.keys()
@@ -53,7 +61,9 @@ def test_pipeline_all_steps_are_executed(fakeS3Manager, create_rgb_image):
     assert len(results) == len(steps) + 1
     assert results[0]["imageId"] == "42"
     for result in results:
-        assert (fakeS3Manager.getImageFromS3(result["imageId"]) == create_rgb_image).all()
+        assert (
+            fakeS3Manager.getImageFromS3(result["imageId"]) == create_rgb_image
+        ).all()
         assert fakeS3Manager.getImageFromS3(result["histId"]) is not None
         assert "channels" in result.keys()
         assert "height" in result.keys()
@@ -70,12 +80,13 @@ def test_pipeline_steps_are_executed_in_correc_order(fakeS3Manager, mocker):
 
         def __call__(self, img, parameters):
             return self.number
-    class FakeMetaDataManager():
+
+    class FakeMetaDataManager:
         def getMetadata(self, image):
             return ("THIS_IS_A_HIST_ID", 42, 42, 3)
 
     fakeFunctionList = [FakePipelineStep(2), FakePipelineStep(1), FakePipelineStep(3)]
-    #mocker.patch("app.Models.startPipelineModels.FUNCTION_LIST", fakeFunctionList)
+    # mocker.patch("app.Models.startPipelineModels.FUNCTION_LIST", fakeFunctionList)
     steps = [
         PipelineStep(id=1, params=[]),
         PipelineStep(id=0, params=[]),

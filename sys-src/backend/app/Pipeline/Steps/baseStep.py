@@ -1,21 +1,3 @@
-class ImageProcessingError(Exception):
-    """
-    This Exception is raised when something went wrong during image processing
-    Raise it in your own steps when user-input does not match the expected types
-    """
-
-    def __init__(self, message):
-        self.message = message
-
-class WrongParameterError(Exception):
-    """
-    This Exception is raised when the user typed in wrong Parameters
-    """
-
-    def __init__(self, message):
-        self.message = message
-
-
 class BaseStep:
     """
     Base class for all pipeline-steps.
