@@ -31,7 +31,7 @@ export default function PipelineStep(props) {
             if (!ref.current) {
                 return
             }
-            const dragIndex = item.index
+            const dragIndex = item.stepIndex
             const hoverIndex = stepIndex
             // Don't replace items with themselves
             if (dragIndex === hoverIndex) {
@@ -56,7 +56,7 @@ export default function PipelineStep(props) {
             }
             // Perform the action
             moveStep(dragIndex, hoverIndex)
-            item.index = hoverIndex
+            item.stepIndex = hoverIndex
         },
     })
 
