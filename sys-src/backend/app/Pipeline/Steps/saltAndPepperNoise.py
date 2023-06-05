@@ -1,19 +1,18 @@
 import cv2
 import numpy as np
 
-from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
+from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError, WrongParameterError
 
 class SaltAndPepperNoise(BaseStep):
     def __call__(self, img, parameters):
-        #TODO: add error handling
         try:
             p0 = float(parameters[0])
             p1 = float(parameters[1])
 
-            if p0 < 0: p0 = 0
-            elif p0 > 1: p0 = 1
+            if p0 < 0: raise WrongParameterError(message="Ration between Salt & Pepper should be between 0 and 1, e.g. 0.5!")
+            elif p0 > 1: raise WrongParameterError(message="Ration between Salt & Pepper should be between 0 and 1, e.g. 0.5!")
 
-            if p1 < 0: p1 = 0
+            if p1 < 0: WrongParameterError(message="Noise strength should not be negative!")
 
             out = np.copy(img)
 
@@ -26,8 +25,8 @@ class SaltAndPepperNoise(BaseStep):
             out[pepper_coords[0], pepper_coords[1]] = 0
 
             return out
-        except Exception:
-            raise ImageProcessingError(message="SaltAndPepperNoise failed to process image")
+        except Exception as e:
+            raise ImageProcessingError(message=e)
 
     def describe(self):
         return {
