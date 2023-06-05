@@ -65,7 +65,7 @@ function App() {
                 <Pipeline steps={steps} setSteps={setSteps} />
               </Grid>
               <Grid item xs>
-                <StartPipeline steps={steps}/>
+                <StartPipeline steps={steps} originalImageID={originalImageID}/>
               </Grid>
             </Grid>
           </Grid>

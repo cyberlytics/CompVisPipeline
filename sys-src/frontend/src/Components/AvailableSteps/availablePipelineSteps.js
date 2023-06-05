@@ -14,7 +14,7 @@ export default function AvailablePipelineSteps() {
 
 
     //use this variable to map with local defined steps
-    const localAvailablePipelineSteps = LocalAvailablePipelineSteps
+    //const localAvailablePipelineSteps = LocalAvailablePipelineSteps
 
     //get pipelinesteps from backend
     Controller.getPipelineStepsFromBackend(setAvailablePipelineSteps);
