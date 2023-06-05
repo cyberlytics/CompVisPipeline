@@ -158,100 +158,100 @@ describe("s3Manager - delete Functions", () => {
     });
 });
 
-describe("S3Manager.getImageFromS3() test", () => {
-    // Mock the getImageFromS3 function
-    // S3 returns by success a result object with ConeType and Body
-    // S3 returns by error a error object with code and statusCode
-    getImageFromS3Mock = jest.fn();
+describe.only("S3Manager.getImageFromS3() - test", () => {
+    let s3Manager;
+    let spyGetImage;
 
-    // before each test, mock the function
     beforeEach(() => {
-        getImageFromS3Mock.mockImplementation((imageKey) => {
-            return new Promise((resolve, reject) => {
-                if (imageKey === "test_key.jpg") {
-                    const result = {
-                        ContentType: 'image/jpeg',
-                        Body: 'Mock Data'
-                    };
-                    return resolve(result);
-                } else {
-                    const error = {
-                        code: 'NoSuchKey',
-                        statusCode: 404
-                    };
-                    return reject(error);
-                }
-            })
-        });
+        s3Manager = new S3Manager();
+        // mock the getObject function from S3
+        spyGetImage = jest.spyOn(s3Manager.S3, 'getObject');
     });
 
     // after each test, reset the mock
     afterEach(() => {
-        getImageFromS3Mock.mockReset();
+        spyGetImage.mockReset();
     });
 
-    test("Check if method is called", async () => {
-        let s3Manager = new S3Manager();
-        s3Manager.getImageFromS3 = getImageFromS3Mock;
+    test("Check if method is called", async () => {
+        spyGetImage.mockReturnValue({
+            promise: () => Promise.resolve({
+                ContentType: 'image/jpeg',
+                Body: 'Mock Data'
+            })
+        });
 
         await s3Manager.getImageFromS3("test_key.jpg");
-        expect(getImageFromS3Mock).toHaveBeenCalledTimes(1);
+        expect(spyGetImage).toHaveBeenCalledTimes(1);
     });
 
     test("Check if method is called with correct parameters", async () => {
-        let s3Manager = new S3Manager();
-        s3Manager.getImageFromS3 = getImageFromS3Mock;
+        spyGetImage.mockReturnValue({
+            promise: () => Promise.resolve({
+                ContentType: 'image/jpeg',
+                Body: 'Mock Data'
+            })
+        });
 
         await s3Manager.getImageFromS3("test_key.jpg");
-        expect(getImageFromS3Mock).toHaveBeenCalledWith("test_key.jpg");
+        expect(spyGetImage).toHaveBeenCalledWith({
+            Bucket: s3Manager.bucketName,
+            Key: "test_key.jpg"
+        });
     });
 
     test("Check success response", async () => {
-        let s3Manager = new S3Manager();
-        s3Manager.getImageFromS3 = getImageFromS3Mock;
+        spyGetImage.mockReturnValue({
+            promise: () => Promise.resolve({
+                ContentType: 'image/jpeg',
+                Body: 'Mock Data'
+            })
+        });
 
         await s3Manager.getImageFromS3("test_key.jpg")
-            .then((result) => {
-                expect(result.ContentType).toBe("image/jpeg");
-                expect(result).toHaveProperty("Body");
-                expect(result.Body).toBe("Mock Data");
+            .then((res) => {
+                expect(res.ContentType).toBe("image/jpeg");
+                expect(res).toHaveProperty("Body");
+                expect(res.Body).toBe("Mock Data");
             })
-            .catch(() => {
+            .catch((err) => {
                 // if error is thrown, test fails -> no error should be thrown
-                expect(True).toBe(false);
+                expect(true).toBe(false);
             });
     });
 
     test("Check error response for NoSuchKey", async () => {
-        let s3Manager = new S3Manager();
-        s3Manager.getImageFromS3 = getImageFromS3Mock;
+        spyGetImage.mockReturnValue({
+            promise: () => Promise.reject({
+                code: 'NoSuchKey',
+                statusCode: 404
+            })
+        });
 
         await s3Manager.getImageFromS3("test_key_error.jpg")
-            .then(() => {
-                // if no error is thrown, test fails -> error should be thrown
+            .then((res) => {
                 expect(true).toBe(false);
             })
-            .catch((error) => {
-                expect(error.code).toBe("NoSuchKey");
-                expect(error.statusCode).toBe(404);
+            .catch((err) => {
+                expect(err.code).toBe("NoSuchKey");
+                expect(err.statusCode).toBe(404);
             });
     });
 });
 
-describe.only("S3Manager.getImageFromS3() - test", () => {
-
-});
-
-describe("S3Manager.pushImageToS3() - test", () => {
-    let s3Manager = new S3Manager();
-    let image = s3Manager._createTestImage();
-    const spy = jest.spyOn(s3Manager.S3, 'putObject');
-
+describe.only("S3Manager.pushImageToS3() - test", () => {
+    let s3Manager;
+    let image;
+    let spyPutObject;
 
     beforeEach(() => {
+        s3Manager = new S3Manager();
+        image = s3Manager._createTestImage();
+        spyPutObject = jest.spyOn(s3Manager.S3, 'putObject');
+        
         // mock the putObject function from S3
         // S3 returns by success a result object with ETag and ServerSideEncryption
-        spy.mockReturnValue({
+        spyPutObject.mockReturnValue({
             promise: () => Promise.resolve({
                 ETag: 'Mock ETag',
                 ServerSideEncryption: 'AES256'
@@ -261,26 +261,22 @@ describe("S3Manager.pushImageToS3() - test", () => {
 
     // after each test, reset the mock
     afterEach(() => {
-        spy.mockReset();
+        spyPutObject.mockReset();
     });
 
     test("Check if method is called", async () => {
         await s3Manager.pushImageToS3(image, "test_key.jpg")
-            .then((res) => {
-                expect(spy).toHaveBeenCalledTimes(1);
-            });
+        expect(spyPutObject).toHaveBeenCalledTimes(1);
     });
 
     test("Check if method is called with correct parameters", async () => {
         await s3Manager.pushImageToS3(image, "test_key.jpg")
-            .then((res) => {
-                expect(spy).toHaveBeenCalledWith({
-                    Bucket: s3Manager.bucketName,
-                    Body: image,
-                    Key: "test_key.jpg",
-                    ContentType: "image/jpeg"
-                });
-            });
+        expect(spyPutObject).toHaveBeenCalledWith({
+            Bucket: s3Manager.bucketName,
+            Body: image,
+            Key: "test_key.jpg",
+            ContentType: "image/jpeg"
+        });
     });
 
     test("Check success response", async () => {
