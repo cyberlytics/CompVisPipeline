@@ -4,13 +4,14 @@ from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError, WrongPar
 
 
 class GaussianBlur(BaseStep):
-    def __call__(img, parameters):
+    def __call__(self, img, parameters):
         try:
             p0 = int(parameters[0])
             p1 = int(parameters[1])
             p2 = float(parameters[2])
             p3 = float(parameters[3])
 
+            if len(img.shape) not in (2, 3): raise ImageProcessingError(message="Invalid image shape!")
             if p0 < 1 or p1 < 1: raise WrongParameterError(message="Kernel dimensions can't be negative!")
             if p0 % 2 != 1 or p1 % 2 != 1: raise WrongParameterError(message="Kernel dimensions must be an odd number!")
 
