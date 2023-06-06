@@ -1,10 +1,9 @@
-import cv2
+from app.Pipeline.Steps.baseStep import BaseStep
 
-from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
 
 class Rotate(BaseStep):
     def __call__(self, img, parameters):
-        #TODO: implement image rotation
+        # TODO: implement image rotation
         pass
 
     def describe(self):
@@ -13,10 +12,10 @@ class Rotate(BaseStep):
             "info": "Rotate image by 90, 180 or 270 degrees.",
             "params": [
                 {
-                    "title":"Rotation",
+                    "title": "Rotation",
                     "info": "Amount to rotate the image by. 0 means 90, 1 means 180 and 2 means 270 degrees clockwise.",
                     "defaultValue": 0,
-                    "value": 0
+                    "value": 0,
                 }
             ],
         }

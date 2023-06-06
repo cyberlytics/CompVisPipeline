@@ -1,10 +1,9 @@
-import cv2
+from app.Pipeline.Steps.baseStep import BaseStep
 
-from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
 
 class HoughLines(BaseStep):
     def __call__(self, img, parameters):
-        #TODO: implement hough lines
+        # TODO: implement hough lines
         pass
 
     def describe(self):
@@ -16,19 +15,19 @@ class HoughLines(BaseStep):
                     "title": "Rho",
                     "info": "Distance resolution of the accumulator in pixels.",
                     "defaultValue": 1,
-                    "value": 1
+                    "value": 1,
                 },
                 {
                     "title": "Theta",
                     "info": "Angle resolution of the accumulator in radians.",
                     "defaultValue": 1,
-                    "value": 1
+                    "value": 1,
                 },
                 {
                     "title": "Threshold",
                     "info": "Threshold value for lines.",
                     "defaultValue": 100,
-                    "value": 100
+                    "value": 100,
                 },
             ],
         }

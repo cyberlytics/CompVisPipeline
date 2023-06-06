@@ -1,5 +1,4 @@
 from uuid import uuid4
-from app.Pipeline.Steps.baseStep import ImageProcessingError
 from app.Pipeline.Steps.bilateralFilter import BilateralFilter
 from app.Pipeline.Steps.gaussianBlur import GaussianBlur
 from app.Pipeline.Steps.anisotropicDiffusion import AnisotropicDiffusion
@@ -37,8 +36,8 @@ from app.Pipeline.Steps.saltAndPepperNoise import SaltAndPepperNoise
 from app.Pipeline.Steps.rotate import Rotate
 from app.Pipeline.Steps.houghLines import HoughLines
 
-from app.connections.aws_s3 import AWSError, S3Manager
-from app.metadata import Metadata, MetadataError
+from app.connections.aws_s3 import S3Manager
+from app.metadata import Metadata
 
 FUNCTION_LIST = [
     BilateralFilter(),
@@ -76,12 +75,19 @@ FUNCTION_LIST = [
     Sobel(),
     SaltAndPepperNoise(),
     Rotate(),
-    HoughLines()
+    HoughLines(),
 ]
 
 
 class Pipeline:
-    def __init__(self, image, steps, s3Manager=None, metaDataManager=None, functionList=FUNCTION_LIST):
+    def __init__(
+        self,
+        image,
+        steps,
+        s3Manager=None,
+        metaDataManager=None,
+        functionList=FUNCTION_LIST,
+    ):
         self.image = image
         self.steps = steps
         self.s3Manager = s3Manager or S3Manager()
@@ -105,11 +111,13 @@ class Pipeline:
             metaData = self.metaDataManager.getMetadata(lastImage)
             id = str(uuid4())
             self.s3Manager.pushImageToS3(id, lastImage)
-            allResults.append({
-                "imageId": id,
-                "histId": metaData[0],
-                "height": metaData[1],
-                "width": metaData[2],
-                "channels": metaData[3],
-            })
+            allResults.append(
+                {
+                    "imageId": id,
+                    "histId": metaData[0],
+                    "height": metaData[1],
+                    "width": metaData[2],
+                    "channels": metaData[3],
+                }
+            )
         return allResults

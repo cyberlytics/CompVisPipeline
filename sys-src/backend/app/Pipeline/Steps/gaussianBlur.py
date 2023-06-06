@@ -1,6 +1,7 @@
 import cv2
 
-from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError, WrongParameterError
+from app.Pipeline.Steps.baseStep import BaseStep
+from app.exceptions import ImageProcessingError, WrongParameterError
 
 
 class GaussianBlur(BaseStep):
@@ -20,7 +21,6 @@ class GaussianBlur(BaseStep):
             raise ImageProcessingError(message=e)
 
     def describe(self):
-        # TODO: describe this
         return {
             "title": "Gaussian Blur",
             "info": "Reduce Noise using a Gaussian Blur",
@@ -38,16 +38,16 @@ class GaussianBlur(BaseStep):
                     "value":3
                 },
                 {
-                    "title": "Sigma X", 
-                    "info": "Standard deviation of gaussian kernel in X direction", 
+                    "title": "Sigma X",
+                    "info": "Standard deviation of gaussian kernel in X direction",
                     "defaultValue": 0,
-                    "value": 0
+                    "value": 0,
                 },
                 {
-                    "title": "Sigma Y", 
-                    "info": "Standard deviation of gaussian kernel in Y direction", 
+                    "title": "Sigma Y",
+                    "info": "Standard deviation of gaussian kernel in Y direction",
                     "defaultValue": 0,
-                    "value": 0
+                    "value": 0,
                 },
             ],
         }

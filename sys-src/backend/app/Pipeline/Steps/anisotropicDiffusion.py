@@ -1,10 +1,9 @@
-import cv2
+from app.Pipeline.Steps.baseStep import BaseStep
 
-from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
 
 class AnisotropicDiffusion(BaseStep):
     def __call__(self, img, parameters):
-        #TODO: implement anisotropic diffusion filter
+        # TODO: implement anisotropic diffusion filter
         pass
 
     def describe(self):
@@ -16,19 +15,19 @@ class AnisotropicDiffusion(BaseStep):
                     "title": "Alpha Value",
                     "info": "Amount of time to step forward by in each iteration. Must be positive, normally between 0 and 1.",
                     "defaultValue": 0.1,
-                    "value": 0.1
+                    "value": 0.1,
                 },
                 {
                     "title": "Sensitivity",
                     "info": "Sensitivity to the edges.",
                     "defaultValue": 1,
-                    "value": 1
+                    "value": 1,
                 },
                 {
                     "title": "Iterations",
                     "info": "Number of iterations. Must be bigger than 0",
                     "defaultValue": 1,
-                    "value": 1
+                    "value": 1,
                 },
             ],
         }

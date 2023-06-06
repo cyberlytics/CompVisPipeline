@@ -2,17 +2,16 @@ from pydantic import ValidationError
 import pytest
 from app.Models.startPipelineModels import PipelineStep
 from app.Pipeline.Steps.baseStep import BaseStep
-from app.Pipeline.Steps.bilateralFilter import BilateralFilter
 from app.Pipeline.pipeline import FUNCTION_LIST
 
 
 def test_pipelineStep_raises_validation_error_for_to_large_id():
-    with pytest.raises(ValidationError) as e:
+    with pytest.raises(ValidationError):
         PipelineStep(id=len(FUNCTION_LIST) + 100, params=[])
 
 
 def test_pipelineStep_raises_validation_error_for_negative_id():
-    with pytest.raises(ValidationError) as e:
+    with pytest.raises(ValidationError):
         PipelineStep(id=-20, params=[])
 
 

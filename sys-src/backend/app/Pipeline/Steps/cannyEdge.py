@@ -1,10 +1,9 @@
-import cv2
+from app.Pipeline.Steps.baseStep import BaseStep
 
-from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError
 
 class CannyEdge(BaseStep):
     def __call__(self, img, parameters):
-        #TODO: implement canny edge detector.
+        # TODO: implement canny edge detector.
         pass
 
     def describe(self):
@@ -16,13 +15,13 @@ class CannyEdge(BaseStep):
                     "title": "First threshold",
                     "info": "First threshold value for hysteresis thresholding.",
                     "defaultValue": 100,
-                    "value": 100
+                    "value": 100,
                 },
                 {
                     "title": "Second threshold",
                     "info": "Second threshold value for hysteresis thresholding.",
                     "defaultValue": 200,
-                    "value": 200
+                    "value": 200,
                 },
             ],
         }

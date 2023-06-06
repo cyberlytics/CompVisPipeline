@@ -1,6 +1,7 @@
 import cv2
 
-from app.Pipeline.Steps.baseStep import BaseStep, ImageProcessingError, WrongParameterError
+from app.Pipeline.Steps.baseStep import BaseStep
+from app.exceptions import ImageProcessingError, WrongParameterError
 
 
 class AveragingFilter(BaseStep):
@@ -16,7 +17,9 @@ class AveragingFilter(BaseStep):
             return cv2.blur(img, (kernel_width, kernel_height))
 
         except Exception as e:
-            raise ImageProcessingError(message="An Exception in averaging filter occured: " + str(e))
+            raise ImageProcessingError(
+                message="An Exception in averaging filter occured: " + str(e)
+            )
 
     def describe(self):
         return {
@@ -27,13 +30,13 @@ class AveragingFilter(BaseStep):
                     "title": "Kernel Width",
                     "info": "Width of kernel used for averaging. Must be bigger than 0",
                     "defaultValue": 3,
-                    "value": 3
+                    "value": 3,
                 },
                 {
                     "title": "Kernel Height",
                     "info": "Height of kernel used for averaging. Must be bigger than 0",
                     "defaultValue": 3,
-                    "value": 3
+                    "value": 3,
                 },
             ],
         }
