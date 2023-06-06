@@ -86,24 +86,6 @@ class S3Manager {
         let S3 = new this.AWS.S3();
         return S3;
     }
-    
-    /**
-     * Creates a test image
-     * @returns {Buffer} -> Buffer of the test image
-     */
-    _createTestImage = () => {
-        // create test image with canvas
-        const { createCanvas } = require('canvas');
-    
-        const canvas = createCanvas(20,20);
-    
-        let ctx = canvas.getContext('2d');
-    
-        ctx.fillStyle = 'rgb(0, 0, 0)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-        return canvas.toBuffer('image/jpeg');
-    };
 
     /**
      * Delete one image from S3 Bucket
