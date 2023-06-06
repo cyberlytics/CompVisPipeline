@@ -15,6 +15,11 @@ import PersonOffOutlinedIcon from '@mui/icons-material/PersonOffOutlined';
 import LoginWindow from '../../ModalWindow/LoginWindow';
 import RollingCat from './rollingCat';
 
+import DeveloperMenu from './developerMenu';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+
+
 export default function Header(props) {
     const { theme, setTheme, developMode, setDevelopMode } = props;
     const [isOpen, setIsOpen] = useState(false);
@@ -72,8 +77,16 @@ export default function Header(props) {
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item md={8}>
+                    <Grid item md={8} >
                         <Grid container justifyContent="flex-end" spacing={2}>
+                                {/* Developer Menu */}
+                                <Grid item >
+                                    { 
+                                    developMode &&
+                                        <DeveloperMenu />
+                                    }   
+                                </Grid>
+                            {/* Other symboles */}
                             <Grid item>
                                 <Tooltip title="Refresh page.">
                                     <RestartAltIcon onClick={refresh} fontSize='medium' data-testid='refresh-button'/>
