@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class Watershed(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement watershed segmentation.
-        pass
+        return img
 
     def describe(self):
         return {

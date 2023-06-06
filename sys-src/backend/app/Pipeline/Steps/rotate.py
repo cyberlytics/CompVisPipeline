@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class Rotate(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement image rotation
-        pass
+        return img
 
     def describe(self):
         return {

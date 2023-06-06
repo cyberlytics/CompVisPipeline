@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class BottomHat(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement bottom hat transformation
-        pass
+        return img
 
     def describe(self):
         return {

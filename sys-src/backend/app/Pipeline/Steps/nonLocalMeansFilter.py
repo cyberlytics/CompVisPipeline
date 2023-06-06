@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class NonLocalMeansFilter(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement non local means filter
-        pass
+        return img
 
     def describe(self):
         return {

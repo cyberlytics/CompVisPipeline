@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class ConvertColor(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement color converting
-        pass
+        return img
 
     def describe(self):
         return {
