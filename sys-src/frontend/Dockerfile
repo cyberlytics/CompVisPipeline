@@ -6,7 +6,7 @@ WORKDIR workdir
 COPY . .
 RUN npm install -g npm@latest
 RUN npm install @mui/material @emotion/react @emotion/styled
-RUN npm ci
+RUN npm i
 RUN npm run build
 
 # stage 1, nginx

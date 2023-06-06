@@ -2,6 +2,6 @@ FROM node:20-alpine
 
 VOLUME [/workdir/node_modules]
 
-RUN npm ci -g npm@latest
+RUN npm i -g npm@latest
 
 CMD ["/bin/bash"]
