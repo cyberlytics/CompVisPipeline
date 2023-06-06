@@ -1,6 +1,7 @@
 import pytest
 import numpy as np
-from app.Pipeline.Steps.gaussianBlur import GaussianBlur, ImageProcessingError
+from app.Pipeline.Steps.gaussianBlur import GaussianBlur
+from app.exceptions import ImageProcessingError
 
 def test_gaussian_blur_with_expected_result():
     image = np.random.randint(0, 255, (10, 10))
