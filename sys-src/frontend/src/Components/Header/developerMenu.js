@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Button, Tooltip} from '@mui/material';
+import { Button, Tooltip} from '@mui/material';
 
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Grid from '@mui/material/Grid';
@@ -30,7 +30,7 @@ export default function DeveloperMenu() {
         <Grid container spacing={2} >
             <Grid item>
                 <Tooltip title="Delete all Images in S3">
-                    <DeleteOutlineIcon fontSize='medium' onClick={ () => setOpenDialog(true) } />
+                    <DeleteOutlineIcon fontSize='medium' onClick={ () => setOpenDialog(true) } data-testid="deleteButton-icon"/>
                 </Tooltip>
             </Grid>
             <Grid item >
@@ -39,8 +39,8 @@ export default function DeveloperMenu() {
         
 
             {/* Accept Dialog */}
-            <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-                <DialogTitle>Delete all Images in S3</DialogTitle>
+            <Dialog open={openDialog} onClose={() => setOpenDialog(false)} data-testid="deleteDialog">
+                <DialogTitle data-testid="deleteDialog-title">Delete all Images in S3</DialogTitle>
                 <DialogContent>
                     <p>Are you sure you want to delete all images in S3?</p>
                 </DialogContent>

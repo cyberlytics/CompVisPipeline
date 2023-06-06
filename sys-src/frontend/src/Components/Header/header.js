@@ -80,8 +80,9 @@ export default function Header(props) {
                     <Grid item md={8} >
                         <Grid container justifyContent="flex-end" spacing={2}>
                                 {/* Developer Menu */}
-                                <Grid item>
-                                    { developMode &&
+                                <Grid item >
+                                    { 
+                                    developMode &&
                                         <DeveloperMenu />
                                     }   
                                 </Grid>
