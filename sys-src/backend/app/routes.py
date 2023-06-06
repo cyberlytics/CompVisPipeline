@@ -22,7 +22,6 @@ def startPipeline(imageId):
     try:
         steps = [PipelineStep(**item) for item in request.json]
     except ValidationError as e:
-        print("Vailidation Error")
         return app.response_class(
             response=f"Invalid request: {e}",
             status=400,
@@ -32,14 +31,12 @@ def startPipeline(imageId):
     try:
         result = pipeline.start()
     except BaseError as e:
-        print(e.message)
         return app.response_class(
             response=f"Failed to process image: {e.message}",
             status=400,
             content_type="application/json",
         )
     except Exception as e:
-        print(e)
         return app.response_class(
             response=f"Failed to process image: Unknown Exception occured {e}",
             status=400,
