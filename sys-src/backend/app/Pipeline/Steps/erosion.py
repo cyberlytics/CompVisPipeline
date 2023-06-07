@@ -42,6 +42,9 @@ class Erosion(BaseStep):
         
         except WrongParameterError as e:
             raise e
+        
+        except ValueError as e:
+            raise WrongParameterError(message=e)
 
         except Exception as e:
             raise ImageProcessingError(message=e)
