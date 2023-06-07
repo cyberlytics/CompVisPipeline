@@ -5,8 +5,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 
-import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
-
+import DeleteWindow from '../../ModalWindow/DeleteWindow';
 import S3Manager from '../Connections/awsS3';
 
 /**
@@ -15,6 +14,9 @@ import S3Manager from '../Connections/awsS3';
  * @returns Developer Menu Card
  */
 export default function DeveloperMenu() {
+
+    const dialogTitle = "Delete all Images in S3";
+    const dialogText = "Are you sure you want to delete all images in S3?";
 
     const [openDialog, setOpenDialog] = useState(false);
     
@@ -39,16 +41,7 @@ export default function DeveloperMenu() {
         
 
             {/* Accept Dialog */}
-            <Dialog open={openDialog} onClose={() => setOpenDialog(false)} data-testid="deleteDialog">
-                <DialogTitle data-testid="deleteDialog-title">Delete all Images in S3</DialogTitle>
-                <DialogContent>
-                    <p>Are you sure you want to delete all images in S3?</p>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleDeleteAllImages} variant="contained" style={{backgroundColor: "#d22819", width: "90px"}} >Delete</Button>
-                    <Button onClick={() => setOpenDialog(false)} variant="contained" style={{backgroundColor: "#d22819", width: "90px"}} >Cancel</Button>
-                </DialogActions>
-            </Dialog>
+            <DeleteWindow open={openDialog} onClose={setOpenDialog} handleFunction={handleDeleteAllImages} dialogTitle={dialogTitle} dialogText={dialogText} />
         </Grid>
     );
 }
