@@ -79,3 +79,22 @@ def sendMetadata(imageId):
         "width": result[2],
         "channels": result[3],
     }
+
+@app.route("/login", methods=["POST"])
+def login():
+    # Erhalte die Anmeldeinformationen aus dem Anfragekörper
+    username = request.json.get("username")
+    password = request.json.get("password")
+
+    if password == 'ILoveBDCC_2023' and username == 'Fatcat':
+        return app.response_class(
+            response="Login successful",
+            status=200,
+            content_type="application/json",
+        )
+    else:
+        return app.response_class(
+            response="Login failed",
+            status=400,
+            content_type="application/json",
+        )

@@ -65,3 +65,15 @@ def test_imageMetadata_route(client, prepared_bgr_img):
 def test_imageMetadata_route_invalid_image_id(client):
     response = client.get("/image-metadata/this_is_an_invalid_image_id")
     assert response.status_code == 400
+
+def test_login_route(client):
+    # Test with correct login credentials
+    response = client.post("/login", json={"username": "Fatcat", "password": "ILoveBDCC_2023"})
+    assert response.status_code == 200
+    assert response.data == b"Login successful"
+
+    # Test with incorrect login credentials
+    response = client.post("/login", json={"username": "WrongUser", "password": "WrongPassword"})
+    assert response.status_code == 400
+    assert response.data == b"Login failed"
+
