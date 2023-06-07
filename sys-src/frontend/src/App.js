@@ -54,7 +54,7 @@ function App() {
                 <ImageView currentImageID={currentImageID}/>
               </Grid>
               <Grid item xs >
-                <ImageDetails />
+                <ImageDetails currentImageID={currentImageID}/>
               </Grid>
             </Grid>
           </Grid>

@@ -29,6 +29,18 @@ class Controller {
           return false;
         });
       }
+
+    //Call to get imagemetadata from backend
+    static async getImageMetadataFromBackend(imageId, setMetadata) {
+      fetch(`http://127.0.0.1:5000/image-metadata/${imageId}`)
+        .then(response => response.json())
+        .then(response => setMetadata(response))
+        .catch(error => {
+          console.log('Error retrieving image metadata:', error);
+          setMetadata(null);
+        });
+    }
+    
 }
 
 export default Controller;
