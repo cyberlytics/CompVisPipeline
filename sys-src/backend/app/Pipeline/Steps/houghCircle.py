@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class HoughCircle(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement hough circles.
-        pass
+        return img
 
     def describe(self):
         return {

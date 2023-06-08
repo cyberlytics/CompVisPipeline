@@ -412,7 +412,7 @@ describe("S3Manager.pushImageToS3() - test", () => {
 
     beforeEach(() => {
         s3Manager = new S3Manager();
-        image = s3Manager._createTestImage();
+        image = "Image Data"
         spyPutObject = jest.spyOn(s3Manager.S3, 'putObject');
         
         // mock the putObject function from S3

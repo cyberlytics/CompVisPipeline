@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class ThresholdOtsu(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement otsu threshold
-        pass
+        return img
 
     def describe(self):
         return {

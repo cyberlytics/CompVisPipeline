@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class Flip(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement flip
-        pass
+        return img
 
     def describe(self):
         return {
