@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './Components/Header/header';
 import Upload from './Components/upload';
 import ImageView from './Components/imageView';
@@ -9,8 +9,10 @@ import StartPipeline from './Components/startPipeline';
 import Grid from '@mui/material/Grid';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+
+let AngryCat = require('./resources/AngryCat.png');
 
 const lightTheme = createTheme({
   palette: {
@@ -28,59 +30,85 @@ const darkTheme = createTheme({
 });
 
 function App() {
-  const [theme, setTheme] = useState(true)
-  const appliedTheme = createTheme(theme ? lightTheme : darkTheme)
+  const [theme, setTheme] = useState(true);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const appliedTheme = createTheme(theme ? lightTheme : darkTheme);
 
   const [originalImageID, setOriginalImageID] = useState(null);
   const [currentImageID, setCurrentImageID] = useState(null);
-  const [developMode, setDevelopMode] = useState(false)
+  const [developMode, setDevelopMode] = useState(false);
+
+  const minWindowSize = 900;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const isWindowTooSmall = windowWidth < minWindowSize;
 
   return (
-    <ThemeProvider theme={appliedTheme}>
-      <CssBaseline className={"App-CssBaseline"} />
-      <DndProvider className={"App-DndProvider"} backend={HTML5Backend}>
-        <Grid style={{ paddingTop: 20, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
-          <Header theme={theme} setTheme={setTheme} developMode={developMode} setDevelopMode={setDevelopMode} />
-        </Grid>
-
-        <Grid container style={{ paddingTop: 0, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
-
-          <Grid item md={4} style={{ paddingRight: 10 }}>
-            <Grid container direction="column">
-              <Grid item xs style={{ paddingBottom: 10 }}>
-                <Upload setOriginalImageID={setOriginalImageID} setCurrentImageID={setCurrentImageID}/>
-              </Grid>
-              <Grid item xs style={{ paddingBottom: 10 }}>
-                <ImageView currentImageID={currentImageID}/>
-              </Grid>
-              <Grid item xs >
-                <ImageDetails />
-              </Grid>
-            </Grid>
+      <ThemeProvider theme={appliedTheme}>
+        <CssBaseline className={'App-CssBaseline'} />
+        <DndProvider className={'App-DndProvider'} backend={HTML5Backend}>
+          <Grid style={{ paddingTop: 20, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
+            <Header theme={theme} setTheme={setTheme} developMode={developMode} setDevelopMode={setDevelopMode} />
           </Grid>
 
-          <Grid item md={4} style={{ paddingRight: 10 }}>
-            <Grid container direction="column">
-              <Grid item xs style={{ paddingBottom: 10 }}>
-                <Pipeline />
+          {isWindowTooSmall ? (
+              <Grid container justifyContent="center" alignItems="center" style={{ paddingTop: 10 }}>
+                <Grid item>
+                  <div style={{ textAlign: 'center' }}>
+                    <img src={AngryCat} alt="Angry Cat" style={{ width: 200, marginBottom: 10 }} />
+                    <div style={{ color: 'red', fontWeight: 'bold', fontSize: '1.5rem' }}>Maximize the window immediately!</div>
+                  </div>
+                </Grid>
               </Grid>
-              <Grid item xs>
-                <StartPipeline />
-              </Grid>
-            </Grid>
-          </Grid>
+          ) : (
+              <Grid container style={{ paddingTop: 0, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
+                <Grid item md={4} style={{ paddingRight: 10 }}>
+                  <Grid container direction="column">
+                    <Grid item xs style={{ paddingBottom: 10 }}>
+                      <Upload setOriginalImageID={setOriginalImageID} setCurrentImageID={setCurrentImageID} />
+                    </Grid>
+                    <Grid item xs style={{ paddingBottom: 10 }}>
+                      <ImageView currentImageID={currentImageID} />
+                    </Grid>
+                    <Grid item xs>
+                      <ImageDetails />
+                    </Grid>
+                  </Grid>
+                </Grid>
 
-          <Grid item md={4}>
-            <Grid container direction="column">
-              <Grid item xs>
-                <AvailablePipelineSteps />
-              </Grid>
-            </Grid>
-          </Grid>
+                <Grid item md={4} style={{ paddingRight: 10 }}>
+                  <Grid container direction="column">
+                    <Grid item xs style={{ paddingBottom: 10 }}>
+                      <Pipeline />
+                    </Grid>
+                    <Grid item xs>
+                      <StartPipeline />
+                    </Grid>
+                  </Grid>
+                </Grid>
 
-        </Grid>
-      </DndProvider>
-    </ThemeProvider>
+                <Grid item md={4}>
+                  <Grid container direction="column">
+                    <Grid item xs>
+                      <AvailablePipelineSteps />
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+          )}
+        </DndProvider>
+      </ThemeProvider>
   );
 }
 
