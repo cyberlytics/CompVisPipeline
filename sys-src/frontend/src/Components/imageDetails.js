@@ -57,7 +57,7 @@ export default function ImageDetails(props) {
     }, [histId]);
 
     return (
-        <Card style={{ height: 445 }}>
+        <Card style={{ height: "530px"  }}>
             <CardContent>
                 <Typography
                     sx={{ width: "100%" }}
@@ -84,10 +84,10 @@ export default function ImageDetails(props) {
                         <>
                             <CardMedia
                                 component="img"
-                                alt="green iguana"
+                                alt="image histogram"
                                 align="center"
                                 sx={{
-                                    maxHeight: "70%",
+                                    maxHeight: "75%",
                                     maxWidth: "80%",
                                     margin: "auto",
                                     objectFit: "contain"
