@@ -1,10 +1,19 @@
+import cv2
+
 from app.Pipeline.Steps.baseStep import BaseStep
+from app.exceptions import ImageProcessingError
 
 
 class Flip(BaseStep):
     def __call__(self, img, parameters):
-        # TODO: implement flip
-        return img
+        try:
+            p0 = int(parameters[0])
+
+            if len(img.shape) not in (2, 3): raise ImageProcessingError("Invalid image shape!")
+
+            return cv2.flip(img.astype("uint8"), p0)
+        except Exception as e:
+            raise ImageProcessingError(message=e)
 
     def describe(self):
         return {

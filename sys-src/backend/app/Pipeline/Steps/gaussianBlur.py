@@ -13,7 +13,7 @@ class GaussianBlur(BaseStep):
             p3 = float(parameters[3])
 
             if len(img.shape) not in (2, 3): raise ImageProcessingError(message="Invalid image shape!")
-            if p0 < 1 or p1 < 1: raise WrongParameterError(message="Kernel dimensions can't be negative!")
+            if p0 < 1 or p1 < 1: raise WrongParameterError(message="Kernel dimensions can't be less than one!")
             if p0 % 2 != 1 or p1 % 2 != 1: raise WrongParameterError(message="Kernel dimensions must be an odd number!")
 
             return cv2.GaussianBlur(img.astype("uint8"), (p0, p1), p2, p3)

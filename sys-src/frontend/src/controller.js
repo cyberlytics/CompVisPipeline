@@ -12,6 +12,29 @@ class Controller {
             .then(response => set(response))
     }
 
+    //Call to login in into develop mode
+    static async login(username, password) {
+        const loginCredentials = {
+          username: username,
+          password: password
+        };
+
+        return fetch(base + '/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(loginCredentials)
+        })
+        .then(response => {
+          return response.status === 200
+        })
+        .catch(error => {
+          console.log('Login request error:', error);
+          return false;
+        });
+      }
+
     static async sendPipelineSteps(props, setLoading) {
         const path = base + "/start-pipeline/" + props.originalImageID;
         setLoading(true);
