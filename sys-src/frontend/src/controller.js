@@ -1,16 +1,19 @@
 import JSONTransformer from "./JSONTransformer";
+
+
+const base = "http://127.0.0.1:5000";
 class Controller {
+
 
     //Call to get available steps for
     static async getPipelineStepsFromBackend(set) {
-        fetch('http://127.0.0.1:5000/available-steps')
+        fetch(base + '/available-steps')
             .then(response => response.json())
             .then(response => set(response))
     }
 
     static async sendPipelineSteps(props, setLoading) {
-        const base = "http://127.0.0.1:5000/start-pipeline/";
-        const path = base + props.originalImageID;
+        const path = base + "/start-pipeline/" + props.originalImageID;
         setLoading(true);
 
         let newJSON = JSONTransformer.transformJSON(props.steps)
@@ -28,7 +31,7 @@ class Controller {
                 window.alert("Pipeline started successfully");
             }
             else{
-                window.alert("An error occured - Pipeline started unsuccessfully");
+                window.alert("An error occured - Pipeline started unsuccessfully - Statuscode: "+ response.status);
             }
 
         } catch (error) {
