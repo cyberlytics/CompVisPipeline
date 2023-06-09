@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 from app.Pipeline.Steps.poissonNoise import PoissonNoise
-from app.exceptions import ImageProcessingError
+from app.exceptions import WrongParameterError
 
 
 def test_poisson_noise_with_expected_result():
@@ -16,7 +16,7 @@ def test_poisson_noise_with_expected_result():
 
 
 def test_poisson_noise_with_invalid_image_shape():
-    with pytest.raises(ImageProcessingError):
+    with pytest.raises(WrongParameterError):
         image = np.random.randint(0, 255, 1)
 
         poisson_noise_step = PoissonNoise()
