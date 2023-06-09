@@ -10,6 +10,8 @@ class SaltAndPepperNoise(BaseStep):
             p0 = float(parameters[0])
             p1 = float(parameters[1])
 
+            if len(img.shape) not in (2, 3): raise WrongParameterError("Invalid image shape!")
+
             if p0 < 0:
                 raise WrongParameterError(
                     message="Ration between Salt & Pepper should be between 0 and 1, e.g. 0.5!"
@@ -37,6 +39,10 @@ class SaltAndPepperNoise(BaseStep):
             out[pepper_coords[0], pepper_coords[1]] = 0
 
             return out
+        except WrongParameterError as e:
+            raise e
+        except ValueError as e:
+            raise WrongParameterError(message=e)
         except Exception as e:
             raise ImageProcessingError(message=e)
 
