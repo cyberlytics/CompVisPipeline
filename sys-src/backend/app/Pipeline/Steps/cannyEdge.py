@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class CannyEdge(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement canny edge detector.
-        pass
+        return img
 
     def describe(self):
         return {

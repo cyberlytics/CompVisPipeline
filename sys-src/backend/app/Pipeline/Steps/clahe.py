@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class CLAHE(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement CLAHE.
-        pass
+        return img
 
     def describe(self):
         return {

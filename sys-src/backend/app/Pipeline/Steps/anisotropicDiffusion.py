@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class AnisotropicDiffusion(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement anisotropic diffusion filter
-        pass
+        return img
 
     def describe(self):
         return {

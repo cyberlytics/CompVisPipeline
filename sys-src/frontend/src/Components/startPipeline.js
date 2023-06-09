@@ -1,14 +1,28 @@
-import React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
+import { useState } from 'react';
+import { Card, CardContent, Button } from '@mui/material';
+import Controller from "../controller";
 
-export default function StartPipeline() {
+export default function StartPipeline(props) {
+    const [loading, setLoading] = useState(false);
+    const handleButtonClick = async () => {
+        await Controller.sendPipelineSteps(props, setLoading)
+    };
 
     return (
         <Card style={{ height: 90 }}>
             <CardContent>
-                <Typography sx={{ width: '100%' }} align="center" variant="h5" component="div">Start Pipeline</Typography>
+                <Button
+                    sx={{
+                        width: '100%',
+                        bgcolor: '#d22819' // Setze die Hintergrundfarbe auf "#d22819"
+                    }}
+                    variant="contained"
+                    color="primary"
+                    disabled={loading}
+                    onClick={handleButtonClick}
+                >
+                    Start Pipeline
+                </Button>
             </CardContent>
         </Card>
     );

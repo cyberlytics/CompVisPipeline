@@ -30,6 +30,7 @@ const darkTheme = createTheme({
 function App() {
   const [theme, setTheme] = useState(true)
   const appliedTheme = createTheme(theme ? lightTheme : darkTheme)
+  const [steps, setSteps] = useState([]);
 
   const [originalImageID, setOriginalImageID] = useState(null);
   const [currentImageID, setCurrentImageID] = useState(null);
@@ -62,10 +63,10 @@ function App() {
           <Grid item md={4} style={{ paddingRight: 10 }}>
             <Grid container direction="column">
               <Grid item xs style={{ paddingBottom: 10 }}>
-                <Pipeline />
+                <Pipeline steps={steps} setSteps={setSteps} />
               </Grid>
               <Grid item xs>
-                <StartPipeline />
+                <StartPipeline steps={steps} originalImageID={originalImageID}/>
               </Grid>
             </Grid>
           </Grid>
