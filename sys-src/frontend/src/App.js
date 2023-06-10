@@ -11,6 +11,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import WindowToSmall from "./Components/windowToSmall";
 
 let AngryCat = require('./resources/AngryCat.png');
 
@@ -63,14 +64,8 @@ function App() {
           </Grid>
 
           {isWindowTooSmall ? (
-              <Grid container justifyContent="center" alignItems="center" style={{ paddingTop: 10 }}>
-                <Grid item>
-                  <div style={{ textAlign: 'center' }}>
-                    <img src={AngryCat} alt="Angry Cat" style={{ width: 200, marginBottom: 10 }} />
-                    <div style={{ color: 'red', fontWeight: 'bold', fontSize: '1.5rem' }}>Maximize the window immediately!</div>
-                  </div>
-                </Grid>
-              </Grid>
+              <WindowToSmall/>
+
           ) : (
               <Grid container style={{ paddingTop: 0, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
                 <Grid item md={4} style={{ paddingRight: 10 }}>
