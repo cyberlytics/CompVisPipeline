@@ -34,6 +34,7 @@ function App() {
   const [theme, setTheme] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const appliedTheme = createTheme(theme ? lightTheme : darkTheme);
+  const [steps, setSteps] = useState([]);
 
   const [originalImageID, setOriginalImageID] = useState(null);
   const [currentImageID, setCurrentImageID] = useState(null);
@@ -82,16 +83,16 @@ function App() {
                   </Grid>
                 </Grid>
 
-                <Grid item md={4} style={{ paddingRight: 10 }}>
-                  <Grid container direction="column">
-                    <Grid item xs style={{ paddingBottom: 10 }}>
-                      <Pipeline />
-                    </Grid>
-                    <Grid item xs>
-                      <StartPipeline />
-                    </Grid>
-                  </Grid>
-                </Grid>
+          <Grid item md={4} style={{ paddingRight: 10 }}>
+            <Grid container direction="column">
+              <Grid item xs style={{ paddingBottom: 10 }}>
+                <Pipeline steps={steps} setSteps={setSteps} />
+              </Grid>
+              <Grid item xs>
+                <StartPipeline steps={steps} originalImageID={originalImageID}/>
+              </Grid>
+            </Grid>
+          </Grid>
 
                 <Grid item md={4}>
                   <Grid container direction="column">

@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class RandomWalker(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement random walker segmentation.
-        pass
+        return img
 
     def describe(self):
         return {

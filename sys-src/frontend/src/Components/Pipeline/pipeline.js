@@ -13,11 +13,12 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
-export default function Pipeline() {
-    const [steps, setSteps] = useState([]);
+export default function Pipeline(props) {
+
 
     //function for drag and drop in pipeline
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
+
         accept: ['AvailableStep'],
         drop: (item, monitor) => {
             if (!monitor.didDrop()) {
@@ -26,7 +27,7 @@ export default function Pipeline() {
                     uuid: uuidv4(), //unique uuid for each item in list
                     params: JSON.parse(JSON.stringify(item.params))
                 };
-                setSteps((prevSteps) => [...prevSteps, newItem]);
+                props.setSteps((prevSteps) => [...prevSteps, newItem]);
             }
         },
         collect: (monitor) => ({
@@ -47,7 +48,7 @@ export default function Pipeline() {
 
     // Function to delete a single step from list
     const deleteStep = (uuid) => {
-        setSteps((prevSteps) => prevSteps.filter((step) => step.uuid !== uuid));
+        props.setSteps((prevSteps) => prevSteps.filter((step) => step.uuid !== uuid));
     };
 
     //function to show uploaded picture
@@ -57,7 +58,7 @@ export default function Pipeline() {
 
     // Function to move the items in the stack
     const moveStep = useCallback((dragIndex, hoverIndex) => {
-        setSteps((prevCards) =>
+        props.setSteps((prevCards) =>
             update(prevCards, {
                 $splice: [
                     [dragIndex, 1],
@@ -98,7 +99,7 @@ export default function Pipeline() {
                             <VisibilityOutlinedIcon onClick={handleShowUploadedPictureClick} sx={{ mr: 1 }} />
                         </ListItem>
                     </Box>
-                    {steps.map((step, index) => (
+                    {props.steps.map((step, index) => (
                         renderStep(step, index)
                     ))}
                 </Stack>

@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class ConnectedComponents(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement connected components
-        pass
+        return img
 
     def describe(self):
         return {

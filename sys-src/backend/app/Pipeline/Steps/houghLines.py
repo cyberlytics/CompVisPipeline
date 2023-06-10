@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class HoughLines(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement hough lines
-        pass
+        return img
 
     def describe(self):
         return {

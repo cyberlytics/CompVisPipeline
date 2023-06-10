@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class Crop(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement crop
-        pass
+        return img
 
     def describe(self):
         return {

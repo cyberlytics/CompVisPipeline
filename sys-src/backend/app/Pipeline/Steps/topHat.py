@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class TopHat(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement white top hat transformation
-        pass
+        return img
 
     def describe(self):
         return {
