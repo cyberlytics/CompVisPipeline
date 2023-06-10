@@ -9,11 +9,9 @@ import StartPipeline from './Components/startPipeline';
 import Grid from '@mui/material/Grid';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 import WindowToSmall from "./Components/windowToSmall";
-
-let AngryCat = require('./resources/AngryCat.png');
 
 const lightTheme = createTheme({
   palette: {
@@ -31,20 +29,19 @@ const darkTheme = createTheme({
 });
 
 function App() {
-  const [theme, setTheme] = useState(true);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const appliedTheme = createTheme(theme ? lightTheme : darkTheme);
+  const [theme, setTheme] = useState(true)
+  const appliedTheme = createTheme(theme ? lightTheme : darkTheme)
   const [steps, setSteps] = useState([]);
 
   const [originalImageID, setOriginalImageID] = useState(null);
   const [currentImageID, setCurrentImageID] = useState(null);
   const [developMode, setDevelopMode] = useState(false);
-
-  const minWindowSize = 900;
+  const [windowSize, setWindowSize] = useState(window.innerWidth);
 
   useEffect(() => {
+    // Update the window size when resized
     const handleResize = () => {
-      setWindowWidth(window.innerWidth);
+      setWindowSize(window.innerWidth);
     };
 
     window.addEventListener('resize', handleResize);
@@ -54,8 +51,6 @@ function App() {
     };
   }, []);
 
-  const isWindowTooSmall = windowWidth < minWindowSize;
-
   return (
       <ThemeProvider theme={appliedTheme}>
         <CssBaseline className={'App-CssBaseline'} />
@@ -64,10 +59,7 @@ function App() {
             <Header theme={theme} setTheme={setTheme} developMode={developMode} setDevelopMode={setDevelopMode} />
           </Grid>
 
-          {isWindowTooSmall ? (
-              <WindowToSmall/>
-
-          ) : (
+          {windowSize >= 900 ? (
               <Grid container style={{ paddingTop: 0, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
                 <Grid item md={4} style={{ paddingRight: 10 }}>
                   <Grid container direction="column">
@@ -83,16 +75,16 @@ function App() {
                   </Grid>
                 </Grid>
 
-          <Grid item md={4} style={{ paddingRight: 10 }}>
-            <Grid container direction="column">
-              <Grid item xs style={{ paddingBottom: 10 }}>
-                <Pipeline steps={steps} setSteps={setSteps} />
-              </Grid>
-              <Grid item xs>
-                <StartPipeline steps={steps} originalImageID={originalImageID}/>
-              </Grid>
-            </Grid>
-          </Grid>
+                <Grid item md={4} style={{ paddingRight: 10 }}>
+                  <Grid container direction="column">
+                    <Grid item xs style={{ paddingBottom: 10 }}>
+                      <Pipeline steps={steps} setSteps={setSteps} />
+                    </Grid>
+                    <Grid item xs>
+                      <StartPipeline steps={steps} originalImageID={originalImageID} />
+                    </Grid>
+                  </Grid>
+                </Grid>
 
                 <Grid item md={4}>
                   <Grid container direction="column">
@@ -102,6 +94,8 @@ function App() {
                   </Grid>
                 </Grid>
               </Grid>
+          ) : (
+              <WindowToSmall/>
           )}
         </DndProvider>
       </ThemeProvider>
