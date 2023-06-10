@@ -2,6 +2,7 @@ from flask import Flask, request
 from flask_cors import CORS
 from pydantic import ValidationError
 from app.connections.aws_s3 import S3Manager
+import json
 
 from app.metadata import Metadata
 from app.exceptions import BaseError
@@ -23,26 +24,30 @@ def startPipeline(imageId):
         steps = [PipelineStep(**item) for item in request.json]
     except ValidationError as e:
         return app.response_class(
-            response=f"Invalid request: {e}",
+            response=json.dumps({"error": f"Invalid request: {e}"}),
             status=400,
             content_type="application/json",
         )
     pipeline = Pipeline(imageId, steps)
     try:
         result = pipeline.start()
+        return app.response_class(
+            response=json.dumps({"result": result}),
+            status=200,
+            content_type="application/json",
+        )
     except BaseError as e:
         return app.response_class(
-            response=f"Failed to process image: {e.message}",
+            response=json.dumps({"error": f"Failed to process image: {e.message}"}),
             status=400,
             content_type="application/json",
         )
     except Exception as e:
         return app.response_class(
-            response=f"Failed to process image: Unknown Exception occured {e}",
+            response=json.dumps({"error": f"Failed to process image: Unknown Exception occurred {e}"}),
             status=400,
             content_type="application/json",
         )
-    return result
 
 
 @app.route("/available-steps", methods=["GET"])
