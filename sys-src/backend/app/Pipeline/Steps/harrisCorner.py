@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class HarrisCorner(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement harris corner detection.
-        pass
+        return img
 
     def describe(self):
         return {

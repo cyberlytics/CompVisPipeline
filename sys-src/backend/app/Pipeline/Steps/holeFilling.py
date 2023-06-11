@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class HoleFilling(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement hole filling.
-        pass
+        return img
 
     def describe(self):
         return {

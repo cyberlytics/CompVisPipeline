@@ -5,6 +5,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Controller from '../controller';
 
 /**
  * PopupWindow to show some informations
@@ -26,8 +27,9 @@ export default function LoginWindow({ open, onClose, setState }) {
     }
   }, [open]);
 
-  const handleLogin = () => {
-    if (password === 'ILoveBDCC_2023' && username === 'Fatcat') {
+  const handleLogin = async () => {
+    const isAuthenticated = await Controller.login(username, password);
+    if (isAuthenticated) {
       setState(true);
       onClose();
     } else {

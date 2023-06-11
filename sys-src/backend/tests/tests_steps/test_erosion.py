@@ -152,3 +152,20 @@ def test_erosion_step_with_image_processing_error():
         params = [0, 3, 3, 1]
         erosion_step = Erosion()
         erosion_step(image, params)
+
+def test_erosion_step_with_value_error():
+    with pytest.raises(WrongParameterError):
+        image = np.array(
+            [
+                [0, 0, 0, 0, 0],
+                [0, 1, 1, 1, 0],
+                [0, 1, 1, 1, 0],
+                [0, 1, 1, 1, 0],
+                [0, 0, 0, 0, 0],
+            ],
+            dtype=np.uint8,
+        )
+
+        params = ['should', 'raise', 'ValueError', 'WrongParameterError']
+        erosion_step = Erosion()
+        erosion_step(image, params)

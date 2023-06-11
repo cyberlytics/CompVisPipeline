@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class Thershold(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement threshold
-        pass
+        return img
 
     def describe(self):
         return {
