@@ -27,15 +27,17 @@ class Metadata:
             colors = ("b", "g", "r")
             legend = ["blue channel", "green channel", "red channel"]
         else:
-            raise MetadataError(message="Unkonwn colorspace: Could not plot histogram")
+            raise MetadataError(message="Unkonwn colorspace: Could not plot histogram. Channelsize = " + str(channels))
 
         fig, _ = plt.subplots()
+        plt.xticks(fontsize = 12)
+        plt.yticks(fontsize = 12)
         for i, color in enumerate(colors):
             hist = cv2.calcHist([image], [i], None, [256], [0, 256])
             plt.plot(hist, color=color)
         plt.legend(legend)
-        plt.xlabel("Intensity")
-        plt.ylabel("Frequency")
+        plt.xlabel("Intensity", fontsize=18)
+        plt.ylabel("Frequency", fontsize=18)
         buffer = io.BytesIO()
         fig.savefig(buffer)
 
@@ -44,9 +46,8 @@ class Metadata:
         buffer.close()
         hist_np_array = np.frombuffer(hist_png, np.uint8)
         hist_bgr = cv2.imdecode(hist_np_array, cv2.IMREAD_UNCHANGED)
-        hist_bgr = cv2.cvtColor(hist_bgr, cv2.COLOR_RGB2BGR)
 
-        histId = str(uuid4())
+        histId = str(uuid4()+".jpeg")
         self.s3Manager.pushImageToS3(histId, hist_bgr)
 
         return (histId, height, width, channels)

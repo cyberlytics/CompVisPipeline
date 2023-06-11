@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import Header from './Components/Header/header';
+import React, { useState } from 'react';
+import Header from './Components/header';
 import Upload from './Components/upload';
 import ImageView from './Components/imageView';
 import ImageDetails from './Components/imageDetails';
-import Pipeline from './Components/Pipeline/pipeline';
-import AvailablePipelineSteps from './Components/AvailableSteps/availablePipelineSteps';
+import Pipeline from './Components/pipeline';
+import PipelineSteps from './Components/pipelineSteps';
 import StartPipeline from './Components/startPipeline';
 import Grid from '@mui/material/Grid';
+import Calculator from './Components/calculator';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import WindowToSmall from "./Components/windowToSmall";
 
 const lightTheme = createTheme({
   palette: {
@@ -31,74 +29,53 @@ const darkTheme = createTheme({
 function App() {
   const [theme, setTheme] = useState(true)
   const appliedTheme = createTheme(theme ? lightTheme : darkTheme)
-  const [steps, setSteps] = useState([]);
-
-  const [originalImageID, setOriginalImageID] = useState(null);
-  const [currentImageID, setCurrentImageID] = useState(null);
-  const [developMode, setDevelopMode] = useState(false);
-  const [windowSize, setWindowSize] = useState(window.innerWidth);
-
-  useEffect(() => {
-    // Update the window size when resized
-    const handleResize = () => {
-      setWindowSize(window.innerWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   return (
-      <ThemeProvider theme={appliedTheme}>
-        <CssBaseline className={'App-CssBaseline'} />
-        <DndProvider className={'App-DndProvider'} backend={HTML5Backend}>
-          <Grid style={{ paddingTop: 20, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
-            <Header theme={theme} setTheme={setTheme} developMode={developMode} setDevelopMode={setDevelopMode} />
+    <ThemeProvider theme={appliedTheme}>
+      <CssBaseline />
+      <Grid style={{ paddingTop: 20, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
+        <Header theme={theme} setTheme={setTheme}/>
+      </Grid>
+
+      <Grid container style={{ paddingTop: 0, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
+
+        <Grid container md={4} style={{ paddingRight: 10 }}>
+          <Grid container direction="column">
+            <Grid item xs style={{ paddingBottom: 10 }}>
+              <Upload />
+            </Grid>
+            <Grid item xs style={{ paddingBottom: 10 }}>
+              <ImageView />
+            </Grid>
+            <Grid item xs >
+              <ImageDetails currentImageID={currentImageID}/>
+            </Grid>
           </Grid>
+        </Grid>
 
-          {windowSize >= 900 ? (
-              <Grid container style={{ paddingTop: 0, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
-                <Grid item md={4} style={{ paddingRight: 10 }}>
-                  <Grid container direction="column">
-                    <Grid item xs style={{ paddingBottom: 10 }}>
-                      <Upload setOriginalImageID={setOriginalImageID} setCurrentImageID={setCurrentImageID} />
-                    </Grid>
-                    <Grid item xs style={{ paddingBottom: 10 }}>
-                      <ImageView currentImageID={currentImageID} />
-                    </Grid>
-                    <Grid item xs>
-                      <ImageDetails />
-                    </Grid>
-                  </Grid>
-                </Grid>
+        <Grid container md={4} style={{ paddingRight: 10 }}>
+          <Grid container direction="column">
+            <Grid item xs style={{ paddingBottom: 10 }}>
+              <Pipeline />
+            </Grid>
+            <Grid item xs>
+              <StartPipeline />
+            </Grid>
+          </Grid>
+        </Grid>
 
-                <Grid item md={4} style={{ paddingRight: 10 }}>
-                  <Grid container direction="column">
-                    <Grid item xs style={{ paddingBottom: 10 }}>
-                      <Pipeline steps={steps} setSteps={setSteps} />
-                    </Grid>
-                    <Grid item xs>
-                      <StartPipeline steps={steps} originalImageID={originalImageID} />
-                    </Grid>
-                  </Grid>
-                </Grid>
+        <Grid container md={4}>
+          <Grid container direction="column">
+            <Grid item xs>
+              <PipelineSteps />
+            </Grid>
+          </Grid>
+        </Grid>
 
-                <Grid item md={4}>
-                  <Grid container direction="column">
-                    <Grid item xs>
-                      <AvailablePipelineSteps />
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-          ) : (
-              <WindowToSmall/>
-          )}
-        </DndProvider>
-      </ThemeProvider>
+      </Grid>
+
+      <Calculator />
+    </ThemeProvider>
   );
 }
 

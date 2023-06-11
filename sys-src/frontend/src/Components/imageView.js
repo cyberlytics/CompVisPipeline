@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardContent, Box, Typography } from '@mui/material';
+import { Card, CardContent, Box, Typography, CardMedia } from '@mui/material';
 
 import S3Manager from './Connections/awsS3';
 
@@ -21,25 +21,25 @@ export default function ImageView({ currentImageID }) {
         setImageKey(currentImageID);
 
         s3Manager.getImageFromS3(currentImageID)
-            .then( (res) => {
+            .then((res) => {
                 // success handling
-                setImageURL(URL.createObjectURL(new Blob([res.Body], {type: res.ContentType})));
+                setImageURL(URL.createObjectURL(new Blob([res.Body], { type: res.ContentType })));
             })
-            .catch( (err) => {
+            .catch((err) => {
                 // error handling
                 //console.log("Image retrieval failed");
                 //console.log(err);
             });
     }
-
-    return (
-        <Card style={{ height: "485px"}} data-testid='imageview-card' >
-            <CardContent style={{ height: "470px" }}>
-                <Typography sx={{ width: "100%"}} align="center" variant="h5" component="div">Selected Image</Typography>
-                <Box style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%"}}>
-                    {imageKey && <img src={imageURL} alt="" style={{ maxWidth: "100%", maxHeight: "100%" }}/>}
-                </Box>
-            </CardContent>
+    
+    return(
+        <Card style={{ height: "400px" }} data-testid='imageview-card'>
+        <CardContent>
+            <Typography sx={{ width: '100%' }} align="center" variant="h5" component="div">Selected Image</Typography>
+        </CardContent>
+        {currentImageID && 
+            <CardMedia data-testid="uploaded_image" component="img" src={imageURL} alt="" align="center" style={{ maxWidth: "80%", maxHeight: "80%", margin: "auto", objectFit: "contain"}} />
+        }
         </Card>
     );
 }
