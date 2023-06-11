@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardContent, Box, Typography, CardMedia } from '@mui/material';
+import { Card, CardContent, Typography, CardMedia } from '@mui/material';
 
 import S3Manager from './Connections/awsS3';
 

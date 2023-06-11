@@ -12,7 +12,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 export default function ImageDetails(props) {
 
-    const [metadata, setMetadata] = useState(null)
     const [histId, setHistId] = useState("")
     const [height, setHeight] = useState("")
     const [width, setWidth] = useState("")
@@ -23,14 +22,9 @@ export default function ImageDetails(props) {
     const s3Manager = new S3Manager();
 
     useEffect(() => {
-        if (props.currentImageID != null) {
+        if (props.currentHistogramIDandMetadata != null) {
             setIsLoading(true);
-            Controller.getImageMetadataFromBackend(props.currentImageID, setMetadata)
-        }
-    }, [props.currentImageID]);
-
-    useEffect(() => {
-        if (metadata != null) {
+            let metadata = props.currentHistogramIDandMetadata
             setHistId(metadata["histId"])
             setHeight(metadata["height"])
             setWidth(metadata["width"])
@@ -39,7 +33,7 @@ export default function ImageDetails(props) {
         else {
             setIsLoading(false);
         }
-    }, [metadata]);
+    }, [props.currentHistogramIDandMetadata]);
 
     useEffect(() => {
         if (histId != "") {

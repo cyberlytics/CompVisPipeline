@@ -1,7 +1,8 @@
 import JSONTransformer from "./JSONTransformer";
 
 
-const base = "http://127.0.0.1:5000";
+//const base = "http://127.0.0.1:5000";
+const base = "http://192.168.2.2:5000";
 class Controller {
 
 
@@ -35,7 +36,7 @@ class Controller {
         });
       }
 
-      static async sendPipelineSteps(props, setLoading) {
+      static async sendPipelineSteps(props, setLoading, setPipelineResult) {
         const path = base + "/start-pipeline/" + props.originalImageID;
         setLoading(true);
       
@@ -53,29 +54,31 @@ class Controller {
       
           if (response.ok) {
             const result = await response.json();
-            console.log('Pipeline-Ergebnis:', result);
-            window.alert('Pipeline started successfully');
+            props.setPipelineResult(result)
           } 
           else {
             try {
               const errorResponse = await response.json();
               const errorMessage = errorResponse.error || 'Unknown error occurred';
               window.alert(errorMessage);
+              console.error(errorMessage);
             } 
             catch (error) {
               window.alert('Failed to process image: Unknown error occurred');
+              console.error('Failed to process image: Unknown error occurred');
             }
           }
         } 
         catch (error) {
           window.alert('An error occurred while communicating with the server');
+          console.error('An error occurred while communicating with the server');
         }
       }
     
 
     //Call to get imagemetadata from backend
     static async getImageMetadataFromBackend(imageId, setMetadata) {
-      fetch(`http://127.0.0.1:5000/image-metadata/${imageId}`)
+      fetch(base + "/image-metadata/" + imageId)
         .then(response => response.json())
         .then(response => setMetadata(response))
         .catch(error => {
