@@ -37,7 +37,9 @@ export default function ImageView({ currentImageID }) {
         <CardContent>
             <Typography sx={{ width: '100%' }} align="center" variant="h5" component="div">Selected Image</Typography>
         </CardContent>
-        <CardMedia component="img" src={imageURL} alt="" align="center" style={{ maxWidth: "80%", maxHeight: "80%", margin: "auto", objectFit: "contain"}} />
+        {currentImageID && 
+            <CardMedia data-testid="uploaded_image" component="img" src={imageURL} alt="" align="center" style={{ maxWidth: "80%", maxHeight: "80%", margin: "auto", objectFit: "contain"}} />
+        }
         </Card>
     );
 }
