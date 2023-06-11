@@ -30,17 +30,19 @@ export default function ImageDetails(props) {
     }, [props.currentImageID]);
 
     useEffect(() => {
-        console.log(metadata)
         if (metadata != null) {
             setHistId(metadata["histId"])
             setHeight(metadata["height"])
             setWidth(metadata["width"])
             setChannels(metadata["channels"])
         }
+        else {
+            setIsLoading(false);
+        }
     }, [metadata]);
 
     useEffect(() => {
-        if (metadata != "") {
+        if (histId != "") {
             s3Manager.getImageFromS3(histId)
                 .then((res) => {
                     // success handling
@@ -48,11 +50,11 @@ export default function ImageDetails(props) {
                     setIsLoading(false);
                 })
                 .catch((err) => {
-                    // error handling
-                    //console.log("Image retrieval failed");
-                    //console.log(err);
                     setIsLoading(false);
                 });
+        }
+        else {
+            setIsLoading(false);
         }
     }, [histId]);
 
@@ -83,6 +85,7 @@ export default function ImageDetails(props) {
                     {imageURL &&
                         <>
                             <CardMedia
+                                data-testid= "histogram_image"
                                 component="img"
                                 alt="image histogram"
                                 align="center"
