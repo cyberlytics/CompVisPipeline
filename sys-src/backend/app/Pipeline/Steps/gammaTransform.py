@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class GammaTransform(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement gamma transformation
-        pass
+        return img
 
     def describe(self):
         return {

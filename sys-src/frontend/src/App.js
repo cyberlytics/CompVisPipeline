@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import Header from './Components/Header/header';
+import Header from './Components/header';
 import Upload from './Components/upload';
 import ImageView from './Components/imageView';
 import ImageDetails from './Components/imageDetails';
-import Pipeline from './Components/Pipeline/pipeline';
-import AvailablePipelineSteps from './Components/AvailableSteps/availablePipelineSteps';
+import Pipeline from './Components/pipeline';
+import PipelineSteps from './Components/pipelineSteps';
 import StartPipeline from './Components/startPipeline';
 import Grid from '@mui/material/Grid';
+import Calculator from './Components/calculator';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
 
 const lightTheme = createTheme({
   palette: {
@@ -31,55 +30,51 @@ function App() {
   const [theme, setTheme] = useState(true)
   const appliedTheme = createTheme(theme ? lightTheme : darkTheme)
 
-  const [originalImageID, setOriginalImageID] = useState(null);
-  const [currentImageID, setCurrentImageID] = useState(null);
-  const [developMode, setDevelopMode] = useState(false)
-
   return (
     <ThemeProvider theme={appliedTheme}>
-      <CssBaseline className={"App-CssBaseline"} />
-      <DndProvider className={"App-DndProvider"} backend={HTML5Backend}>
-        <Grid style={{ paddingTop: 20, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
-          <Header theme={theme} setTheme={setTheme} developMode={developMode} setDevelopMode={setDevelopMode} />
+      <CssBaseline />
+      <Grid style={{ paddingTop: 20, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
+        <Header theme={theme} setTheme={setTheme}/>
+      </Grid>
+
+      <Grid container style={{ paddingTop: 0, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
+
+        <Grid container md={4} style={{ paddingRight: 10 }}>
+          <Grid container direction="column">
+            <Grid item xs style={{ paddingBottom: 10 }}>
+              <Upload />
+            </Grid>
+            <Grid item xs style={{ paddingBottom: 10 }}>
+              <ImageView />
+            </Grid>
+            <Grid item xs >
+              <ImageDetails currentImageID={currentImageID}/>
+            </Grid>
+          </Grid>
         </Grid>
 
-        <Grid container style={{ paddingTop: 0, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
-
-          <Grid item md={4} style={{ paddingRight: 10 }}>
-            <Grid container direction="column">
-              <Grid item xs style={{ paddingBottom: 10 }}>
-                <Upload setOriginalImageID={setOriginalImageID} setCurrentImageID={setCurrentImageID}/>
-              </Grid>
-              <Grid item xs style={{ paddingBottom: 10 }}>
-                <ImageView currentImageID={currentImageID}/>
-              </Grid>
-              <Grid item xs >
-                <ImageDetails currentImageID={currentImageID}/>
-              </Grid>
+        <Grid container md={4} style={{ paddingRight: 10 }}>
+          <Grid container direction="column">
+            <Grid item xs style={{ paddingBottom: 10 }}>
+              <Pipeline />
+            </Grid>
+            <Grid item xs>
+              <StartPipeline />
             </Grid>
           </Grid>
-
-          <Grid item md={4} style={{ paddingRight: 10 }}>
-            <Grid container direction="column">
-              <Grid item xs style={{ paddingBottom: 10 }}>
-                <Pipeline />
-              </Grid>
-              <Grid item xs>
-                <StartPipeline />
-              </Grid>
-            </Grid>
-          </Grid>
-
-          <Grid item md={4}>
-            <Grid container direction="column">
-              <Grid item xs>
-                <AvailablePipelineSteps />
-              </Grid>
-            </Grid>
-          </Grid>
-
         </Grid>
-      </DndProvider>
+
+        <Grid container md={4}>
+          <Grid container direction="column">
+            <Grid item xs>
+              <PipelineSteps />
+            </Grid>
+          </Grid>
+        </Grid>
+
+      </Grid>
+
+      <Calculator />
     </ThemeProvider>
   );
 }

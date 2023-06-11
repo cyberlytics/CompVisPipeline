@@ -4,7 +4,7 @@ from app.Pipeline.Steps.baseStep import BaseStep
 class Opening(BaseStep):
     def __call__(self, img, parameters):
         # TODO: implement opening transformation
-        pass
+        return img
 
     def describe(self):
         return {
