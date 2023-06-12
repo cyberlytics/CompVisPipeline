@@ -6,7 +6,6 @@ import Box from "@mui/material/Box";
 import CardMedia from "@mui/material/CardMedia";
 import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
-import Controller from '../controller';
 import S3Manager from './Connections/awsS3';
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -76,7 +75,7 @@ export default function ImageDetails(props) {
                     <CircularProgress sx={{color: "#d22819"}}/>
                 </Box> :
                 (<>
-                    {imageURL &&
+                    {props.currentHistogramIDandMetadata &&
                         <>
                             <CardMedia
                                 data-testid= "histogram_image"

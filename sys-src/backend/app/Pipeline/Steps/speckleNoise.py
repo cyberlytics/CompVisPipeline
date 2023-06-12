@@ -10,6 +10,8 @@ class SpeckleNoise(BaseStep):
         try:
             p0 = float(parameters[0])
 
+            if len(img.shape) not in (2, 3): raise WrongParameterError("Invalid image shape!")
+
             if p0 < 0:
                 raise WrongParameterError(
                     message="Noise strength should not be negative!"
@@ -24,7 +26,11 @@ class SpeckleNoise(BaseStep):
             else:
                 gauss = gauss.reshape(img.shape[0], img.shape[1]).astype("uint8")
 
-            return cv2.add(img.astype("uint8"), img.astype("uint8") * gauss)
+            return cv2.add(img, img * gauss)
+        except WrongParameterError as e:
+            raise e
+        except ValueError as e:
+            raise WrongParameterError(message=e)
         except Exception as e:
             raise ImageProcessingError(message=e)
 

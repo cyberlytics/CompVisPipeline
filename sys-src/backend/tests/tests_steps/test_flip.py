@@ -2,7 +2,7 @@ import pytest
 import numpy as np
 
 from app.Pipeline.Steps.flip import Flip
-from app.exceptions import ImageProcessingError
+from app.exceptions import ImageProcessingError, WrongParameterError
 
 def test_flip_with_expected_result_vertical():
     image = np.array([
@@ -75,7 +75,7 @@ def test_flip_with_expected_result_both_directions():
     assert (result == expected_result).all()
 
 def test_flip_with_invalid_image_shape():
-    with pytest.raises(ImageProcessingError):
+    with pytest.raises(WrongParameterError):
         image = np.array([0, 0, 1, 0, 0])
 
         flip_step = Flip()
@@ -84,7 +84,7 @@ def test_flip_with_invalid_image_shape():
         flip_step(image, params)
 
 def test_flip_with_invalid_parameter_type():
-    with pytest.raises(ImageProcessingError):
+    with pytest.raises(WrongParameterError):
         image = np.array([
             [0, 0, 1, 0, 0],
             [0, 0, 1, 0, 0],
@@ -97,6 +97,21 @@ def test_flip_with_invalid_parameter_type():
         params = ["invalid"]
 
         flip_step(image, params)
+
+def test_flip_with_expected_image_type():
+    image = np.array([
+        [1, 1, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0]
+    ]).astype("uint8")
+
+    flip_step = Flip()
+    params = [-1]
+    result = flip_step(image, params)
+
+    assert result.dtype == image.dtype
 
 def test_flip_with_rgb_image():
     image = np.random.randint(0, 255, (10, 10, 3))

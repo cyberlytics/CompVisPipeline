@@ -73,12 +73,11 @@ class Controller {
           window.alert('An error occurred while communicating with the server');
           console.error('An error occurred while communicating with the server');
         }
-      }
-    
+    }
 
-    //Call to get imagemetadata from backend
+    //Call to get imagemetadata and histId from backend
     static async getImageMetadataFromBackend(imageId, setMetadata) {
-      fetch(base + "/image-metadata/" + imageId)
+      fetch(base + `/image-metadata/` + imageId)
         .then(response => response.json())
         .then(response => setMetadata(response))
         .catch(error => {

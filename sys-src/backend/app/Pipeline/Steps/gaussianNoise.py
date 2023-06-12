@@ -10,20 +10,20 @@ class GaussianNoise(BaseStep):
         try:
             p0 = float(parameters[0])
 
-            if p0 < 0:
-                raise WrongParameterError(
-                    message="Noise strength should not be negative!"
-                )
+            if len(img.shape) not in (2, 3): raise WrongParameterError(message="Invalid image shape!")
+            if p0 < 0: raise WrongParameterError(message="Noise strength should not be negative!")
 
             gauss = np.random.normal(0, p0, img.shape)
-            if len(img.shape) > 2:
-                gauss = gauss.reshape(img.shape[0], img.shape[1], img.shape[2]).astype(
-                    "uint8"
-                )
+            
+            if len(img.shape) > 2: gauss = gauss.reshape(img.shape[0], img.shape[1], img.shape[2]).astype("uint8")
             else:
                 gauss = gauss.reshape(img.shape[0], img.shape[1]).astype("uint8")
 
-            return cv2.add(img.astype("uint8"), gauss)
+            return cv2.add(img, gauss)
+        except WrongParameterError as e:
+            raise e
+        except ValueError as e:
+            raise WrongParameterError(message=e)
         except Exception as e:
             raise ImageProcessingError(message=e)
 
