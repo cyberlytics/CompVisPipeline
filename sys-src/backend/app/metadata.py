@@ -27,7 +27,7 @@ class Metadata:
             colors = ("b", "g", "r")
             legend = ["blue channel", "green channel", "red channel"]
         else:
-            raise MetadataError(message="Unkonwn colorspace: Could not plot histogram. Channelsize = " + str(channels))
+            raise MetadataError(message=f"Unkonwn colorspace: Could not plot histogram. Number of channels = {channels}")
 
         fig, _ = plt.subplots()
         plt.xticks(fontsize = 12)

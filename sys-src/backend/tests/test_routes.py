@@ -24,15 +24,15 @@ def test_startPipeline_route(client, create_rgb_image):
         "/start-pipeline/123",
         json=[],
     )
-    assert len(response.json) == 1
-    assert "imageId" in response.json[0]
-    assert "histId" in response.json[0]
-    assert "height" in response.json[0]
-    assert "width" in response.json[0]
-    assert "channels" in response.json[0]
+    assert len(response.json["result"]) == 1
+    assert "imageId" in response.json["result"][0]
+    assert "histId" in response.json["result"][0]
+    assert "height" in response.json["result"][0]
+    assert "width" in response.json["result"][0]
+    assert "channels" in response.json["result"][0]
     s3Manager.deleteImageFromS3("123")
-    s3Manager.deleteImageFromS3(response.json[0]["imageId"])
-    s3Manager.deleteImageFromS3(response.json[0]["histId"])
+    s3Manager.deleteImageFromS3(response.json["result"][0]["imageId"])
+    s3Manager.deleteImageFromS3(response.json["result"][0]["histId"])
 
 
 def test_availableSteps_route(client):
