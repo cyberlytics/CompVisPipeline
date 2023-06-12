@@ -35,6 +35,7 @@ function App() {
 
   const [originalImageID, setOriginalImageID] = useState(null);
   const [currentImageID, setCurrentImageID] = useState(null);
+  const [currentHistogramIDandMetadata, setCurrentHistogramIDandMetadata] = useState(null);
   const [developMode, setDevelopMode] = useState(false);
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
@@ -70,7 +71,7 @@ function App() {
                       <ImageView currentImageID={currentImageID} />
                     </Grid>
                     <Grid item xs>
-                      <ImageDetails />
+                      <ImageDetails currentHistogramIDandMetadata={currentHistogramIDandMetadata}/>
                     </Grid>
                   </Grid>
                 </Grid>

@@ -19,7 +19,7 @@ describe("image.js tests", () => {
     spy.mockImplementation(() => Promise.reject("Error"));
 
     render(<ImageView />);
-    const imageElement = screen.queryByRole("img");
+    const imageElement = screen.queryByTestId(/uploaded_image/i);
     expect(imageElement).toBeNull();
   });
 
@@ -28,7 +28,7 @@ describe("image.js tests", () => {
     spy.mockImplementation(() => Promise.resolve("Success!!"));
 
     render(<ImageView currentImageID={ 'defaultImage.jpg' }/>);
-    const imageElement = screen.getByRole("img");
+    const imageElement = screen.getByTestId(/uploaded_image/i);
     expect(imageElement).toBeVisible();
   });
 });
