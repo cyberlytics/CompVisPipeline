@@ -27,14 +27,12 @@ export default function Header(props) {
     const [toastOpen, setToastOpen] = React.useState(false);
     const [toastMessage, setToastMessage] = React.useState("")
 
+    //useffect to show toast if user is logged in as developer
     useEffect(() => {
         if (developMode) {
             setToastMessage('Enjoy the developer mode.'); 
+            handleToastClick()
         }
-        else {
-            setToastMessage('Enjoy the user mode.');
-        }
-        handleToastClick()
     }, [developMode]);
 
     //function to open toast message

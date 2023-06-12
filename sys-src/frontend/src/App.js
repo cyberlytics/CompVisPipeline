@@ -32,6 +32,7 @@ function App() {
   const [theme, setTheme] = useState(true)
   const appliedTheme = createTheme(theme ? lightTheme : darkTheme)
   const [steps, setSteps] = useState([]);
+  const [pipelineResult, setPipelineResult] = useState([]);
 
   const [originalImageID, setOriginalImageID] = useState(null);
   const [currentImageID, setCurrentImageID] = useState(null);
@@ -52,6 +53,14 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    if(pipelineResult.length != 0){
+      let result = pipelineResult.result
+      setCurrentImageID(result[result.length - 1].imageId)
+      setCurrentHistogramIDandMetadata(result[result.length - 1])
+    }
+  }, [pipelineResult]);
+
   return (
       <ThemeProvider theme={appliedTheme}>
         <CssBaseline className={'App-CssBaseline'} />
@@ -65,7 +74,7 @@ function App() {
                 <Grid item md={4} style={{ paddingRight: 10 }}>
                   <Grid container direction="column">
                     <Grid item xs style={{ paddingBottom: 10 }}>
-                      <Upload setOriginalImageID={setOriginalImageID} setCurrentImageID={setCurrentImageID} />
+                      <Upload setOriginalImageID={setOriginalImageID} setCurrentImageID={setCurrentImageID} setCurrentHistogramIDandMetadata={setCurrentHistogramIDandMetadata} />
                     </Grid>
                     <Grid item xs style={{ paddingBottom: 10 }}>
                       <ImageView currentImageID={currentImageID} />
@@ -82,7 +91,7 @@ function App() {
                       <Pipeline steps={steps} setSteps={setSteps} />
                     </Grid>
                     <Grid item xs>
-                      <StartPipeline steps={steps} originalImageID={originalImageID} />
+                      <StartPipeline steps={steps} originalImageID={originalImageID} setPipelineResult={setPipelineResult} />
                     </Grid>
                   </Grid>
                 </Grid>

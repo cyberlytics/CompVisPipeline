@@ -5,14 +5,16 @@ import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternate
 
 import { v4 as uuidv4 } from 'uuid';
 import S3Manager from './Connections/awsS3';
+import Controller from '../controller';
 
 /**
  * function to upload an image to the S3 Bucket (own image | default image )
  * @param {useState Function} setOriginalImageID    set Function for originalImageID (the image that was uploaded)
  * @param {useState Function} setCurrentImageID     set Function for currentImageID (the image that is currently being displayed)
+ * @param {useState Function} setCurrentHistogramIDandMetadata     set Function for setCurrentHistogramIDandMetadata (the histogram that is currently being displayed)
  * @returns upload card
  */
-export default function Upload({setOriginalImageID, setCurrentImageID}) {
+export default function Upload({setOriginalImageID, setCurrentImageID, setCurrentHistogramIDandMetadata}) {
     const handleUpload = (event) => {
         const imageFile = event.target.files[0];
 
@@ -37,6 +39,7 @@ export default function Upload({setOriginalImageID, setCurrentImageID}) {
             .then((result) => {
                 setOriginalImageID(imageKey);
                 setCurrentImageID(imageKey);
+                Controller.getImageMetadataFromBackend(imageKey, setCurrentHistogramIDandMetadata)
             })
             .catch( (error) => {
                 // error handling
@@ -47,6 +50,7 @@ export default function Upload({setOriginalImageID, setCurrentImageID}) {
     const handleDefaultUpload = () => {
         setOriginalImageID("defaultImage.jpg");
         setCurrentImageID("defaultImage.jpg");
+        Controller.getImageMetadataFromBackend("defaultImage.jpg", setCurrentHistogramIDandMetadata)
     };
 
     return (
