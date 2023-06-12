@@ -64,3 +64,8 @@ def pipelineStepRaisesError():
             raise ImageProcessingError(message="failed to process Image")
 
     return PipelineStepRaisesError()
+
+def pytest_collection_modifyitems(items, config):
+    for item in items:
+        if not any(item.iter_markers()):
+            item.add_marker("unmarked")
