@@ -77,3 +77,14 @@ def test_login_route(client):
     assert response.status_code == 400
     assert response.data == b"Login failed"
 
+@pytest.mark.aws
+@pytest.mark.fatCatAi
+def test_random_ai_fatcat_route(client):
+    s3Manager = S3Manager()
+    response = client.get("/random-ai-fatcat")
+    assert response.status_code == 200
+    assert set(response.json.keys()) == {"imageId", "histId", "height", "width", "channels"}
+    assert s3Manager.getImageFromS3(response.json["imageId"]) is not None
+    assert s3Manager.getImageFromS3(response.json["histId"]) is not None
+    s3Manager.deleteImageFromS3(response.json["imageId"])
+    s3Manager.deleteImageFromS3(response.json["histId"])
