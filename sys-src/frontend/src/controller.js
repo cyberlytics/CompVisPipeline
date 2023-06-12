@@ -1,10 +1,8 @@
 import JSONTransformer from "./JSONTransformer";
 
+const base = "http://127.0.0.1:5000";
 
-//const base = "http://127.0.0.1:5000";
-const base = "http://192.168.2.2:5000";
 class Controller {
-
 
     //Call to get available steps for
     static async getPipelineStepsFromBackend(set) {
@@ -36,6 +34,7 @@ class Controller {
         });
       }
 
+      //Call to send Pipelinesteps to backend and receive results
       static async sendPipelineSteps(props, setLoading, setPipelineResult) {
         const path = base + "/start-pipeline/" + props.originalImageID;
         setLoading(true);
