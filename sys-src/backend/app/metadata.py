@@ -47,7 +47,7 @@ class Metadata:
         hist_np_array = np.frombuffer(hist_png, np.uint8)
         hist_bgr = cv2.imdecode(hist_np_array, cv2.IMREAD_UNCHANGED)
 
-        histId = str(uuid4()+".jpeg")
+        histId = str(uuid4()) + ".jpeg"
         self.s3Manager.pushImageToS3(histId, hist_bgr)
 
         return (histId, height, width, channels)

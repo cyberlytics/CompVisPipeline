@@ -109,7 +109,7 @@ class Pipeline:
         for step in self.steps:
             lastImage = self.functionList[step.id](lastImage, step.params)
             metaData = self.metaDataManager.getMetadata(lastImage)
-            id = str(uuid4()+".jpeg")
+            id = str(uuid4()) + ".jpeg"
             self.s3Manager.pushImageToS3(id, lastImage)
             allResults.append(
                 {
