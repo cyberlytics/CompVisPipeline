@@ -64,9 +64,9 @@ class Controller {
         }
     }
 
-    //Call to get imagemetadata from backend
+    //Call to get imagemetadata and histId from backend
     static async getImageMetadataFromBackend(imageId, setMetadata) {
-      fetch(`http://127.0.0.1:5000/image-metadata/${imageId}`)
+      fetch(base + `/image-metadata/` + imageId)
         .then(response => response.json())
         .then(response => setMetadata(response))
         .catch(error => {

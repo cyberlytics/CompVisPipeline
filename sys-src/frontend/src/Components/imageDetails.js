@@ -6,13 +6,11 @@ import Box from "@mui/material/Box";
 import CardMedia from "@mui/material/CardMedia";
 import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
-import Controller from '../controller';
 import S3Manager from './Connections/awsS3';
 import CircularProgress from '@mui/material/CircularProgress';
 
 export default function ImageDetails(props) {
 
-    const [metadata, setMetadata] = useState(null)
     const [histId, setHistId] = useState("")
     const [height, setHeight] = useState("")
     const [width, setWidth] = useState("")
@@ -23,14 +21,9 @@ export default function ImageDetails(props) {
     const s3Manager = new S3Manager();
 
     useEffect(() => {
-        if (props.currentImageID != null) {
+        if (props.currentHistogramIDandMetadata != null) {
             setIsLoading(true);
-            Controller.getImageMetadataFromBackend(props.currentImageID, setMetadata)
-        }
-    }, [props.currentImageID]);
-
-    useEffect(() => {
-        if (metadata != null) {
+            let metadata = props.currentHistogramIDandMetadata
             setHistId(metadata["histId"])
             setHeight(metadata["height"])
             setWidth(metadata["width"])
@@ -39,7 +32,7 @@ export default function ImageDetails(props) {
         else {
             setIsLoading(false);
         }
-    }, [metadata]);
+    }, [props.currentHistogramIDandMetadata]);
 
     useEffect(() => {
         if (histId != "") {
@@ -82,7 +75,7 @@ export default function ImageDetails(props) {
                     <CircularProgress sx={{color: "#d22819"}}/>
                 </Box> :
                 (<>
-                    {imageURL &&
+                    {props.currentHistogramIDandMetadata &&
                         <>
                             <CardMedia
                                 data-testid= "histogram_image"
