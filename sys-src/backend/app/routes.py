@@ -20,8 +20,7 @@ def getAvailableRoutes():
             "/start-pipeline/<imageId>", 
             "/available-steps", 
             "/image-metadata/<imageId>", 
-            "/login", 
-            "/random-ai-fatcat"
+            "/login",
             ]
         }
 
