@@ -1,9 +1,7 @@
 import pytest
 import numpy as np
-from app.Pipeline.Steps.saltAndPepperNoise import (
-    SaltAndPepperNoise,
-    ImageProcessingError,
-)
+from app.Pipeline.Steps.saltAndPepperNoise import SaltAndPepperNoise
+from app.exceptions import WrongParameterError
 
 
 def test_salt_and_pepper_noise_with_expected_result():
@@ -20,7 +18,7 @@ def test_salt_and_pepper_noise_with_expected_result():
 
 
 def test_salt_and_pepper_noise_with_negative_ratio():
-    with pytest.raises(ImageProcessingError):
+    with pytest.raises(WrongParameterError):
         image = np.full((10, 10), 100)
 
         sNp_noise_step = SaltAndPepperNoise()
@@ -30,7 +28,7 @@ def test_salt_and_pepper_noise_with_negative_ratio():
 
 
 def test_salt_and_pepper_noise_with_too_big_ratio():
-    with pytest.raises(ImageProcessingError):
+    with pytest.raises(WrongParameterError):
         image = np.full((10, 10), 100)
 
         sNp_noise_step = SaltAndPepperNoise()
@@ -40,7 +38,7 @@ def test_salt_and_pepper_noise_with_too_big_ratio():
 
 
 def test_salt_and_pepper_noise_with_invalid_strength():
-    with pytest.raises(ImageProcessingError):
+    with pytest.raises(WrongParameterError):
         image = np.full((10, 10), 100)
 
         sNp_noise_step = SaltAndPepperNoise()
@@ -48,10 +46,18 @@ def test_salt_and_pepper_noise_with_invalid_strength():
         params = [0.5, -1]
         sNp_noise_step(image, params)
 
+def test_salt_and_pepper_noise_with_invalid_parameter_type():
+    with pytest.raises(WrongParameterError):
+        image = np.random.randint(0, 255, (10, 10))
+
+        sNp_noise_step = SaltAndPepperNoise()
+
+        params = ["invalid", 0.05]
+        sNp_noise_step(image, params)
 
 def test_salt_and_pepper_noise_with_invalid_image_shape():
-    with pytest.raises(ImageProcessingError):
-        image = np.random.randint(1, 254, 1)
+    with pytest.raises(WrongParameterError):
+        image = np.random.randint(0, 255, 1)
 
         sNp_noise_step = SaltAndPepperNoise()
 

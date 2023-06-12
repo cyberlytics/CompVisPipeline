@@ -1,7 +1,7 @@
 import cv2
 
 from app.Pipeline.Steps.baseStep import BaseStep
-from app.exceptions import ImageProcessingError
+from app.exceptions import ImageProcessingError, WrongParameterError
 
 
 class Flip(BaseStep):
@@ -9,9 +9,13 @@ class Flip(BaseStep):
         try:
             p0 = int(parameters[0])
 
-            if len(img.shape) not in (2, 3): raise ImageProcessingError("Invalid image shape!")
+            if len(img.shape) not in (2, 3): raise WrongParameterError("Invalid image shape!")
 
-            return cv2.flip(img.astype("uint8"), p0)
+            return cv2.flip(img, p0)
+        except WrongParameterError as e:
+            raise e
+        except ValueError as e:
+            raise WrongParameterError(message=e)
         except Exception as e:
             raise ImageProcessingError(message=e)
 
