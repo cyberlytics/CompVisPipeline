@@ -12,6 +12,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import WindowToSmall from "./Components/windowToSmall";
+import LoadingWindow from './ModalWindow/LoadingWindow';
 
 const lightTheme = createTheme({
   palette: {
@@ -40,6 +41,7 @@ function App() {
   const [developMode, setDevelopMode] = useState(false);
   const [windowSize, setWindowSize] = useState(window.innerWidth);
   const [isLoading, setIsLoading] = useState(false)
+  const [loadingScreenIsOpen, setLoadingScreenIsOpen] = useState(false);
 
   // Update the window size when resized
   useEffect(() => {
@@ -48,17 +50,30 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (pipelineResult.length != 0) {
+    if (pipelineResult.length !== 0) {
       let result = pipelineResult.result
       setCurrentImageID(result[result.length - 1].imageId)
       setCurrentHistogramIDandMetadata(result[result.length - 1])
     }
   }, [pipelineResult]);
 
+  //open loading window if isLoading
+  useEffect(() => {
+    setLoadingScreenIsOpen(isLoading);
+    console.log(isLoading)
+  }, [isLoading]);
+
+  //function to handle interrupt loading
+  const handleCloseLoadingWindow = () => {
+    setIsLoading(false);
+    setLoadingScreenIsOpen(false);
+  }
+
   return (
     <ThemeProvider theme={appliedTheme}>
       <CssBaseline className={'App-CssBaseline'} />
       <DndProvider className={'App-DndProvider'} backend={HTML5Backend}>
+        <LoadingWindow open={loadingScreenIsOpen} onClose={handleCloseLoadingWindow}/>
         {windowSize >= 900 ?
           <>
             <Grid style={{ paddingTop: 20, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>

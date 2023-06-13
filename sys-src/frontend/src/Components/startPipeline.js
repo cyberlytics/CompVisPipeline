@@ -3,7 +3,6 @@ import { Card, CardContent, Button } from '@mui/material';
 import Controller from "../controller";
 
 export default function StartPipeline(props) {
-    const [loading, setLoading] = useState(false);
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
     useEffect(() => {
@@ -11,7 +10,9 @@ export default function StartPipeline(props) {
     }, [props.originalImageID]);
 
     const handleButtonClick = async () => {
-        await Controller.sendPipelineSteps(props, setLoading)
+        props.setIsLoading(true)
+        await Controller.sendPipelineSteps(...props)
+        props.setIsLoading(false)
     };
 
     return (
@@ -24,7 +25,7 @@ export default function StartPipeline(props) {
                     }}
                     variant="contained"
                     color="primary"
-                    disabled={isButtonDisabled || loading}
+                    disabled={isButtonDisabled || props.isLoading}
                     onClick={handleButtonClick}
                 >
                     Start Pipeline
