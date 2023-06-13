@@ -14,8 +14,15 @@ CORS(app)  # TODO: do not use this in production
 
 
 @app.route("/", methods=["GET"])
-def getHelloWorld():
-    return {"available routes": ["/start-pipeline/<imageId>", "/available-steps", "/image-metadata/<imageId>"]}
+def getAvailableRoutes():
+    return {
+        "available routes": [
+            "/start-pipeline/<imageId>", 
+            "/available-steps", 
+            "/image-metadata/<imageId>", 
+            "/login",
+            ]
+        }
 
 
 @app.route("/start-pipeline/<imageId>", methods=["POST"])
