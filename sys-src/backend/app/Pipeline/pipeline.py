@@ -8,7 +8,7 @@ from app.Pipeline.Steps.cannyEdge import CannyEdge
 from app.Pipeline.Steps.clahe import CLAHE
 from app.Pipeline.Steps.closing import Closing
 from app.Pipeline.Steps.connectedComponents import ConnectedComponents
-from app.Pipeline.Steps.convertColor import ConvertColor
+from app.Pipeline.Steps.convertGray import ConvertGray
 from app.Pipeline.Steps.crop import Crop
 from app.Pipeline.Steps.dilation import Dilation
 from app.Pipeline.Steps.erosion import Erosion
@@ -49,7 +49,7 @@ FUNCTION_LIST = [
     CLAHE(),
     Closing(),
     ConnectedComponents(),
-    ConvertColor(),
+    ConvertGray(),
     Crop(),
     Dilation(),
     Erosion(),
