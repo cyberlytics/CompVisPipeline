@@ -41,21 +41,14 @@ function App() {
   const [windowSize, setWindowSize] = useState(window.innerWidth);
   const [isLoading, setIsLoading] = useState(false)
 
+  // Update the window size when resized
   useEffect(() => {
-    // Update the window size when resized
-    const handleResize = () => {
-      setWindowSize(window.innerWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
+    window.addEventListener('resize', setWindowSize(window.innerWidth));
+    return () => window.removeEventListener('resize', setWindowSize(window.innerWidth));
   }, []);
 
   useEffect(() => {
-    if(pipelineResult.length != 0){
+    if (pipelineResult.length != 0) {
       let result = pipelineResult.result
       setCurrentImageID(result[result.length - 1].imageId)
       setCurrentHistogramIDandMetadata(result[result.length - 1])
@@ -63,53 +56,54 @@ function App() {
   }, [pipelineResult]);
 
   return (
-      <ThemeProvider theme={appliedTheme}>
-        <CssBaseline className={'App-CssBaseline'} />
-        <DndProvider className={'App-DndProvider'} backend={HTML5Backend}>
-          <Grid style={{ paddingTop: 20, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
-            <Header theme={theme} setTheme={setTheme} developMode={developMode} setDevelopMode={setDevelopMode} />
-          </Grid>
-
-          {windowSize >= 900 ? (
-              <Grid container style={{ paddingTop: 0, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
-                <Grid item md={4} style={{ paddingRight: 10 }}>
-                  <Grid container direction="column">
-                    <Grid item xs style={{ paddingBottom: 10 }}>
-                      <Upload setOriginalImageID={setOriginalImageID} setCurrentImageID={setCurrentImageID} setCurrentHistogramIDandMetadata={setCurrentHistogramIDandMetadata} />
-                    </Grid>
-                    <Grid item xs style={{ paddingBottom: 10 }}>
-                      <ImageView currentImageID={currentImageID} />
-                    </Grid>
-                    <Grid item xs>
-                      <ImageDetails currentHistogramIDandMetadata={currentHistogramIDandMetadata}/>
-                    </Grid>
+    <ThemeProvider theme={appliedTheme}>
+      <CssBaseline className={'App-CssBaseline'} />
+      <DndProvider className={'App-DndProvider'} backend={HTML5Backend}>
+        {windowSize >= 900 ?
+          <>
+            <Grid style={{ paddingTop: 20, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
+              <Header theme={theme} setTheme={setTheme} developMode={developMode} setDevelopMode={setDevelopMode} />
+            </Grid>
+            <Grid container style={{ paddingTop: 0, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
+              <Grid item md={4} style={{ paddingRight: 10 }}>
+                <Grid container direction="column">
+                  <Grid item xs style={{ paddingBottom: 10 }}>
+                    <Upload setOriginalImageID={setOriginalImageID} setCurrentImageID={setCurrentImageID} setCurrentHistogramIDandMetadata={setCurrentHistogramIDandMetadata} />
                   </Grid>
-                </Grid>
-
-                <Grid item md={4} style={{ paddingRight: 10 }}>
-                  <Grid container direction="column">
-                    <Grid item xs style={{ paddingBottom: 10 }}>
-                      <Pipeline steps={steps} setSteps={setSteps} />
-                    </Grid>
-                    <Grid item xs>
-                      <StartPipeline steps={steps} originalImageID={originalImageID} setPipelineResult={setPipelineResult} isLoading={isLoading} setIsLoading={setIsLoading} />
-                    </Grid>
+                  <Grid item xs style={{ paddingBottom: 10 }}>
+                    <ImageView currentImageID={currentImageID} />
                   </Grid>
-                </Grid>
-
-                <Grid item md={4}>
-                  <Grid container direction="column">
-                    <Grid item xs>
-                      <AvailablePipelineSteps />
-                    </Grid>
+                  <Grid item xs>
+                    <ImageDetails currentHistogramIDandMetadata={currentHistogramIDandMetadata} />
                   </Grid>
                 </Grid>
               </Grid>
-          ) : (
-              <WindowToSmall/>
-          )}
-        </DndProvider>
-      </ThemeProvider>
+
+              <Grid item md={4} style={{ paddingRight: 10 }}>
+                <Grid container direction="column">
+                  <Grid item xs style={{ paddingBottom: 10 }}>
+                    <Pipeline steps={steps} setSteps={setSteps} />
+                  </Grid>
+                  <Grid item xs>
+                    <StartPipeline steps={steps} originalImageID={originalImageID} setPipelineResult={setPipelineResult} isLoading={isLoading} setIsLoading={setIsLoading} />
+                  </Grid>
+                </Grid>
+              </Grid>
+
+              <Grid item md={4}>
+                <Grid container direction="column">
+                  <Grid item xs>
+                    <AvailablePipelineSteps />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </>
+          :
+          <WindowToSmall />
+        }
+      </DndProvider>
+    </ThemeProvider>
   );
 }
 
