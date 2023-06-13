@@ -60,7 +60,6 @@ function App() {
   //open loading window if isLoading
   useEffect(() => {
     setLoadingScreenIsOpen(isLoading);
-    console.log(isLoading)
   }, [isLoading]);
 
   //function to handle interrupt loading

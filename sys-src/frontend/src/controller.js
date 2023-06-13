@@ -50,6 +50,7 @@ class Controller {
       
           if (response.ok) {
             const result = await response.json();
+            props.setPipelineResult(result)
           } 
           else {
             try {

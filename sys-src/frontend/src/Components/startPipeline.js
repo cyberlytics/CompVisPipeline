@@ -11,7 +11,7 @@ export default function StartPipeline(props) {
 
     const handleButtonClick = async () => {
         props.setIsLoading(true)
-        await Controller.sendPipelineSteps(...props)
+        await Controller.sendPipelineSteps(props)
         props.setIsLoading(false)
     };
 
