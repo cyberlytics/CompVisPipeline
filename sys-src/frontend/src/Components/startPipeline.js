@@ -1,9 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, Button } from '@mui/material';
 import Controller from "../controller";
 
 export default function StartPipeline(props) {
     const [loading, setLoading] = useState(false);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+    useEffect(() => {
+        setIsButtonDisabled(props.originalImageID === null);
+    }, [props.originalImageID]);
+
     const handleButtonClick = async () => {
         await Controller.sendPipelineSteps(props, setLoading)
     };
@@ -18,7 +24,7 @@ export default function StartPipeline(props) {
                     }}
                     variant="contained"
                     color="primary"
-                    disabled={loading}
+                    disabled={isButtonDisabled || loading}
                     onClick={handleButtonClick}
                 >
                     Start Pipeline
