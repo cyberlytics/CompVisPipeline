@@ -19,7 +19,7 @@ class Thershold(BaseStep):
             else:
                 invert = cv2.THRESH_BINARY
 
-            return cv2.threshold(img, p0, 255, invert)        
+            return cv2.threshold(img, p0, 255, invert)[1]    
         except WrongParameterError as e:
             raise e
         except ValueError as e:
