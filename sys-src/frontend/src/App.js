@@ -39,6 +39,7 @@ function App() {
   const [currentHistogramIDandMetadata, setCurrentHistogramIDandMetadata] = useState(null);
   const [developMode, setDevelopMode] = useState(false);
   const [windowSize, setWindowSize] = useState(window.innerWidth);
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     // Update the window size when resized
@@ -91,7 +92,7 @@ function App() {
                       <Pipeline steps={steps} setSteps={setSteps} />
                     </Grid>
                     <Grid item xs>
-                      <StartPipeline steps={steps} originalImageID={originalImageID} setPipelineResult={setPipelineResult} />
+                      <StartPipeline steps={steps} originalImageID={originalImageID} setPipelineResult={setPipelineResult} isLoading={isLoading} setIsLoading={setIsLoading} />
                     </Grid>
                   </Grid>
                 </Grid>
