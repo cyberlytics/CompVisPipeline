@@ -1,10 +1,12 @@
 from flask import Flask, request
 from flask_cors import CORS
 from pydantic import ValidationError
-from app.connections.aws_s3 import S3Manager
 import json
+from app.connections.aiFatCatManager import AiFatCatManager
+
 
 from app.metadata import Metadata
+from app.connections.aws_s3 import S3Manager
 from app.exceptions import BaseError
 from app.Models.startPipelineModels import PipelineStep
 from app.Pipeline.pipeline import FUNCTION_LIST, Pipeline
@@ -110,3 +112,22 @@ def login():
             status=400,
             content_type="application/json",
         )
+
+@app.route("/random-ai-fatcat", methods=["GET"])
+def getRandomAiFatcat():
+    try:
+        aiFatCatManager = AiFatCatManager()
+        result = aiFatCatManager.getRandomAiImage()
+    except BaseError as e:
+        app.response_class(
+            response=f"Failed to get random ai fat cat: {e.message}",
+            status=400,
+            content_type="application/json",
+        )
+    except Exception as e:
+        app.response_class(
+            response=f"Failed to get random ai fat cat: Unknown Exception occured {e}",
+            status=400,
+            content_type="application/json",
+        )
+    return result
