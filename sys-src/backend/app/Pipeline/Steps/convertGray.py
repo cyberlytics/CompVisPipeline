@@ -17,7 +17,7 @@ class ConvertGray(BaseStep):
 
     def describe(self):
         return {
-            "title": "Convert to Graysclae",
+            "title": "Convert to Grayscale",
             "info": "Change color space of an image to grayscale.",
             "params": [],
         }
