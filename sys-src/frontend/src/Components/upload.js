@@ -56,7 +56,7 @@ export default function Upload({setOriginalImageID, setCurrentImageID, setCurren
         setOriginalImageID("defaultImage.jpg");
         setCurrentImageID("defaultImage.jpg");
         Controller.getImageMetadataFromBackend("defaultImage.jpg", setCurrentHistogramIDandMetadata)
-        setIsLoading(false)
+        .then(() => setIsLoading(false));
     };
 
     return (
