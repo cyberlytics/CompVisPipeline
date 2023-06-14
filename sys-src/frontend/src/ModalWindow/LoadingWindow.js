@@ -3,7 +3,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import cat from '../resources/cat.png';
 import SvgCat from '../resources/SvgCat';
 import Divider from "@mui/material/Divider";
 import Box from '@mui/material/Box';
@@ -20,7 +19,7 @@ export default function LoadingWindow({ open, onClose }) {
       positionY: BOUNCINGHEIGHT / 2,
       velocityX: 4,
       velocityY: 4,
-      backgroundcolor: "transparent"
+      backgroundcolor: '#d22819'
     })
 
   const updateAnimationSettings = useCallback(() => {

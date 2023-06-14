@@ -17,7 +17,7 @@ describe("upload.js tests", () => {
     expect(cardVisible).toBeVisible();
   });
 
-  test("renders upload button", () => {a
+  test("renders upload button", () => {
     const mockSetIsLoading = jest.fn()
     render(<Upload setIsLoading={mockSetIsLoading}/>);
     const uploadButton = screen.getByText(/Upload Image/i);
