@@ -26,6 +26,9 @@ class Metadata:
         elif channels == 3:
             colors = ("b", "g", "r")
             legend = ["blue channel", "green channel", "red channel"]
+        elif channels == 4:
+            colors = ("b", "g", "r", "darkgray")
+            legend = ["blue channel", "green channel", "red channel", "alpha channel"]
         else:
             raise MetadataError(message=f"Unkonwn colorspace: Could not plot histogram. Number of channels = {channels}")
 

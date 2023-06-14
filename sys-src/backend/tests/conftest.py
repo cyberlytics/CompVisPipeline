@@ -32,6 +32,11 @@ def prepared_bgr_img():
     img = cv2.imread("./tests/testimages/mountain.png")
     return img
 
+@pytest.fixture
+def image_with_alpha_channel():
+    img = cv2.imread("./tests/testimages/transparent_background.png", cv2.IMREAD_UNCHANGED)
+    return img
+
 
 @pytest.fixture
 def fakeS3Manager():

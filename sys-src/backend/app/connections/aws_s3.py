@@ -76,7 +76,10 @@ class S3Manager:
         except ClientError:
             raise AWSError(message="Failed to load Data from s3 bucket")
         finally:
-            self._closeConnection(connection)
+            try:
+                self._closeConnection(connection)
+            except:
+                pass
         try:
             # convert img_bytes to opencv image
             np_array = np.frombuffer(img_bytes, np.uint8)
