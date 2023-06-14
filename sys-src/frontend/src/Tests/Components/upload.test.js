@@ -11,19 +11,22 @@ import { act } from "react-dom/test-utils";
 
 describe("upload.js tests", () => {
   test("card should be visible", () => {
-    render(<Upload />);
+    const mockSetIsLoading = jest.fn()
+    render(<Upload setIsLoading={mockSetIsLoading}/>);
     const cardVisible = screen.getByTestId(/upload-card/i);
     expect(cardVisible).toBeVisible();
   });
 
-  test("renders upload button", () => {
-    render(<Upload />);
+  test("renders upload button", () => {a
+    const mockSetIsLoading = jest.fn()
+    render(<Upload setIsLoading={mockSetIsLoading}/>);
     const uploadButton = screen.getByText(/Upload Image/i);
     expect(uploadButton).toBeInTheDocument();
   });
 
   test("renders default image button", () => {
-    render(<Upload />);
+    const mockSetIsLoading = jest.fn()
+    render(<Upload setIsLoading={mockSetIsLoading}/>);
     const defaultImageButton = screen.getByText(/Default Image/i);
     expect(defaultImageButton).toBeInTheDocument();
   });
@@ -36,8 +39,9 @@ describe("upload.js tests", () => {
     const mockHandleUpload = jest.fn();
     const mockSetOriginalImageID = jest.fn();
     const mockSerCurrentImageID = jest.fn();
+    const mockSetIsLoading = jest.fn()
 
-    render(<Upload setOriginalImageID={mockSetOriginalImageID} setCurrentImageID={mockSerCurrentImageID}/>);
+    render(<Upload setOriginalImageID={mockSetOriginalImageID} setCurrentImageID={mockSerCurrentImageID} setIsLoading={mockSetIsLoading}/>);
     const file = new File(["test data body"], "test.jpg", {name: "test.jpg", type: "image/jpeg"});
 
     const inputElement = screen.getByLabelText(/Upload Image/i);
@@ -55,8 +59,9 @@ describe("upload.js tests", () => {
     const mockHandleUpload = jest.fn();
     const mockSetOriginalImageID = jest.fn();
     const mockSerCurrentImageID = jest.fn();
+    const mockSetIsLoading = jest.fn()
 
-    render(<Upload setOriginalImageID={mockSetOriginalImageID} setCurrentImageID={mockSerCurrentImageID}/>);
+    render(<Upload setOriginalImageID={mockSetOriginalImageID} setCurrentImageID={mockSerCurrentImageID} setIsLoading={mockSetIsLoading}/>);
     const file = new File(["test data body"], "test.jpg", {type: "image/jpeg"});
 
     const inputElement = screen.getByLabelText(/Upload Image/i);
@@ -70,8 +75,9 @@ describe("upload.js tests", () => {
     const mockHandleDefaultUpload = jest.fn();
     const mockSetOriginalImageID = jest.fn();
     const mockSerCurrentImageID = jest.fn();
+    const mockSetIsLoading = jest.fn()
 
-    render(<Upload setOriginalImageID={mockSetOriginalImageID} setCurrentImageID={mockSerCurrentImageID}/>);
+    render(<Upload setOriginalImageID={mockSetOriginalImageID} setCurrentImageID={mockSerCurrentImageID} setIsLoading={mockSetIsLoading}/>);
     
     const defaultImageButton = screen.getByText(/Default Image/i);
     defaultImageButton.addEventListener("click", mockHandleDefaultUpload);

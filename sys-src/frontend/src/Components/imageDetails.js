@@ -29,11 +29,12 @@ export default function ImageDetails(props) {
     }, [props.currentHistogramIDandMetadata]);
 
     useEffect(() => {
-        if (histId != "") {
+        if (histId !== "") {
             s3Manager.getImageFromS3(histId)
                 .then((res) => {
                     // success handling
                     setImageURL(URL.createObjectURL(new Blob([res.Body], { type: res.ContentType })));
+                    props.setIsLoading(false)
                 })
         }
     }, [histId]);

@@ -9,12 +9,13 @@ import Controller from '../controller';
 
 /**
  * PopupWindow to show some informations
- * @param  {[boolean]} open         open dialog, if true
- * @param  {[function]} onClose     function to close the dialog
- * @param  {[boolean]} setState     sets a state 
- * @return {[Dialog]}               Dialog
+ * @param  {[boolean]} open           open dialog, if true
+ * @param  {[function]} onClose       function to close the dialog
+ * @param  {[boolean]} setState       sets a state 
+ * @param  {[useState Function]} setIsLoading  setLoadingStatus
+ * @return {[Dialog]}                 Dialog
  */
-export default function LoginWindow({ open, onClose, setState }) {
+export default function LoginWindow({ open, onClose, setState, setIsLoading }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -28,6 +29,7 @@ export default function LoginWindow({ open, onClose, setState }) {
   }, [open]);
 
   const handleLogin = async () => {
+    setIsLoading(true)
     const isAuthenticated = await Controller.login(username, password);
     if (isAuthenticated) {
       setState(true);
@@ -35,6 +37,7 @@ export default function LoginWindow({ open, onClose, setState }) {
     } else {
       setErrorMessage('Incorrect Username or Password');
     }
+    setIsLoading(false)
   };
 
   const handleKeyPress = (e) => {

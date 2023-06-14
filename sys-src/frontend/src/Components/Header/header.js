@@ -16,9 +16,6 @@ import LoginWindow from '../../ModalWindow/LoginWindow';
 import RollingCat from './rollingCat';
 
 import DeveloperMenu from './developerMenu';
-import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
-
 
 export default function Header(props) {
     const { theme, setTheme, developMode, setDevelopMode } = props;
@@ -105,7 +102,7 @@ export default function Header(props) {
                                         <PersonOffOutlinedIcon fontSize='medium' onClick={handleLoginClick} />
                                     </Tooltip>
                                 }
-                                <LoginWindow open={loginIsOpen} onClose={handleCloseLoginWindow} setState={setDevelopMode} />
+                                <LoginWindow open={loginIsOpen} onClose={handleCloseLoginWindow} setState={setDevelopMode} setIsLoading={props.setIsLoading}/>
                             </Grid>
                             <Grid item>
                                 {theme ?

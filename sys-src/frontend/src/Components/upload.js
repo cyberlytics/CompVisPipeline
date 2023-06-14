@@ -12,10 +12,12 @@ import Controller from '../controller';
  * @param {useState Function} setOriginalImageID    set Function for originalImageID (the image that was uploaded)
  * @param {useState Function} setCurrentImageID     set Function for currentImageID (the image that is currently being displayed)
  * @param {useState Function} setCurrentHistogramIDandMetadata     set Function for setCurrentHistogramIDandMetadata (the histogram that is currently being displayed)
+ * @param {useState Function} setIsLoading          set Function for setIsLoading
  * @returns upload card
  */
-export default function Upload({setOriginalImageID, setCurrentImageID, setCurrentHistogramIDandMetadata}) {
+export default function Upload({setOriginalImageID, setCurrentImageID, setCurrentHistogramIDandMetadata, setIsLoading}) {
     const handleUpload = (event) => {
+        setIsLoading(true)
         const imageFile = event.target.files[0];
 
         let fileExtension;
@@ -40,17 +42,21 @@ export default function Upload({setOriginalImageID, setCurrentImageID, setCurren
                 setOriginalImageID(imageKey);
                 setCurrentImageID(imageKey);
                 Controller.getImageMetadataFromBackend(imageKey, setCurrentHistogramIDandMetadata)
+                setIsLoading(false)
             })
             .catch( (error) => {
                 // error handling
                 // console.log(error);
+                setIsLoading(false)
             });
     };
     
     const handleDefaultUpload = () => {
+        setIsLoading(true)
         setOriginalImageID("defaultImage.jpg");
         setCurrentImageID("defaultImage.jpg");
         Controller.getImageMetadataFromBackend("defaultImage.jpg", setCurrentHistogramIDandMetadata)
+        setIsLoading(false)
     };
 
     return (

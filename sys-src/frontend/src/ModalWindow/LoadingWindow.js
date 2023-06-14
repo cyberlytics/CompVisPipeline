@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import cat from '../resources/cat.png';
 import CardMedia from "@mui/material/CardMedia";
+import Box from '@mui/material/Box';
 import { generateRandomColor } from '../randomColorGenerator';
 
 export default function LoadingWindow({ open, onClose }) {
@@ -51,16 +51,16 @@ export default function LoadingWindow({ open, onClose }) {
   }, [open, updateAnimationSettings]);
 
   return (
-    <Dialog open={open} maxWidth="xs" fullWidth>
+    <Dialog open={open} width={`${BOUNCINGWIDTH}px`}>
       <DialogTitle data-testid="loading-screen-title">
         Loading...
         <IconButton data-testid="loading-screen-abort" aria-label="close" onClick={onClose} sx={{ position: 'absolute', right: 8, top: 8, color: (theme) => theme.palette.grey[500] }} >
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent dividers sx={{ width: BOUNCINGWIDTH, height: BOUNCINGHEIGHT, padding: 0 }}>
-        <CardMedia data-testid="loading-screen-cat" src={cat} component="img" alt="Loading" sx={{ width: `${IMAGESIZE}px`, objectFit: "contain", position: "absolute", transform: `translate(${animationSettings.positionX}px, ${animationSettings.positionY}px)`, backgroundColor: animationSettings.backgroundcolor }} />
-      </DialogContent>
+      <Box sx={{ width: BOUNCINGWIDTH, height: BOUNCINGHEIGHT, backgroundColor: animationSettings.backgroundcolor, padding:0 }}>
+        <CardMedia data-testid="loading-screen-cat" src={cat} component="img" alt="Loading" sx={{ width: `${IMAGESIZE}px`, objectFit: "contain", position: "absolute", transform: `translate(${animationSettings.positionX}px, ${animationSettings.positionY}px)` }} />
+      </Box>
     </Dialog>
   );
 }
