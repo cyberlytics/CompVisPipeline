@@ -35,10 +35,8 @@ class Controller {
       }
 
       //Call to send Pipelinesteps to backend and receive results
-      static async sendPipelineSteps(props, setLoading, setPipelineResult) {
+      static async sendPipelineSteps(props) {
         const path = base + "/start-pipeline/" + props.originalImageID;
-        setLoading(true);
-      
         let newJSON = JSONTransformer.transformJSON(props.steps)
       
         try {
@@ -49,7 +47,6 @@ class Controller {
             },
             body: JSON.stringify(newJSON)
           });
-          setLoading(false);
       
           if (response.ok) {
             const result = await response.json();
