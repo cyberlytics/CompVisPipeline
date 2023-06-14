@@ -1,8 +1,18 @@
 # Development
 the .devcontainer can be used to develop in vscode (foreach frontend and backend). it contains a Dockerfile and a devcontainer.json file. 
 Use vscodes devcontainer-extension for development. you can run/debug/test your code inside the devcontainer.
+To use the s3 buckets in your devcontainer add a devcontainer.env file in the backend/.devcontainer folder. 
 
 # Production
 the docker-compose file can be used to start frontend and backend. it uses the Dockerfiles from /clientapp/Dockerfile and /backend/Dockerfile
-1. docker-compose up --build (this can take a few minutes wait until you see logs for frontend and backend)
-2. frontend is available: localhost:80 or 127.0.0.1:80
+1. set the aws secrets in a backend.env file in this folder
+2. docker-compose up --build (this can take a few minutes wait until you see logs for frontend and backend)
+3. frontend is available: localhost:80 or 127.0.0.1:80
+
+
+# Backend 
+## Connection S3 access
+Set this 3 parameters as environment variable that os.environ['key'] has access and docker-compose can transfer them into the backend container
+- AWS_SECURE_ACCESS_KEY
+- AWS_ACCESS_KEY_ID
+- AWS_DEFAULT_REGION='eu-central-1'

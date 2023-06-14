@@ -17,5 +17,7 @@ services:
       dockerfile: Dockerfile
     restart: on-failure
     working_dir: /workdir/
+    env_file:
+    - backend.env
     ports: 
       - 5000:5000
