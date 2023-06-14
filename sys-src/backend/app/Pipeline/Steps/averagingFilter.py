@@ -11,7 +11,7 @@ class AveragingFilter(BaseStep):
             kernel_width = params[0]
             kernel_height = params[1]
 
-            if kernel_height < 0 or kernel_width < 0:
+            if kernel_height <= 0 or kernel_width <= 0:
                 raise WrongParameterError(message="Kernelsize has to be positive")
 
             return cv2.blur(img, (kernel_width, kernel_height))
