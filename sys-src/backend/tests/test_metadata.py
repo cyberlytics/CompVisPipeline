@@ -58,6 +58,5 @@ def test_hist_is_saved_to_s3_grey(fakeS3Manager, prepared_grey_scale_img):
 def test_hist_is_generated_for_images_with_alpha_channel(fakeS3Manager, image_with_alpha_channel):
     metadata = Metadata(fakeS3Manager)
     result = metadata.getMetadata(image_with_alpha_channel)
-    import pdb; pdb.set_trace()
     assert len(fakeS3Manager.getImageFromS3(result[0]).shape) == 3
     assert result[3] == 4
