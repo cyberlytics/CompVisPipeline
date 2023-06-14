@@ -6,6 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import cat from '../resources/cat.png';
 import CardMedia from "@mui/material/CardMedia";
+import { generateRandomColor } from '../randomColorGenerator';
 
 export default function LoadingWindow({ open, onClose }) {
   const BOUNCINGWIDTH = 400;
@@ -20,16 +21,6 @@ export default function LoadingWindow({ open, onClose }) {
       velocityY: 4,
       backgroundcolor: "transparent"
     })
-
-
-  const generateRandomColor = () => {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  };
 
   const updateAnimationSettings = useCallback(() => {
     setAnimationSettings(prevAnimationSettings => {
@@ -63,12 +54,12 @@ export default function LoadingWindow({ open, onClose }) {
     <Dialog open={open} maxWidth="xs" fullWidth>
       <DialogTitle data-testid="loading-screen-title">
         Loading...
-        <IconButton aria-label="close" onClick={onClose} sx={{ position: 'absolute', right: 8, top: 8, color: (theme) => theme.palette.grey[500] }} >
+        <IconButton data-testid="loading-screen-abort" aria-label="close" onClick={onClose} sx={{ position: 'absolute', right: 8, top: 8, color: (theme) => theme.palette.grey[500] }} >
           <CloseIcon />
         </IconButton>
       </DialogTitle>
       <DialogContent dividers sx={{ width: BOUNCINGWIDTH, height: BOUNCINGHEIGHT, padding: 0 }}>
-        <CardMedia src={cat} component="img" alt="Loading" sx={{ width: `${IMAGESIZE}px`, objectFit: "contain", position: "absolute", transform: `translate(${animationSettings.positionX}px, ${animationSettings.positionY}px)`, backgroundColor: animationSettings.backgroundcolor }} />
+        <CardMedia data-testid="loading-screen-cat" src={cat} component="img" alt="Loading" sx={{ width: `${IMAGESIZE}px`, objectFit: "contain", position: "absolute", transform: `translate(${animationSettings.positionX}px, ${animationSettings.positionY}px)`, backgroundColor: animationSettings.backgroundcolor }} />
       </DialogContent>
     </Dialog>
   );
