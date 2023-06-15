@@ -1,10 +1,29 @@
+from skimage.exposure import adjust_log
+import numpy as np
+
 from app.Pipeline.Steps.baseStep import BaseStep
+from app.exceptions import ImageProcessingError, WrongParameterError
 
 
 class LogTransform(BaseStep):
     def __call__(self, img, parameters):
-        # TODO: implement log transformation
-        return img
+        try:
+            p0 = float(parameters[0])
+            p1 = eval(parameters[1])
+
+            if len(img.shape) not in (2, 3): raise WrongParameterError(message="Invalid image shape!")
+            if img.dtype != np.uint8: raise WrongParameterError(message="Invalid data type of image! Convert image to 'uint8'!")
+            if type(p1) is not bool: raise WrongParameterError(message="Invert flag must be a bool!")
+
+            return adjust_log(img, p0, p1)
+        except WrongParameterError as e:
+            raise e
+        except ValueError as e:
+            raise WrongParameterError(message=e)
+        except NameError as e:
+            raise WrongParameterError(message=e)
+        except Exception as e:
+            raise ImageProcessingError(message=e)
 
     def describe(self):
         return {
