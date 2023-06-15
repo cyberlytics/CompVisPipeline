@@ -123,7 +123,7 @@ function App() {
               <Grid item md={4} style={{ paddingRight: 10 }}>
                 <Grid container direction="column">
                   <Grid item xs style={{ paddingBottom: 10 }}>
-                    <Pipeline steps={steps} setSteps={setSteps} pipelineResult={pipelineResult} setCurrentImageID={setCurrentImageID} setCurrentHistogramIDandMetadata={setCurrentHistogramIDandMetadata}/>
+                    <Pipeline steps={steps} setSteps={setSteps} pipelineResult={pipelineResult} setPipelineResult={setPipelineResult} setCurrentImageID={setCurrentImageID} setCurrentHistogramIDandMetadata={setCurrentHistogramIDandMetadata}/>
                   </Grid>
                   <Grid item xs>
                     <StartPipeline steps={steps} originalImageID={originalImageID} setPipelineResult={setPipelineResult} isLoading={startPipelineIsLoading} setIsLoading={setStartpipelineIsLoading} />
