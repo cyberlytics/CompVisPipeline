@@ -14,7 +14,10 @@ import ListItemText from '@mui/material/ListItemText';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
 export default function Pipeline(props) {
-
+    //pipelineResult 
+    //setCurrentImageID 
+    //setCurrentHistogramIDandMetadata 
+    //setIsLoading
 
     //function for drag and drop in pipeline
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -53,7 +56,11 @@ export default function Pipeline(props) {
 
     //function to show uploaded picture
     const handleShowUploadedPictureClick = () => {
-        //todo - Bild anzeigen 
+        if (props.pipelineResult.length !== 0) {
+            let result = props.pipelineResult.result
+            props.setCurrentImageID(result[0].imageId)
+            props.setCurrentHistogramIDandMetadata(result[0])
+          }
     };
 
     // Function to move the items in the stack
