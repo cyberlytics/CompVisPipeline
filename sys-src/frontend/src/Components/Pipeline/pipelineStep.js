@@ -59,9 +59,10 @@ export default function PipelineStep(props) {
             item.stepIndex = hoverIndex
             if(props.pipelineResult.length !== 0) 
             {
+                let result = props.pipelineResult.result
+                props.setCurrentImageID(result[0].imageId)
+                props.setCurrentHistogramIDandMetadata(result[0])
                 props.setPipelineResult([]) //empty result when pipeline changed
-                props.setCurrentImageID(null)
-                props.setCurrentHistogramIDandMetadata(null)
             }
         },
     })
