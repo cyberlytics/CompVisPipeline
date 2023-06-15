@@ -15,7 +15,7 @@ import InformationPopup from '../../ModalWindow/InformationPopup.js';
 import Parameter from './parameter.js';
 
 export default function PipelineStep(props) {
-    const { stepIndex, deleteStep, title, params, info, id, moveStep, uuid } = props;
+    const { stepIndex, deleteStep, title, params, info, id, moveStep, uuid, setCurrentImageID, setCurrentHistogramIDandMetadata, pipelineResult, setPipelineResult} = props;
     const [isExpanded, setIsExpandend] = useState(false)
     const [informationPopupIsOpen, setInformationPopupIsOpen] = useState(false);
     const ref = useRef(null)
@@ -57,6 +57,13 @@ export default function PipelineStep(props) {
             // Perform the action
             moveStep(dragIndex, hoverIndex)
             item.stepIndex = hoverIndex
+            if(props.pipelineResult.length !== 0) 
+            {
+                let result = props.pipelineResult.result
+                props.setCurrentImageID(result[0].imageId)
+                props.setCurrentHistogramIDandMetadata(result[0])
+                props.setPipelineResult([]) //empty result when pipeline changed
+            }
         },
     })
 
@@ -87,7 +94,11 @@ export default function PipelineStep(props) {
 
     //function to show result image from selected step
     const handleShowResultClick = () => {
-        //todo - Bild anzeigen 
+        if (pipelineResult.length !== 0) {
+            let result = pipelineResult.result
+            setCurrentImageID(result[stepIndex + 1].imageId)
+            setCurrentHistogramIDandMetadata(result[stepIndex + 1])
+          }
     };
 
     //function to open modul window to show 
