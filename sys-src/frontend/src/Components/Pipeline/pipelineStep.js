@@ -57,7 +57,12 @@ export default function PipelineStep(props) {
             // Perform the action
             moveStep(dragIndex, hoverIndex)
             item.stepIndex = hoverIndex
-            if(props.pipelineResult.length !== 0) props.setPipelineResult([]) //empty result when pipeline changed
+            if(props.pipelineResult.length !== 0) 
+            {
+                props.setPipelineResult([]) //empty result when pipeline changed
+                props.setCurrentImageID(null)
+                props.setCurrentHistogramIDandMetadata(null)
+            }
         },
     })
 

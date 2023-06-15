@@ -28,7 +28,12 @@ export default function Pipeline(props) {
                 };
                 props.setSteps((prevSteps) => [...prevSteps, newItem]);
             }
-            if(props.pipelineResult.length !== 0) props.setPipelineResult([]) //empty result when pipeline changed
+            if(props.pipelineResult.length !== 0) 
+            {
+                props.setPipelineResult([]) //empty result when pipeline changed
+                props.setCurrentImageID(null)
+                props.setCurrentHistogramIDandMetadata(null)
+            }
         },
         collect: (monitor) => ({
             isOver: monitor.isOver(),
@@ -49,7 +54,12 @@ export default function Pipeline(props) {
     // Function to delete a single step from list
     const deleteStep = (uuid) => {
         props.setSteps((prevSteps) => prevSteps.filter((step) => step.uuid !== uuid));
-        if(props.pipelineResult.length !== 0) props.setPipelineResult([]) //empty result when pipeline changed
+        if(props.pipelineResult.length !== 0) 
+        {
+            props.setPipelineResult([]) //empty result when pipeline changed
+            props.setCurrentImageID(null)
+            props.setCurrentHistogramIDandMetadata(null)
+        }
     };
 
     //function to show uploaded picture
