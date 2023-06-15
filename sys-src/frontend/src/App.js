@@ -45,14 +45,13 @@ function App() {
   const [uploadIsLoading, setUploadIsLoading] = useState(false)
   const [imageDetailsIsLoading, setImageDetailsIsLoading] = useState(false)
   const [startPipelineIsLoading, setStartpipelineIsLoading] = useState(false)
-  const [pipelineIsLoading, setPipelineIsLoading] = useState(false)
   const [loadingScreenIsOpen, setLoadingScreenIsOpen] = useState(false);
   
   // Update isLoading Hook pending on other loading processes
   useEffect(() => {
-    const componentsAreLoading = headerIsLoading || uploadIsLoading || imageDetailsIsLoading || startPipelineIsLoading || pipelineIsLoading;
+    const componentsAreLoading = headerIsLoading || uploadIsLoading || imageDetailsIsLoading || startPipelineIsLoading;
     setIsLoading(componentsAreLoading);
-  }, [headerIsLoading, uploadIsLoading, imageDetailsIsLoading, startPipelineIsLoading, pipelineIsLoading]);
+  }, [headerIsLoading, uploadIsLoading, imageDetailsIsLoading, startPipelineIsLoading]);
 
   useEffect(() => {
     if(startPipelineIsLoading === true){
@@ -61,10 +60,10 @@ function App() {
   }, [startPipelineIsLoading]);
 
   useEffect(() => {
-    if(uploadIsLoading === true || pipelineIsLoading === true){
+    if(uploadIsLoading === true){
       setImageDetailsIsLoading(true);
     }
-  }, [uploadIsLoading, pipelineIsLoading]);
+  }, [uploadIsLoading]);
 
   // Update the window size when resized
   useEffect(() => {
@@ -124,7 +123,7 @@ function App() {
               <Grid item md={4} style={{ paddingRight: 10 }}>
                 <Grid container direction="column">
                   <Grid item xs style={{ paddingBottom: 10 }}>
-                    <Pipeline steps={steps} setSteps={setSteps} pipelineResult={pipelineResult} setCurrentImageID={setCurrentImageID} setCurrentHistogramIDandMetadata={setCurrentHistogramIDandMetadata} setIsLoading={setPipelineIsLoading}/>
+                    <Pipeline steps={steps} setSteps={setSteps} pipelineResult={pipelineResult} setCurrentImageID={setCurrentImageID} setCurrentHistogramIDandMetadata={setCurrentHistogramIDandMetadata}/>
                   </Grid>
                   <Grid item xs>
                     <StartPipeline steps={steps} originalImageID={originalImageID} setPipelineResult={setPipelineResult} isLoading={startPipelineIsLoading} setIsLoading={setStartpipelineIsLoading} />

@@ -14,10 +14,6 @@ import ListItemText from '@mui/material/ListItemText';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
 export default function Pipeline(props) {
-    //pipelineResult 
-    //setCurrentImageID 
-    //setCurrentHistogramIDandMetadata 
-    //setIsLoading
 
     //function for drag and drop in pipeline
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -88,9 +84,12 @@ export default function Pipeline(props) {
                 id={step.id}
                 moveStep={moveStep}
                 uuid={step.uuid}
+                setCurrentImageID={props.setCurrentImageID}
+                setCurrentHistogramIDandMetadata={props.setCurrentHistogramIDandMetadata}
+                pipelineResult = {props.pipelineResult}
             />
         )
-    }, [])
+    }, [props.pipelineResult])
 
     //returns the view for the pipeline configuration
     return (

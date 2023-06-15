@@ -15,7 +15,7 @@ import InformationPopup from '../../ModalWindow/InformationPopup.js';
 import Parameter from './parameter.js';
 
 export default function PipelineStep(props) {
-    const { stepIndex, deleteStep, title, params, info, id, moveStep, uuid } = props;
+    const { stepIndex, deleteStep, title, params, info, id, moveStep, uuid, setCurrentImageID, setCurrentHistogramIDandMetadata, pipelineResult} = props;
     const [isExpanded, setIsExpandend] = useState(false)
     const [informationPopupIsOpen, setInformationPopupIsOpen] = useState(false);
     const ref = useRef(null)
@@ -87,7 +87,12 @@ export default function PipelineStep(props) {
 
     //function to show result image from selected step
     const handleShowResultClick = () => {
-        //todo - Bild anzeigen 
+        console.log(pipelineResult)
+        if (pipelineResult.length !== 0) {
+            let result = pipelineResult.result
+            setCurrentImageID(result[stepIndex + 1].imageId)
+            setCurrentHistogramIDandMetadata(result[stepIndex + 1])
+          }
     };
 
     //function to open modul window to show 
