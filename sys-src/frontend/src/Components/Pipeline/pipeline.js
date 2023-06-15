@@ -15,7 +15,6 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
 export default function Pipeline(props) {
 
-
     //function for drag and drop in pipeline
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
 
@@ -28,6 +27,13 @@ export default function Pipeline(props) {
                     params: JSON.parse(JSON.stringify(item.params))
                 };
                 props.setSteps((prevSteps) => [...prevSteps, newItem]);
+            }
+            if(props.pipelineResult.length !== 0) 
+            {
+                let result = props.pipelineResult.result
+                props.setCurrentImageID(result[0].imageId)
+                props.setCurrentHistogramIDandMetadata(result[0])
+                props.setPipelineResult([]) //empty result when pipeline changed
             }
         },
         collect: (monitor) => ({
@@ -49,11 +55,22 @@ export default function Pipeline(props) {
     // Function to delete a single step from list
     const deleteStep = (uuid) => {
         props.setSteps((prevSteps) => prevSteps.filter((step) => step.uuid !== uuid));
+        if(props.pipelineResult.length !== 0) 
+        {
+            let result = props.pipelineResult.result
+            props.setCurrentImageID(result[0].imageId)
+            props.setCurrentHistogramIDandMetadata(result[0])
+            props.setPipelineResult([]) //empty result when pipeline changed
+        }
     };
 
     //function to show uploaded picture
     const handleShowUploadedPictureClick = () => {
-        //todo - Bild anzeigen 
+        if (props.pipelineResult.length !== 0) {
+            let result = props.pipelineResult.result
+            props.setCurrentImageID(result[0].imageId)
+            props.setCurrentHistogramIDandMetadata(result[0])
+          }
     };
 
     // Function to move the items in the stack
@@ -81,9 +98,13 @@ export default function Pipeline(props) {
                 id={step.id}
                 moveStep={moveStep}
                 uuid={step.uuid}
+                setCurrentImageID={props.setCurrentImageID}
+                setCurrentHistogramIDandMetadata={props.setCurrentHistogramIDandMetadata}
+                pipelineResult = {props.pipelineResult}
+                setPipelineResult = {props.setPipelineResult}
             />
         )
-    }, [])
+    }, [props.pipelineResult])
 
     //returns the view for the pipeline configuration
     return (
