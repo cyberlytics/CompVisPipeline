@@ -14,14 +14,14 @@ class MedianFilter(BaseStep):
 
             if self.is_valid_kernel_size(kernel_size):
                 raise WrongParameterError(
-                    message="Kernelsize has to be positive and odd"
+                    message="[Median Filter] Kernelsize has to be positive and odd"
                 )
 
             return cv2.medianBlur(img, kernel_size)
 
         except Exception as e:
             raise ImageProcessingError(
-                message="An Exception in median filter occured: " + str(e)
+                message="[Median Filter] An Exception in median filter occured: " + str(e)
             )
 
     def describe(self):

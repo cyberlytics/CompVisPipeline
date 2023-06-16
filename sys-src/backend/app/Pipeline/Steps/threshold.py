@@ -10,9 +10,9 @@ class Thershold(BaseStep):
             p0 = int(parameters[0])
             p1 = eval(parameters[1])
 
-            if len(img.shape) not in (2, 3): raise WrongParameterError("Invalid image shape!")
-            if p0 < 0: raise WrongParameterError(message="Threshold value must be positive!")
-            if type(p1) is not bool: raise WrongParameterError(message="Invert flag must be a bool!")
+            if len(img.shape) not in (2, 3): raise WrongParameterError("[Threshold] Invalid image shape!")
+            if p0 < 0: raise WrongParameterError(message="[Threshold] Threshold value must be positive!")
+            if type(p1) is not bool: raise WrongParameterError(message="[Threshold] Invert flag must be a bool!")
 
             if p1:
                 invert = cv2.THRESH_BINARY_INV
@@ -23,11 +23,11 @@ class Thershold(BaseStep):
         except WrongParameterError as e:
             raise e
         except ValueError as e:
-            raise WrongParameterError(message=e)
+            raise WrongParameterError(message=f"[Threshold] {e}")
         except NameError as e:
-            raise WrongParameterError(message=e)
+            raise WrongParameterError(message=f"[Threshold] {e}")
         except Exception as e:
-            raise ImageProcessingError(message=e)
+            raise ImageProcessingError(message=f"[Threshold] {e}")
 
     def describe(self):
         return {

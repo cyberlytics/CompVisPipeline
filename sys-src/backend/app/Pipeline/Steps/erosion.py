@@ -26,15 +26,15 @@ class Erosion(BaseStep):
 
             #Check if parameters are valid
             if len(img.shape) not in (2, 3): 
-                raise WrongParameterError(message="Invalid image shape.")
+                raise WrongParameterError(message="[Erosion] Invalid image shape.")
             if kernel_shape not in {0, 1, 2}: 
-                raise WrongParameterError(message="Invalid kernel shape.")
+                raise WrongParameterError(message="[Erosion] Invalid kernel shape.")
             if kernel_width < 2: 
-                raise WrongParameterError(message="Kernel width must be bigger than 1.")
+                raise WrongParameterError(message="[Erosion] Kernel width must be bigger than 1.")
             if kernel_height < 2: 
-                raise WrongParameterError(message="Kernel height must be bigger than 1.")
+                raise WrongParameterError(message="[Erosion] Kernel height must be bigger than 1.")
             if iterations < 1: 
-                raise WrongParameterError(message="Iterations must be bigger than 0.")
+                raise WrongParameterError(message="[Erosion] Iterations must be bigger than 0.")
 
             #Process
             kernel = self.__get_kernel(kernel_shape, kernel_width, kernel_height)
@@ -44,10 +44,10 @@ class Erosion(BaseStep):
             raise e
         
         except ValueError as e:
-            raise WrongParameterError(message=e)
+            raise WrongParameterError(message=f"[Erosion] {e}")
 
         except Exception as e:
-            raise ImageProcessingError(message=e)
+            raise ImageProcessingError(message=f"[Erosion] {e}")
 
     def describe(self):
         return {

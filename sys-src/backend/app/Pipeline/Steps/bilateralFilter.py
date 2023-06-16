@@ -11,16 +11,16 @@ class BilateralFilter(BaseStep):
             p1 = float(parameters[1])
             p2 = float(parameters[2])
 
-            if len(img.shape) not in (2, 3): raise WrongParameterError(message="Invalid image shape!")
-            if p0 < 1: raise WrongParameterError(message="Diameter can't be less than one!")
+            if len(img.shape) not in (2, 3): raise WrongParameterError(message="[Bilateral Filter] Invalid image shape!")
+            if p0 < 1: raise WrongParameterError(message="[Bilateral Filter] Diameter can't be less than one!")
 
             return cv2.bilateralFilter(img, p0, p1, p2)
         except WrongParameterError as e:
             raise e
         except ValueError as e:
-            raise WrongParameterError(message=e)
+            raise WrongParameterError(message=f"[Bilateral Filter]  {e}")
         except Exception as e:
-            raise ImageProcessingError(message=e)
+            raise ImageProcessingError(message=f"[Bilateral Filter] {e}")
 
     def describe(self):
         return {

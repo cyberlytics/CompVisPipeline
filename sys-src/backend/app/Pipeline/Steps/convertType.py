@@ -5,13 +5,13 @@ from app.exceptions import ImageProcessingError, WrongParameterError
 class ConvertType(BaseStep):
     def __call__(self, img, parameters):
         try:
-            if len(img.shape) not in (2, 3): raise WrongParameterError(message="Invalid image shape!")
+            if len(img.shape) not in (2, 3): raise WrongParameterError(message="[Convert Type] Invalid image shape!")
 
             return img.astype("uint8")
         except WrongParameterError as e:
             raise e
         except Exception as e:
-            raise ImageProcessingError(message=e)
+            raise ImageProcessingError(message=f"[Convert Type] {e}")
 
     def describe():
         return {

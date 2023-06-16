@@ -9,15 +9,15 @@ class Flip(BaseStep):
         try:
             p0 = int(parameters[0])
 
-            if len(img.shape) not in (2, 3): raise WrongParameterError("Invalid image shape!")
+            if len(img.shape) not in (2, 3): raise WrongParameterError("[Flip] Invalid image shape!")
 
             return cv2.flip(img, p0)
         except WrongParameterError as e:
             raise e
         except ValueError as e:
-            raise WrongParameterError(message=e)
+            raise WrongParameterError(message=f"[Flip] {e}")
         except Exception as e:
-            raise ImageProcessingError(message=e)
+            raise ImageProcessingError(message=f"[Flip] {e}")
 
     def describe(self):
         return {

@@ -10,11 +10,11 @@ class SpeckleNoise(BaseStep):
         try:
             p0 = float(parameters[0])
 
-            if len(img.shape) not in (2, 3): raise WrongParameterError("Invalid image shape!")
+            if len(img.shape) not in (2, 3): raise WrongParameterError("[Speckle Noise] Invalid image shape!")
 
             if p0 < 0:
                 raise WrongParameterError(
-                    message="Noise strength should not be negative!"
+                    message="[Speckle Noise] Noise strength should not be negative!"
                 )
 
             gauss = np.random.normal(0, p0, img.shape)
@@ -30,9 +30,9 @@ class SpeckleNoise(BaseStep):
         except WrongParameterError as e:
             raise e
         except ValueError as e:
-            raise WrongParameterError(message=e)
+            raise WrongParameterError(message=f"[Speckle Noise] {e}")
         except Exception as e:
-            raise ImageProcessingError(message=e)
+            raise ImageProcessingError(message=f"[Speckle Noise] {e}")
 
     def describe(self):
         return {

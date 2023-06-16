@@ -8,16 +8,16 @@ class Rotate(BaseStep):
         try:
             p0 = int(parameters[0])
 
-            if p0 not in (0, 1, 2): raise WrongParameterError("Invalid rotation!")
-            if len(img.shape) not in (2, 3): raise WrongParameterError("Invalid image shape!")
+            if p0 not in (0, 1, 2): raise WrongParameterError("[Rotate] Invalid rotation!")
+            if len(img.shape) not in (2, 3): raise WrongParameterError("[Rotate] Invalid image shape!")
 
             return cv2.rotate(img, p0)
         except WrongParameterError as e:
             raise e
         except ValueError as e:
-            raise WrongParameterError(message=e)
+            raise WrongParameterError(message=f"[Rotate] {e}")
         except Exception as e:
-            raise ImageProcessingError(message=e)
+            raise ImageProcessingError(message=f"[Rotate] {e}")
 
     def describe(self):
         return {
