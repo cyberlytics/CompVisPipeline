@@ -1,5 +1,5 @@
 import update from 'immutability-helper'
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -28,19 +28,25 @@ export default function Pipeline(props) {
                 };
                 props.setSteps((prevSteps) => [...prevSteps, newItem]);
             }
-            if(props.pipelineResult.length !== 0) 
-            {
-                let result = props.pipelineResult.result
-                props.setCurrentImageID(result[0].imageId)
-                props.setCurrentHistogramIDandMetadata(result[0])
-                props.setPipelineResult([]) //empty result when pipeline changed
-            }
         },
         collect: (monitor) => ({
             isOver: monitor.isOver(),
             canDrop: monitor.canDrop(),
         }),
     }));
+
+    //open loading window if isLoading
+    useEffect(() => {
+        console.log(props.pipelineResult)
+        if (props.pipelineResult.length !== 0) {
+            console.log("lol2")
+            let result = props.pipelineResult.result
+            props.setCurrentImageID(result[0].imageId)
+            props.setCurrentHistogramIDandMetadata(result[0])
+            props.setPipelineResult([]) //empty result when pipeline changed
+            console.log("lol3")
+        }
+    }, [props.steps]);
 
     //variable to change the style from the box to drop steps
     const dropfieldIsVisible = canDrop || isOver
@@ -55,8 +61,7 @@ export default function Pipeline(props) {
     // Function to delete a single step from list
     const deleteStep = (uuid) => {
         props.setSteps((prevSteps) => prevSteps.filter((step) => step.uuid !== uuid));
-        if(props.pipelineResult.length !== 0) 
-        {
+        if (props.pipelineResult.length !== 0) {
             let result = props.pipelineResult.result
             props.setCurrentImageID(result[0].imageId)
             props.setCurrentHistogramIDandMetadata(result[0])
@@ -70,7 +75,7 @@ export default function Pipeline(props) {
             let result = props.pipelineResult.result
             props.setCurrentImageID(result[0].imageId)
             props.setCurrentHistogramIDandMetadata(result[0])
-          }
+        }
     };
 
     // Function to move the items in the stack
@@ -100,8 +105,8 @@ export default function Pipeline(props) {
                 uuid={step.uuid}
                 setCurrentImageID={props.setCurrentImageID}
                 setCurrentHistogramIDandMetadata={props.setCurrentHistogramIDandMetadata}
-                pipelineResult = {props.pipelineResult}
-                setPipelineResult = {props.setPipelineResult}
+                pipelineResult={props.pipelineResult}
+                setPipelineResult={props.setPipelineResult}
             />
         )
     }, [props.pipelineResult])
