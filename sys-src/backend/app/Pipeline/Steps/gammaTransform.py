@@ -10,17 +10,17 @@ class GammaTransform(BaseStep):
             p0 = float(parameters[0])
             p1 = float(parameters[1])
 
-            if len(img.shape) not in (2, 3): raise WrongParameterError("Invalid image shape!")
-            if img.dtype != np.uint8: raise WrongParameterError("Invalid data type of image! Convert image to 'uint8'!")
-            if p0 < 0: raise WrongParameterError("Gamma-Value can't be negative!")
+            if len(img.shape) not in (2, 3): raise WrongParameterError("[Gamma Transformation] Invalid image shape!")
+            if img.dtype != np.uint8: raise WrongParameterError("[Gamma Transformation] Invalid data type of image! Convert image to 'uint8'!")
+            if p0 < 0: raise WrongParameterError("[Gamma Transformation] Gamma-Value can't be negative!")
 
             return adjust_gamma(img, p0, p1)
         except WrongParameterError as e:
             raise e
         except ValueError as e:
-            raise WrongParameterError(message=e)
+            raise WrongParameterError(message=f"[Gamma Transformation] {e}")
         except Exception as e:
-            raise ImageProcessingError(message=e)
+            raise ImageProcessingError(message=f"[Gamma Transformation] {e}")
 
     def describe(self):
         return {

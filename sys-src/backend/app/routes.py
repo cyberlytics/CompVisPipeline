@@ -77,13 +77,13 @@ def sendMetadata(imageId):
         result = metadata.getMetadata(image)
     except BaseError as e:
         return app.response_class(
-            response=f"Failed to get metadata: {e.message}",
+            response=json.dumps({"error":f"Failed to get metadata: {e.message}"}),
             status=400,
             content_type="application/json",
         )
     except Exception as e:
         return app.response_class(
-            response=f"Failed to get metadata: Unknown Exception occured {e}",
+            response=json.dumps({"error": f"Failed to get metadata: Unknown Exception occured {e}"}),
             status=400,
             content_type="application/json",
         )
@@ -120,13 +120,13 @@ def getRandomAiFatcat():
         result = aiFatCatManager.getRandomAiImage()
     except BaseError as e:
         app.response_class(
-            response=f"Failed to get random ai fat cat: {e.message}",
+            response=json.dumps({"error": f"Failed to get random ai fat cat: {e.message}"}),
             status=400,
             content_type="application/json",
         )
     except Exception as e:
         app.response_class(
-            response=f"Failed to get random ai fat cat: Unknown Exception occured {e}",
+            response=json.dumps({"error": f"Failed to get random ai fat cat: Unknown Exception occured {e}"}),
             status=400,
             content_type="application/json",
         )

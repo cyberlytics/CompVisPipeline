@@ -10,8 +10,8 @@ class GaussianNoise(BaseStep):
         try:
             p0 = float(parameters[0])
 
-            if len(img.shape) not in (2, 3): raise WrongParameterError(message="Invalid image shape!")
-            if p0 < 0: raise WrongParameterError(message="Noise strength should not be negative!")
+            if len(img.shape) not in (2, 3): raise WrongParameterError(message="[Gaussian Noise] Invalid image shape!")
+            if p0 < 0: raise WrongParameterError(message="[Gaussian Noise] Noise strength should not be negative!")
 
             gauss = np.random.normal(0, p0, img.shape)
             
@@ -23,9 +23,9 @@ class GaussianNoise(BaseStep):
         except WrongParameterError as e:
             raise e
         except ValueError as e:
-            raise WrongParameterError(message=e)
+            raise WrongParameterError(message=f"[Gaussian Noise] {e}")
         except Exception as e:
-            raise ImageProcessingError(message=e)
+            raise ImageProcessingError(message=f"[Gaussian Noise] {e}")
 
     def describe(self):
         return {

@@ -26,15 +26,15 @@ class Dilation(BaseStep):
 
             #Check if parameters are valid
             if len(img.shape) not in (2, 3): 
-                raise WrongParameterError(message="Invalid image shape.")
+                raise WrongParameterError(message="[Dilation] Invalid image shape.")
             if kernel_shape not in {0, 1, 2}: 
-                raise WrongParameterError(message="Invalid kernel shape.")
+                raise WrongParameterError(message="[Dilation] Invalid kernel shape.")
             if kernel_width < 2: 
-                raise WrongParameterError(message="Kernel width must be bigger than 1.")
+                raise WrongParameterError(message="[Dilation] Kernel width must be bigger than 1.")
             if kernel_height < 2: 
-                raise WrongParameterError(message="Kernel height must be bigger than 1.")
+                raise WrongParameterError(message="[Dilation] Kernel height must be bigger than 1.")
             if iterations < 1: 
-                raise WrongParameterError(message="Iterations must be bigger than 0.")
+                raise WrongParameterError(message="[Dilation] Iterations must be bigger than 0.")
 
             #Process
             kernel = self.__get_kernel(kernel_shape, kernel_width, kernel_height)
@@ -44,10 +44,10 @@ class Dilation(BaseStep):
             raise e
         
         except ValueError as e:
-            raise WrongParameterError(message=e)
+            raise WrongParameterError(message=f"[Dilation] {e}")
 
         except Exception as e:
-            raise ImageProcessingError(message=e)
+            raise ImageProcessingError(message=f"[Dilation] {e}")
 
     def describe(self):
         return {

@@ -11,10 +11,10 @@ class CLAHE(BaseStep):
             p1 = int(parameters[1])
             p2 = int(parameters[2])
 
-            if len(img.shape) != (2): raise WrongParameterError("Invalid image shape! Image has to be a grayscale image!")
-            if p0 <= 0: raise WrongParameterError("Clip limit has to be positive!")
-            if p1 <= 0: raise WrongParameterError("Grid width has to be positive!")
-            if p2 <= 0: raise WrongParameterError("Grid height has to be positive!")
+            if len(img.shape) != (2): raise WrongParameterError("[CLAHE] Invalid image shape! Image has to be a grayscale image!")
+            if p0 <= 0: raise WrongParameterError("[CLAHE] Clip limit has to be positive!")
+            if p1 <= 0: raise WrongParameterError("[CLAHE] Grid width has to be positive!")
+            if p2 <= 0: raise WrongParameterError("[CLAHE] Grid height has to be positive!")
             
             clahe = cv2.createCLAHE(clipLimit=p0, tileGridSize=(p1,p2))
             return clahe.apply(img)
@@ -22,11 +22,11 @@ class CLAHE(BaseStep):
         except WrongParameterError as e:
             raise e
         except ValueError as e:
-            raise WrongParameterError(message=e)
+            raise WrongParameterError(message=f"[CLAHE] {e}")
         except NameError as e:
-            raise WrongParameterError(message=e)
+            raise WrongParameterError(message=f"[CLAHE] {e}")
         except Exception as e:
-            raise ImageProcessingError(message=e)
+            raise ImageProcessingError(message=f"[CLAHE] {e}")
 
     def describe(self):
         return {
