@@ -35,16 +35,13 @@ export default function Pipeline(props) {
         }),
     }));
 
-    //open loading window if isLoading
+    //empty pipelineresult when pipeline changed.
     useEffect(() => {
-        console.log(props.pipelineResult)
         if (props.pipelineResult.length !== 0) {
-            console.log("lol2")
             let result = props.pipelineResult.result
             props.setCurrentImageID(result[0].imageId)
             props.setCurrentHistogramIDandMetadata(result[0])
-            props.setPipelineResult([]) //empty result when pipeline changed
-            console.log("lol3")
+            props.setPipelineResult([]) 
         }
     }, [props.steps]);
 
