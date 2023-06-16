@@ -12,6 +12,8 @@ import { v4 as uuidv4 } from 'uuid';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Pipeline(props) {
 
@@ -42,6 +44,7 @@ export default function Pipeline(props) {
             props.setCurrentImageID(result[0].imageId)
             props.setCurrentHistogramIDandMetadata(result[0])
             props.setPipelineResult([]) 
+            toast.info("Pipeline result deleted due to pipeline changed.")
         }
     }, [props.steps]);
 
@@ -63,6 +66,7 @@ export default function Pipeline(props) {
             props.setCurrentImageID(result[0].imageId)
             props.setCurrentHistogramIDandMetadata(result[0])
             props.setPipelineResult([]) //empty result when pipeline changed
+            toast.info("Pipeline result deleted due to pipeline changed.")
         }
     };
 

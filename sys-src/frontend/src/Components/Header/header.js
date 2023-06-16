@@ -9,7 +9,6 @@ import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import InformationPopup from '../../ModalWindow/InformationPopup';
 import Tooltip from '@mui/material/Tooltip';
-import Snackbar from '@mui/material/Snackbar';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import PersonOffOutlinedIcon from '@mui/icons-material/PersonOffOutlined';
 import LoginWindow from '../../ModalWindow/LoginWindow';
@@ -21,19 +20,6 @@ export default function Header(props) {
     const { theme, setTheme, developMode, setDevelopMode } = props;
     const [isOpen, setIsOpen] = useState(false);
     const [loginIsOpen, setLoginIsOpen] = useState(false);
-    const [toastOpen, setToastOpen] = React.useState(false);
-    const [toastMessage, setToastMessage] = React.useState("")
-
-    //useffect to show toast if user is logged in as developer
-    useEffect(() => {
-        if (developMode) {
-            setToastMessage('Enjoy the developer mode.'); 
-            handleToastClick()
-        }
-    }, [developMode]);
-
-    //function to open toast message
-    const handleToastClick = () => setToastOpen(true);
 
     //function to handle login
     const handleLoginClick = () => setLoginIsOpen(true);
@@ -43,9 +29,6 @@ export default function Header(props) {
 
     //function to handle close login window
     const handleCloseLoginWindow = () => setLoginIsOpen(false);
-
-    //function to close toast message
-    const handleToastClose = () => setToastOpen(false);
 
     //function to refresh the page
     const refresh = () => window.location.reload()
@@ -118,7 +101,6 @@ export default function Header(props) {
                     </Grid>
                 </Grid>
             </CardContent>
-            <Snackbar open={toastOpen} autoHideDuration={3000} onClose={handleToastClose} message={toastMessage} />
         </Card>
     );
 }

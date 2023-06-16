@@ -13,6 +13,8 @@ import { useDrag, useDrop } from 'react-dnd'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import InformationPopup from '../../ModalWindow/InformationPopup.js';
 import Parameter from './parameter.js';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function PipelineStep(props) {
     const { stepIndex, deleteStep, title, params, info, id, moveStep, uuid, setCurrentImageID, setCurrentHistogramIDandMetadata, pipelineResult, setPipelineResult} = props;
@@ -63,6 +65,7 @@ export default function PipelineStep(props) {
                 props.setCurrentImageID(result[0].imageId)
                 props.setCurrentHistogramIDandMetadata(result[0])
                 props.setPipelineResult([]) //empty result when pipeline changed
+                toast.info("Pipeline result deleted due to pipeline changed.")
             }
         },
     })
