@@ -2,9 +2,14 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import ImageDetails from "../../Components/imageDetails";
+import S3Manager from "../../Components/Connections/awsS3";
 
 
 describe("imageDetails.js tests", () => {
+
+  beforeEach(() => {
+    S3Manager.getImageFromS3 = jest.fn();
+  })
 
   const testHistogramIDandMetadata = {
     "histId": 'defaultImage.jpg',
