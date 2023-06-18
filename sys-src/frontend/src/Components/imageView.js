@@ -35,7 +35,7 @@ export default function ImageView({ currentImageID }) {
     }
 
     const handleDownload = () => {
-
+        // TODO: download image
     };
     
     return(
