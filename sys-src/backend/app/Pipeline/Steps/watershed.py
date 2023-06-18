@@ -18,7 +18,7 @@ class Watershed(BaseStep):
             mask = np.zeros(distance.shape, dtype=bool)
             mask[tuple(local_maxima.T)] = True
 
-            markers = ndi.label(mask)
+            markers = ndi.label(mask)[0]
             return watershed(-distance, markers, mask=img)
         except WrongParameterError as e:
             raise e
