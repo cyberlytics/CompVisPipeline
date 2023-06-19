@@ -7,7 +7,7 @@ from app.exceptions import WrongParameterError, ImageProcessingError
 class ThresholdOtsu(BaseStep):
     def __call__(self, img, parameters):
         try:
-            p0 = eval(parameters[0])
+            p0 = parameters[0]
 
             if len(img.shape) not in (2, 3): raise WrongParameterError("[Threshold Otsu] Invalid image shape!")
             if type(p0) is not bool: raise WrongParameterError(message="[Threshold Otsu] Invert flag must be a bool!")

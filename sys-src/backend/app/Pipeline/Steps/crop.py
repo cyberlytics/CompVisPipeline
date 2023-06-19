@@ -11,7 +11,7 @@ class Crop(BaseStep):
             start_y = int(parameters[1])
             distance_x = int(parameters[2])
             distance_y = int(parameters[3])
-            inverse = eval(parameters[4])
+            inverse = parameters[4]
 
             #calculate end positions
             end_x = start_x + distance_x
