@@ -211,8 +211,37 @@ describe("controller.js tests", () => {
     expect(mockAbortControllerConstructor).toHaveBeenCalledTimes(1);
   });
 
-  test("getAiImage should fetch an image and call setAiImage function", async () => {
-    
+  test("getAiImageFromBackend should fetch an image and call setAiImage function", async () => {
+    const setOriginalImageIDMock = jest.fn();
+    const setCurrentImageIDMock = jest.fn();
+    const setMetadataMock = jest.fn();
+    const mockResponse = {
+      imageId: 0,
+      histId: 1,
+      height: 100,
+      width: 100,
+      channels: 3
+    }
+
+    global.fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValueOnce(mockResponse),
+    });
+
+    const toastErrorSpy = jest.spyOn(toast, "error");
+
+    await Controller.getAiImageFromBackend(setOriginalImageIDMock, setCurrentImageIDMock, setMetadataMock);
+  
+    expect(global.fetch).toHaveBeenCalledWith(
+      "http://127.0.0.1:5000/random-ai-fatcat",
+      expect.objectContaining({
+        signal: Controller.abortController.signal,
+      })
+    );
+  
+    await new Promise((resolve) => setTimeout(resolve, 0)); // Warten, bis der Fetch-Aufruf abgeschlossen ist
+  
+    expect(setMetadataMock).toHaveBeenCalledWith(mockResponse);
+    expect(toastErrorSpy).not.toHaveBeenCalled();  
   });
 
 });
