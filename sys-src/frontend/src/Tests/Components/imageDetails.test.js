@@ -5,8 +5,8 @@ import ImageDetails from "../../Components/imageDetails";
 
 describe("imageDetails.js tests", () => {
 
-    beforeEach(() => {
-      URL.createObjectURL = jest.fn();
+  beforeEach(() => {
+    URL.createObjectURL = jest.fn();
   })
 
   const testHistogramIDandMetadata = {
@@ -29,7 +29,7 @@ describe("imageDetails.js tests", () => {
   });
 
   test("image should be visible", () => {
-    render(<ImageDetails setIsLoading={jest.fn()} currentHistogramIDandMetadata={ testHistogramIDandMetadata }/>);
+    render(<ImageDetails setIsLoading={jest.fn()} currentHistogramIDandMetadata={testHistogramIDandMetadata} />);
     const imageElement = screen.queryByTestId(/histogram_image/i);
     expect(imageElement).toBeVisible();
   });
@@ -42,14 +42,14 @@ describe("imageDetails.js tests", () => {
   });
 
   test("metadata should be visible", () => {
-    render(<ImageDetails setIsLoading={jest.fn()} currentHistogramIDandMetadata={ testHistogramIDandMetadata }/>);
+    render(<ImageDetails setIsLoading={jest.fn()} currentHistogramIDandMetadata={testHistogramIDandMetadata} />);
     expect(screen.queryByText(/Height/i)).toBeVisible();
     expect(screen.queryByText(/Width/i)).toBeVisible();
     expect(screen.queryByText(/Channels/i)).toBeVisible();
   });
 
   test("metadata values should be set to testHistogramIDandMetadata values", () => {
-    render(<ImageDetails setIsLoading={jest.fn()} currentHistogramIDandMetadata={ testHistogramIDandMetadata }/>);
+    render(<ImageDetails setIsLoading={jest.fn()} currentHistogramIDandMetadata={testHistogramIDandMetadata} />);
     expect(screen.queryByText(/Height/i).textContent).toBe("Height: 1");
     expect(screen.queryByText(/Width/i).textContent).toBe("Width: 2");
     expect(screen.queryByText(/Channels/i).textContent).toBe("Channels: 3");
