@@ -6,15 +6,18 @@ from app.exceptions import ImageProcessingError, WrongParameterError
 class Crop(BaseStep):
     def __call__(self, img, parameters):
         try:
+            #Parse parameters
             start_x = int(parameters[0])
             start_y = int(parameters[1])
             distance_x = int(parameters[2])
             distance_y = int(parameters[3])
             inverse = eval(parameters[4])
 
+            #calculate end positions
             end_x = start_x + distance_x
             end_y = start_y + distance_y
 
+            #validate parameters
             if len(img.shape) not in (2, 3):
                 raise WrongParameterError(message="[Crop] Invalid image shape!")
             if start_x < 0 or start_y < 0:
@@ -26,6 +29,7 @@ class Crop(BaseStep):
             if type(inverse) is not bool: 
                 raise WrongParameterError(message="[Crop] Inverse parameter must be a boolean value!")
 
+            #process crop
             if inverse:
                 cropped_img = np.copy(img)
                 cropped_img[start_y:end_y, start_x:end_x] = 0
