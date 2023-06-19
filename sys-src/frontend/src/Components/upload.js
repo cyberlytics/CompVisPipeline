@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Card, Box, Button } from '@mui/material';
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
@@ -6,6 +6,7 @@ import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternate
 import { v4 as uuidv4 } from 'uuid';
 import S3Manager from './Connections/awsS3';
 import Controller from '../controller';
+import DefaultImageWindow from '../ModalWindow/DefaultImageWindow'
 
 /**
  * function to upload an image to the S3 Bucket (own image | default image )
@@ -16,6 +17,8 @@ import Controller from '../controller';
  * @returns upload card
  */
 export default function Upload({setOriginalImageID, setCurrentImageID, setCurrentHistogramIDandMetadata, setIsLoading}) {
+    const [openDialog, setOpenDialog] = useState(false);
+
     const handleUpload = (event) => {
         setIsLoading(true)
         const imageFile = event.target.files[0];
@@ -59,6 +62,12 @@ export default function Upload({setOriginalImageID, setCurrentImageID, setCurren
         .then(() => setIsLoading(false));
     };
 
+    const handleAIUpload = () => {
+        setIsLoading(true);
+        Controller.getAiImageFromBackend(setOriginalImageID, setCurrentImageID, setCurrentHistogramIDandMetadata)
+        .then(() => setIsLoading(false));
+    };
+
     return (
         <Card style={{ height: "50px" }} data-testid='upload-card'>
             <Box display="flex" justifyContent="center" alignItems="center" height="100%">
@@ -71,10 +80,13 @@ export default function Upload({setOriginalImageID, setCurrentImageID, setCurren
                     </label>
                 </div>
                 <label htmlFor="upload-default-image"> 
-                    <Button size="small" variant="contained" style={{backgroundColor: "#d22819", width: "155px"}} onClick={handleDefaultUpload} startIcon={<AddPhotoAlternateOutlinedIcon /> }>
+                    <Button size="small" variant="contained" style={{backgroundColor: "#d22819", width: "155px"}} onClick={ () => {setOpenDialog(true)}} startIcon={<AddPhotoAlternateOutlinedIcon /> }>
                         Default Image
                     </Button>
                 </label>
+
+                <DefaultImageWindow open={openDialog} onClose={setOpenDialog} handleFunction1={handleDefaultUpload} handleFunction2={handleAIUpload} />
+
             </Box>
         </Card>
       );
