@@ -10,7 +10,7 @@ from app.exceptions import ImageProcessingError, WrongParameterError
 class Watershed(BaseStep):
     def __call__(self, img, parameters):
         try:
-            if len(img.shape) != 2: raise WrongParameterError("Invalid image shape! The image for segmentation needs to have one color channel (e.g. binary/grayscale image)!")
+            if len(img.shape) != 2: raise WrongParameterError("[Watershed] Invalid image shape! The image for segmentation needs to have one color channel (e.g. binary/grayscale image)!")
 
             distance = ndi.distance_transform_edt(img)
             local_maxima = peak_local_max(distance, labels=img)
@@ -23,7 +23,7 @@ class Watershed(BaseStep):
         except WrongParameterError as e:
             raise e
         except Exception as e:
-            raise ImageProcessingError(message=e)
+            raise ImageProcessingError(message=f"[Watershed] {e}")
 
     def describe(self):
         return {
