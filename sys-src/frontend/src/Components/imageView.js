@@ -40,17 +40,21 @@ export default function ImageView({ currentImageID }) {
     
     return(
         <Card style={{ height: "400px" }} data-testid='imageview-card'>
-        <CardContent>
-            <Typography sx={{ width: '100%' }} align="center" variant="h5" component="div">Selected Image</Typography>
-        </CardContent>
-        {currentImageID && 
-            <CardMedia data-testid="uploaded_image" component="img" src={imageURL} alt="" align="center" style={{ maxWidth: "80%", maxHeight: "80%", margin: "auto", objectFit: "contain"}} />
-        }
-        <CardContent style={{ display: 'flex', justifyContent: 'center' }}>
-            <Button size="small" variant="contained" style={{backgroundColor: "#d22819", width: "180px", align: "center"}} onClick={handleDownload} startIcon={<GetAppOutlinedIcon /> }>
-                Download Image
-            </Button>
-        </CardContent>
+            <CardContent style={{ height: "10px" }}>
+                <Typography sx={{ width: '100%' }} align="center" variant="h5" component="div">Selected Image</Typography>
+            </CardContent>
+            <CardContent style={{ height: "390px" }}>
+            {currentImageID && (
+                <div style={{ height: "100%" }}>
+                    <CardMedia data-testid="uploaded_image" component="img" src={imageURL} alt="" align="center" style={{ maxWidth: "80%", maxHeight: "80%", margin: "auto", objectFit: "contain"}} />
+                    <CardContent style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Button size="small" variant="contained" style={{backgroundColor: "#d22819", width: "175px", marginTop: "5px"}} component="span" startIcon={ <GetAppOutlinedIcon /> }>
+                            Download Image
+                        </Button>
+                    </CardContent>
+                </div>
+            )}                
+            </CardContent>
         </Card>
     );
 }
