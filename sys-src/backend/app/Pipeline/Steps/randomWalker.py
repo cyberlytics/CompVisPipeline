@@ -11,7 +11,7 @@ class RandomWalker(BaseStep):
             p0 = float(parameters[0])
 
             if len(img.shape) != 2: raise WrongParameterError("[RandomWalker] Invalid image shape! The image for segmentation needs to have one color channel (e.g. binary/grayscale image)!")
-            if p0 < 0: raise WrongParameterError("[RandomWalker] Threshold value must be positive!")
+            if p0 <= 0: raise WrongParameterError("[RandomWalker] Threshold value must be larger than zero!")
 
             markers = np.zeros(img.shape, dtype=np.uint8)
             markers[img < np.min(img)+p0] = 1
