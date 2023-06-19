@@ -5,7 +5,7 @@ from app.exceptions import ImageProcessingError, WrongParameterError
 
 class Dilation(BaseStep):
 
-    def __get_kernel(self, shape, kernel_width, kernel_height):
+    def _get_kernel(self, shape, kernel_width, kernel_height):
         if shape == 0:
             return cv2.getStructuringElement(
                 cv2.MORPH_RECT, (kernel_height, kernel_width)
@@ -37,7 +37,7 @@ class Dilation(BaseStep):
                 raise WrongParameterError(message="[Dilation] Iterations must be bigger than 0.")
 
             #Process
-            kernel = self.__get_kernel(kernel_shape, kernel_width, kernel_height)
+            kernel = self._get_kernel(kernel_shape, kernel_width, kernel_height)
             return cv2.dilate(img, kernel, iterations=iterations)
         
         except WrongParameterError as e:
