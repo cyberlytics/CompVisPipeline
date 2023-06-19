@@ -8,7 +8,7 @@ class Thershold(BaseStep):
     def __call__(self, img, parameters):
         try:
             p0 = int(parameters[0])
-            p1 = eval(parameters[1])
+            p1 = parameters[1]
 
             if len(img.shape) not in (2, 3): raise WrongParameterError("[Threshold] Invalid image shape!")
             if p0 < 0: raise WrongParameterError(message="[Threshold] Threshold value must be positive!")

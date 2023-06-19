@@ -25,7 +25,7 @@ def test_crop_step_with_expected_result():
         dtype=np.uint8,
     )
 
-    params = [2, 1, 3, 3, 'False']
+    params = [2, 1, 3, 3, False]
     crop_step = Crop()
     result = crop_step(image, params)
     assert np.array_equal(result, expected_result)
@@ -54,7 +54,7 @@ def test_crop_step_with_inverse():
         dtype=np.uint8,
     )
 
-    params = [1, 1, 3, 3, 'True']
+    params = [1, 1, 3, 3, True]
     crop_step = Crop()
     result = crop_step(image, params)
     assert np.array_equal(result, expected_result)
@@ -73,7 +73,7 @@ def test_crop_step_with_invalid_shape():
             dtype=np.uint8,
         )
 
-        params = [1, 1, 3, 3, 'False']
+        params = [1, 1, 3, 3, False]
         crop_step = Crop()
         crop_step(image.reshape((2, 2, 5)), params)
 
@@ -91,7 +91,7 @@ def test_crop_step_with_negative_start_coordinates():
             dtype=np.uint8,
         )
 
-        params = [-1, 1, 3, 3, 'False']
+        params = [-1, 1, 3, 3, False]
         crop_step = Crop()
         crop_step(image, params)
 
@@ -109,7 +109,7 @@ def test_crop_step_with_zero_distance():
             dtype=np.uint8,
         )
 
-        params = [1, 1, 0, 3, 'False']
+        params = [1, 1, 0, 3, False]
         crop_step = Crop()
         crop_step(image, params)
 
@@ -127,7 +127,7 @@ def test_crop_step_with_crop_exceeding_image_boundaries():
             dtype=np.uint8,
         )
 
-        params = [3, 3, 3, 3, 'False']
+        params = [3, 3, 3, 3, False]
         crop_step = Crop()
         crop_step(image, params)
 
@@ -153,6 +153,6 @@ def test_crop_step_with_value_error():
 def test_crop_step_with_image_processing_error():
     with pytest.raises(ImageProcessingError):
         image = None
-        params = [1, 1, 3, 3, 'False']
+        params = [1, 1, 3, 3, False]
         crop_step = Crop()
         crop_step(image, params)
