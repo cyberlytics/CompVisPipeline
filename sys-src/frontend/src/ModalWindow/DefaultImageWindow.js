@@ -21,7 +21,7 @@ export default function DeleteWindow({ open, onClose, handleFunction1, handleFun
 
     return (
         <Dialog open={open} data-testid="defaultImageDialog">
-        <DialogTitle data-testid="deleteDialog-title">
+        <DialogTitle data-testid="defaultImageDialog-title">
             {"Pick a method"}
             <IconButton data-testid="defaultImageWindow-abort" onClick={() => onClose(false) } sx={{ position: 'absolute', right: 8, top: 8, color: (theme) => theme.palette.grey[500] }} >
                 <CloseIcon />

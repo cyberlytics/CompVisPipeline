@@ -5,7 +5,7 @@ import { act } from "react-dom/test-utils";
 
 import DefaultImageWindow from "../../ModalWindow/DefaultImageWindow";
 
-describe("DeleteWindow.js tests", () => {
+describe("DefaultImageWindow.js tests", () => {
     test("DefaultImageWindow renders correctly if open is true", () => {
         render(<DefaultImageWindow open={true} />);
         expect(screen.getByTestId("defaultImageDialog")).toBeInTheDocument();
@@ -14,6 +14,13 @@ describe("DeleteWindow.js tests", () => {
     test("DefaultImageWindow does not appear if open is false", () => {
         render(<DefaultImageWindow open={false} />);
         expect(screen.queryByTestId("defaultImageDialog")).not.toBeInTheDocument();
+    });
+
+    test("DefaultImageWindow has title and text", () => {
+        render(<DefaultImageWindow open={true} />);
+
+        const title = screen.getByTestId("defaultImageDialog-title");
+        expect(title).toBeInTheDocument();
     });
 
     test("DefaultImageWindow has default image and ai image buttons", () => {
@@ -34,8 +41,6 @@ describe("DeleteWindow.js tests", () => {
 
         fireEvent.click(cancelButton);
         expect(onCloseMock).toHaveBeenCalledTimes(1);
-
-
     });
 
     test("DefaultImageWindow call handler functions", () => {
@@ -51,5 +56,6 @@ describe("DeleteWindow.js tests", () => {
         expect(handleDefaultImageMock).toHaveBeenCalledTimes(1);
         fireEvent.click(aiImageButton);
         expect(handleAIImageMock).toHaveBeenCalledTimes(1);
+
     });
 });
