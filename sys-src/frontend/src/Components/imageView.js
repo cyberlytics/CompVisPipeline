@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Card, CardContent, Typography, CardMedia, Button } from '@mui/material';
 import GetAppOutlinedIcon from '@mui/icons-material/GetAppOutlined';
 
-
 import S3Manager from './Connections/awsS3';
 
 /**
@@ -35,7 +34,11 @@ export default function ImageView({ currentImageID }) {
     }
 
     const handleDownload = () => {
-        // TODO: download image
+        const link = document.createElement('a');
+        link.href = imageURL;
+        link.download = currentImageID;
+        link.click();
+        URL.revokeObjectURL(link.href);
     };
     
     return(
@@ -48,7 +51,7 @@ export default function ImageView({ currentImageID }) {
                 <div style={{ height: "100%" }}>
                     <CardMedia data-testid="uploaded_image" component="img" src={imageURL} alt="" align="center" style={{ maxWidth: "80%", maxHeight: "80%", margin: "auto", objectFit: "contain"}} />
                     <CardContent style={{ display: 'flex', justifyContent: 'center' }}>
-                        <Button size="small" variant="contained" style={{backgroundColor: "#d22819", width: "175px", marginTop: "5px"}} component="span" startIcon={ <GetAppOutlinedIcon /> }>
+                        <Button size="small" variant="contained" style={{backgroundColor: "#d22819", width: "175px", marginTop: "5px"}} onClick={handleDownload} component="span" startIcon={ <GetAppOutlinedIcon /> }>
                             Download Image
                         </Button>
                     </CardContent>
