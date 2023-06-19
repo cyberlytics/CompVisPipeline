@@ -211,4 +211,8 @@ describe("controller.js tests", () => {
     expect(mockAbortControllerConstructor).toHaveBeenCalledTimes(1);
   });
 
+  test("getAiImage should fetch an image and call setAiImage function", async () => {
+    
+  });
+
 });

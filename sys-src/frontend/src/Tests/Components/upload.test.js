@@ -78,5 +78,4 @@ describe("upload.js tests", () => {
     fireEvent.click(defaultImageButton);
     expect(screen.getByTestId("defaultImageDialog")).toBeVisible();
   });
-
 });
