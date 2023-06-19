@@ -19,9 +19,8 @@ import CloseIcon from '@mui/icons-material/Close';
 
 export default function DeleteWindow({ open, onClose, handleFunction1, handleFunction2 }) {
 
-    
     return (
-        <Dialog open={open} data-testid="deleteDialog">
+        <Dialog open={open} data-testid="defaultImageDialog">
         <DialogTitle data-testid="deleteDialog-title">
             {"Pick a method"}
             <IconButton data-testid="defaultImageWindow-abort" onClick={() => onClose(false) } sx={{ position: 'absolute', right: 8, top: 8, color: (theme) => theme.palette.grey[500] }} >
