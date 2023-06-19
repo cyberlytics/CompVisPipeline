@@ -34,6 +34,8 @@ export default function ImageView({ currentImageID }) {
     }
 
     const handleDownload = () => {
+        // create a link element, set the href and download attributes, and then simulate a click event on the element
+        // to start the download of the image
         const link = document.createElement('a');
         link.href = imageURL;
         link.download = currentImageID;

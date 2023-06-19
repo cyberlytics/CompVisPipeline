@@ -14,21 +14,26 @@ describe("image.js tests", () => {
     expect(cardVisible).toBeVisible();
   });
 
-  test("no image should be visible", async () => {
+  test("no image and no button should be visible", async () => {
     const spy = jest.spyOn(S3Manager.prototype, "getImageFromS3");
     spy.mockImplementation(() => Promise.reject("Error"));
 
     render(<ImageView />);
     const imageElement = screen.queryByTestId(/uploaded_image/i);
+    const buttonElement = screen.queryByText(/download image/i);
     expect(imageElement).toBeNull();
+    expect(buttonElement).toBeNull();
   });
 
-  test("image should be visible", async () => {
+  test("image and button should be visible", async () => {
     const spy = jest.spyOn(S3Manager.prototype, "getImageFromS3");
     spy.mockImplementation(() => Promise.resolve("Success!!"));
 
     render(<ImageView currentImageID={ 'defaultImage.jpg' }/>);
     const imageElement = screen.getByTestId(/uploaded_image/i);
+    const buttonElement = screen.getByText(/download image/i);
     expect(imageElement).toBeVisible();
+    expect(buttonElement).toBeVisible();
   });
+
 });
