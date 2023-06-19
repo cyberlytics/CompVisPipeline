@@ -55,7 +55,6 @@ export default function Upload({setOriginalImageID, setCurrentImageID, setCurren
     };
     
     const handleDefaultUpload = () => {
-        console.log("Default Upload");
         setIsLoading(true)
         setOriginalImageID("defaultImage.jpg");
         setCurrentImageID("defaultImage.jpg");
