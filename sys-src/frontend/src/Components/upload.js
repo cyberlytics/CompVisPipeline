@@ -63,11 +63,9 @@ export default function Upload({setOriginalImageID, setCurrentImageID, setCurren
     };
 
     const handleAIUpload = () => {
-        console.log("AI Upload");
         setIsLoading(true);
         Controller.getAiImageFromBackend(setOriginalImageID, setCurrentImageID, setCurrentHistogramIDandMetadata)
         .then(() => setIsLoading(false));
-
     };
 
     return (

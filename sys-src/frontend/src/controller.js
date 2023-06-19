@@ -126,7 +126,10 @@ class Controller {
 
   // Call to get AI generated image from backend
   static async getAiImageFromBackend(setOriginalImageID, setCurrentImageID, setMetadata) {
-    fetch(base + '/random-ai-fatcat')
+    fetch(base + '/random-ai-fatcat', 
+      {
+        signal: Controller.abortController.signal
+      })
       .then( response => response.json())
       .then( response => {
         // set the original image id to the id of the ai generated image
