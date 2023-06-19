@@ -1,10 +1,28 @@
+import cv2
 from app.Pipeline.Steps.baseStep import BaseStep
+from app.exceptions import ImageProcessingError, WrongParameterError
 
 
 class NonLocalMeansFilter(BaseStep):
     def __call__(self, img, parameters):
-        # TODO: implement non local means filter
-        return img
+        try:
+            p0 = int(parameters[0])
+            p1 = int(parameters[1])
+            p2 = int(parameters[2])
+
+            if len(img.shape) not in (2, 3): raise WrongParameterError("[Non Local Means] Invalid image shape!")
+            if p0 <= 1: raise WrongParameterError(message="[Non Local Means] Filter strength has to be positiv!")
+            if p1 <= 1: raise WrongParameterError(message="[Non Local Means] Template Window Size has to be positiv!")
+            if p2 <= 1: raise WrongParameterError(message="[Non Local Means] Search Window Size has to be positiv!")
+            if len(img.shape) == 3:
+                return cv2.fastNlMeansDenoisingColored(img, None, p0, p0, p1, p2)
+            else:
+                return cv2.fastNlMeansDenoising(img, None, p0, p1, p2)
+            
+        except WrongParameterError as e:
+            raise e
+        except Exception as e:
+            raise ImageProcessingError(message=f"[Non Local Means] {e}")
 
     def describe(self):
         return {
