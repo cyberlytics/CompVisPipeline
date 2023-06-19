@@ -60,3 +60,11 @@ def test_hist_is_generated_for_images_with_alpha_channel(fakeS3Manager, image_wi
     result = metadata.getMetadata(image_with_alpha_channel)
     assert len(fakeS3Manager.getImageFromS3(result[0]).shape) == 3
     assert result[3] == 4
+
+def test_hist_is_generaterd_for_labeld_image_with_dtype_int32(fakeS3Manager):
+    test_img = np.array([[1, 1028, 0],
+                         [1, 1234, 23]], dtype=np.int32)
+    metadata = Metadata(fakeS3Manager)
+    result = metadata.getMetadata(test_img)
+    assert len(fakeS3Manager.getImageFromS3(result[0]).shape) == 3
+    assert result[3] == 1

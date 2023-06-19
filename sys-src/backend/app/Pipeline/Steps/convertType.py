@@ -13,7 +13,7 @@ class ConvertType(BaseStep):
         except Exception as e:
             raise ImageProcessingError(message=f"[Convert Type] {e}")
 
-    def describe():
+    def describe(self):
         return {
             "title": "Convert Type",
             "info": "Convert image values type to 'uint8'.",

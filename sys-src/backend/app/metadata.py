@@ -35,9 +35,13 @@ class Metadata:
         fig, _ = plt.subplots()
         plt.xticks(fontsize = 12)
         plt.yticks(fontsize = 12)
-        for i, color in enumerate(colors):
-            hist = cv2.calcHist([image], [i], None, [256], [0, 256])
-            plt.plot(hist, color=color)
+        if channels > 1:
+            for i, color in enumerate(colors):
+                hist, _ = np.histogram(image[:,:,i], range=(0, image.max()), bins=image.max()+1)
+                plt.plot(hist, color=color)
+        else:
+            hist, _ = np.histogram(image, range=(0, image.max()), bins=image.max() + 1)
+            plt.plot(hist, color=colors[0])
         plt.legend(legend)
         plt.xlabel("Intensity", fontsize=18)
         plt.ylabel("Frequency", fontsize=18)
