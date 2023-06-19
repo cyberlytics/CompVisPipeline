@@ -1,10 +1,12 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/extend-expect";
 
 import ImageView from "../../Components/imageView";
 import S3Manager from "../../Components/Connections/awsS3";
 import Upload from "../../Components/upload";
+import { act } from "react-dom/test-utils";
 
 
 describe("image.js tests", () => {
@@ -34,6 +36,18 @@ describe("image.js tests", () => {
     const buttonElement = screen.getByText(/download image/i);
     expect(imageElement).toBeVisible();
     expect(buttonElement).toBeVisible();
+  });
+
+  test("handleDownload function is called", async () => {
+    const spy = jest.spyOn(S3Manager.prototype, "getImageFromS3");
+    spy.mockImplementation(() => Promise.resolve("Success!!"));
+    const mockHandleDownload = jest.fn();
+    
+    render(<ImageView currentImageID={ 'defaultImage.jpg' } />);
+    const buttonElement = screen.getByText(/download image/i);
+    buttonElement.onclick = mockHandleDownload;
+    fireEvent.click(buttonElement);
+    expect(mockHandleDownload).toHaveBeenCalledTimes(1);
   });
 
 });

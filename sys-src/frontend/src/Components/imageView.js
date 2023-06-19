@@ -40,7 +40,6 @@ export default function ImageView({ currentImageID }) {
         link.href = imageURL;
         link.download = currentImageID;
         link.click();
-        URL.revokeObjectURL(link.href);
     };
     
     return(
