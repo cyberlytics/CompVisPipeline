@@ -62,10 +62,16 @@ function App() {
     }
   }, [uploadIsLoading]);
 
-  // Update the window size when resized
   useEffect(() => {
-    window.addEventListener('resize', setWindowSize(window.innerWidth));
-    return () => window.removeEventListener('resize', setWindowSize(window.innerWidth));
+    // Update the window size when resized
+    const handleResize = () => {
+      setWindowSize(window.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   useEffect(() => {
