@@ -150,7 +150,19 @@ class Controller {
         }
         setMetadata(null);
       });
+  }
 
+  static async getSessionTokenFromBackend() {
+    fetch(base+'/get_token', {
+      signal: Controller.abortController.signal,
+    })
+    .then(response => response.json())
+    .then(response => {
+      return response;
+    })
+    .catch(error => {
+      // Error handling
+    });
   }
 }
 

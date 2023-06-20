@@ -1,7 +1,3 @@
-///////////////////////////////////
-/////  Do not use it now due to no
-/////  AWS credentials -> change it next week
-///////////////////////////////////
 // Connection for AWS S3
 /*
 Error Code
@@ -9,6 +5,7 @@ Error Code
     - 404: NoSuchKey
     - 400: NoSuchBucket
 */
+import Controller from "../../controller";
 
 /**
  * Class to manage S3 Bucket
@@ -36,12 +33,11 @@ Error Code
 class S3Manager {
     constructor() {
         
+        const response = Controller.getSessionTokenFromBackend();
 
-
-
-        // process.env.AWS_ACCESS_KEY_ID = ;
-        // process.env.AWS_SECRET_ACCESS_KEY = '';
-        // process.env.AWS_DEFAULT_REGION = 'eu-central-1';
+        this.accessKeyId = response.accessKeyId;
+        this.secretAccessKey = response.secretAccessKey;
+        this.region = response.region;
 
         // get credentials from env
         this.accessKeyId = 'AKIAZUXPDVDVIX7TZC6V'; // process.env.AWS_ACCESS_KEY_ID;

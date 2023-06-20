@@ -143,12 +143,14 @@ def get_token():
     response = sessionTokenClient.assume_role(RoleArn=roleARN, RoleSessionName=roleSesssionName)
 
     credentials = response['Credentials']
-    AccessKeyID = credentials['AccessKeyId']
-    SecretAccessKey = credentials['SecretAccessKey']
-    SessionToken = credentials['SessionToken']
+    accessKeyId = credentials['AccessKeyId']
+    secretAccessKey = credentials['SecretAccessKey']
+    sessionToken = credentials['SessionToken']
+    Region = "eu-central-1"
 
     return {
-        "AccessKeyID": AccessKeyID,
-        "SecretAccessKey": SecretAccessKey,
-        "SessionToken": SessionToken
+        "accessKeyId": accessKeyId,
+        "secretAccessKey": secretAccessKey,
+        "sessionToken": sessionToken,
+        "region": Region
     }
