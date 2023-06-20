@@ -13,13 +13,22 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import PersonOffOutlinedIcon from '@mui/icons-material/PersonOffOutlined';
 import LoginWindow from '../../ModalWindow/LoginWindow';
 import RollingCat from './rollingCat';
-
+import CardMembershipOutlinedIcon from '@mui/icons-material/CardMembershipOutlined';
 import DeveloperMenu from './developerMenu';
+import licenseTextFile from '../../resources/license.txt'
 
 export default function Header(props) {
     const { theme, setTheme, developMode, setDevelopMode } = props;
     const [isOpen, setIsOpen] = useState(false);
     const [loginIsOpen, setLoginIsOpen] = useState(false);
+    const [licenseOpen, setLicenseIsOpen] = useState(false);
+    const [licenseText, setLicenseText] = useState("");
+
+    useEffect(() => {
+        fetch(licenseTextFile)
+        .then(r => r.text())
+        .then(text => setLicenseText(text))
+    }, []);
 
     //function to handle login
     const handleLoginClick = () => setLoginIsOpen(true);
@@ -38,6 +47,11 @@ export default function Header(props) {
 
     //function to close modalwindow
     const handleClosePopup = () => setIsOpen(false);
+
+    // function to open license window
+    const handleLicenseWindowOpen = () => setLicenseIsOpen(true);
+
+    const handleLicenseWindowClose = () => setLicenseIsOpen(false);
 
     let infotext = "Welcome to our cutting-edge computer vision pipeline! Unleash the power of visual intelligence and redefine the way you interact with images. Discover hidden details, gain meaningful insights, and effortlessly achieve remarkable results. Get ready to revolutionize your workflow and immerse yourself in a world of unlimited possibilities."
 
@@ -65,6 +79,12 @@ export default function Header(props) {
                                     }   
                                 </Grid>
                             {/* Other symboles */}
+                            <Grid item>
+                                <Tooltip title="License Information">
+                                    <CardMembershipOutlinedIcon onClick={handleLicenseWindowOpen} fontSize='medium' data-testid="license-button"/>
+                                </Tooltip>
+                            </Grid>
+                            <InformationPopup open={licenseOpen} onClose={handleLicenseWindowClose} headerText={"License"} text={licenseText} data-testid='license-dialog'/>
                             <Grid item>
                                 <Tooltip title="Refresh page.">
                                     <RestartAltIcon onClick={refresh} fontSize='medium' data-testid='refresh-button'/>
