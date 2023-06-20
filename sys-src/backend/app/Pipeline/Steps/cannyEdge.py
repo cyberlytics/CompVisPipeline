@@ -1,10 +1,30 @@
-from app.Pipeline.Steps.baseStep import BaseStep
+import cv2
 
+from app.Pipeline.Steps.baseStep import BaseStep
+from app.exceptions import ImageProcessingError, WrongParameterError
 
 class CannyEdge(BaseStep):
     def __call__(self, img, parameters):
-        # TODO: implement canny edge detector.
-        return img
+        try:
+            #Check if parameters are valid
+            if len(img.shape) not in (2, 3): 
+                raise WrongParameterError(message="[Canny Edge] Invalid image shape.")
+            if len(parameters) != 2: 
+                raise WrongParameterError(message="[Canny Edge] Number of paramters must be 2")
+
+            first_threshold, second_threshold = parameters
+
+            #Process
+            return cv2.Canny(img, first_threshold, second_threshold) 
+                
+        except WrongParameterError as e:
+            raise e
+        
+        except ValueError as e:
+            raise WrongParameterError(message=f"[Canny Edge] {e}")
+
+        except Exception as e:
+            raise ImageProcessingError(message=f"[Canny Edge] {e}")
 
     def describe(self):
         return {
