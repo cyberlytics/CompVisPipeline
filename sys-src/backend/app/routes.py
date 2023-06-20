@@ -10,6 +10,7 @@ from app.connections.aws_s3 import S3Manager
 from app.exceptions import BaseError
 from app.Models.startPipelineModels import PipelineStep
 from app.Pipeline.pipeline import FUNCTION_LIST, Pipeline
+import boto3   # for AWS credentials
 
 app = Flask(__name__)
 CORS(app)  # TODO: do not use this in production
@@ -131,3 +132,23 @@ def getRandomAiFatcat():
             content_type="application/json",
         )
     return result
+
+@app.route("/get_token", methods=["GET"])
+def get_token():
+    sessionTokenClient = boto3.client('sts')
+
+    roleARN = "arn:aws:iam::663000164586:user/bdcc_backend_user"   # arn role of the user -> IAM Dashboard in AWS
+    roleSesssionName = "bdcc_backend_user"                        # name of the session
+
+    response = sessionTokenClient.assume_role(RoleArn=roleARN, RoleSessionName=roleSesssionName)
+
+    credentials = response['Credentials']
+    AccessKeyID = credentials['AccessKeyId']
+    SecretAccessKey = credentials['SecretAccessKey']
+    SessionToken = credentials['SessionToken']
+
+    return {
+        "AccessKeyID": AccessKeyID,
+        "SecretAccessKey": SecretAccessKey,
+        "SessionToken": SessionToken
+    }

@@ -35,6 +35,10 @@ Error Code
  */
 class S3Manager {
     constructor() {
+        
+
+
+
         // process.env.AWS_ACCESS_KEY_ID = ;
         // process.env.AWS_SECRET_ACCESS_KEY = '';
         // process.env.AWS_DEFAULT_REGION = 'eu-central-1';
