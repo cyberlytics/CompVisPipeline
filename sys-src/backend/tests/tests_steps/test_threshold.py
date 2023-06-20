@@ -23,7 +23,7 @@ def test_threshold_with_expected_result():
 
     threshold_step = Thershold()
 
-    params = [100, "False"]
+    params = [100, False]
     result = threshold_step(image, params)
 
     assert (result == expected_result).all()
@@ -47,7 +47,7 @@ def test_threshold_with_invert_result():
 
     threshold_step = Thershold()
 
-    params = [100, "True"]
+    params = [100, True]
     result = threshold_step(image, params)
 
     assert (result == expected_result).all()
@@ -58,7 +58,7 @@ def test_thershold_with_invalid_thresh_value():
 
         threshold_step = Thershold()
 
-        params = [-20, "False"]
+        params = [-20, False]
         threshold_step(image, params)
 
 def test_threshold_with_invalid_parameter_type():
@@ -76,7 +76,7 @@ def test_threshold_with_invalid_thresh_value_type():
 
         threshold_step = Thershold()
 
-        params = ["invalid", "False"]
+        params = ["invalid", False]
         threshold_step(image, params)
 
 def test_threshold_with_invalid_image_shape():
@@ -85,7 +85,7 @@ def test_threshold_with_invalid_image_shape():
 
         threshold_step = Thershold()
 
-        params = [100, "False"]
+        params = [100, False]
         threshold_step(image, params)
 
 def test_threshold_with_invalid_image_type():
@@ -94,7 +94,7 @@ def test_threshold_with_invalid_image_type():
 
         threshold_step = Thershold()
 
-        params = [100, "False"]
+        params = [100, False]
         threshold_step(image, params)
 
 def test_threshold_with_rgb_image():
@@ -116,7 +116,7 @@ def test_threshold_with_rgb_image():
 
     threshold_step = Thershold()
 
-    params = [100, "False"]
+    params = [100, False]
     result = threshold_step(image, params)
 
     assert (result == expected_result).all()
@@ -140,7 +140,7 @@ def test_threshold_with_rgb_image_invert_result():
 
     threshold_step = Thershold()
 
-    params = [100, "True"]
+    params = [100, True]
     result = threshold_step(image, params)
 
     assert (result == expected_result).all()

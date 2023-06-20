@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/extend-expect";
 
@@ -71,22 +71,11 @@ describe("upload.js tests", () => {
     expect(mockHandleUpload).toHaveBeenCalledTimes(1);
   });
 
-  test("handler function is called - defaultImage", async () => {
-    const mockHandleDefaultUpload = jest.fn();
-    const mockSetOriginalImageID = jest.fn();
-    const mockSerCurrentImageID = jest.fn();
-    const mockSetIsLoading = jest.fn()
+  test("Dialog is opened when upload button is clicked", async () => {
+    render(<Upload />);
 
-    render(<Upload setOriginalImageID={mockSetOriginalImageID} setCurrentImageID={mockSerCurrentImageID} setIsLoading={mockSetIsLoading}/>);
-    
     const defaultImageButton = screen.getByText(/Default Image/i);
-    defaultImageButton.addEventListener("click", mockHandleDefaultUpload);
-    
-    act(() => {
-      userEvent.click(defaultImageButton);
-    });
-    
-    expect(mockHandleDefaultUpload).toHaveBeenCalledTimes(1);
+    fireEvent.click(defaultImageButton);
+    expect(screen.getByTestId("defaultImageDialog")).toBeVisible();
   });
-
 });
