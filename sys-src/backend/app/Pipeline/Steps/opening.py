@@ -21,8 +21,7 @@ class Opening(BaseStep):
 
     def __call__(self, img, parameters):
         try:
-            #Convert parameter
-            kernel_shape, kernel_width, kernel_height, iterations = map(int, parameters)
+            kernel_shape, kernel_width, kernel_height, iterations = parameters
 
             #Check if parameters are valid
             if len(img.shape) not in (2, 3): 
