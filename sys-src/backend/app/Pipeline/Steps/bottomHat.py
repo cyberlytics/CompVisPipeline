@@ -1,10 +1,52 @@
+import cv2
+
 from app.Pipeline.Steps.baseStep import BaseStep
+from app.exceptions import ImageProcessingError, WrongParameterError
 
 
 class BottomHat(BaseStep):
+    def _get_kernel(self, shape, kernel_width, kernel_height):
+        if shape == 0:
+            return cv2.getStructuringElement(
+                cv2.MORPH_RECT, (kernel_height, kernel_width)
+            )
+        elif shape == 1:
+            return cv2.getStructuringElement(
+                cv2.MORPH_CROSS, (kernel_height, kernel_width)
+            )
+        elif shape == 2:
+            return cv2.getStructuringElement(
+                cv2.MORPH_ELLIPSE, (kernel_height, kernel_width)
+            )
+
     def __call__(self, img, parameters):
-        # TODO: implement bottom hat transformation
-        return img
+        try:
+            kernel_shape, kernel_width, kernel_height, iterations = parameters
+
+            #Check if parameters are valid
+            if len(img.shape) not in (2, 3): 
+                raise WrongParameterError(message="[Bottom Hat] Invalid image shape.")
+            if kernel_shape not in {0, 1, 2}: 
+                raise WrongParameterError(message="[Bottom Hat] Invalid kernel shape.")
+            if kernel_width < 2: 
+                raise WrongParameterError(message="[Bottom Hat] Kernel width must be bigger than 1.")
+            if kernel_height < 2: 
+                raise WrongParameterError(message="[Bottom Hat] Kernel height must be bigger than 1.")
+            if iterations < 1: 
+                raise WrongParameterError(message="[Bottom Hat] Iterations must be bigger than 0.")
+
+            #Process
+            kernel = self._get_kernel(kernel_shape, kernel_width, kernel_height)
+            return cv2.morphologyEx(img, cv2.MORPH_BLACKHAT, kernel, iterations=iterations)
+        
+        except WrongParameterError as e:
+            raise e
+        
+        except ValueError as e:
+            raise WrongParameterError(message=f"[Bottom Hat] {e}")
+
+        except Exception as e:
+            raise ImageProcessingError(message=f"[Bottom Hat] {e}")
 
     def describe(self):
         return {
