@@ -1,4 +1,5 @@
 Start local run:
+pip install -r requirements.txt (to install the requirements from "requirements.txt" if needed)
 python main.py
 
 Available at:
