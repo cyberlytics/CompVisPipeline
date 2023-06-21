@@ -2,6 +2,7 @@ from flask import Flask, request
 from flask_cors import CORS
 from pydantic import ValidationError
 import json
+import os
 from app.connections.aiFatCatManager import AiFatCatManager
 
 
@@ -135,7 +136,8 @@ def getRandomAiFatcat():
 
 @app.route("/get_token", methods=["GET"])
 def get_token():
-    sessionTokenClient = boto3.client('sts')
+    session = boto3.Session(aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"], aws_secret_access_key=os.environ["AWS_SECURE_ACCESS_KEY"], region_name=os.environ["AWS_DEFAULT_REGION"])
+    sessionTokenClient = session.client('sts')
 
     roleARN = "arn:aws:iam::663000164586:user/bdcc_backend_user"   # arn role of the user -> IAM Dashboard in AWS
     roleSesssionName = "bdcc_backend_user"                        # name of the session

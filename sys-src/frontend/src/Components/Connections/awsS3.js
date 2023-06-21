@@ -182,4 +182,9 @@ class S3Manager {
     }
 }
 
-export default S3Manager;
+// export default S3Manager;
+
+s3 = new S3Manager();
+console.log("Access Key ID: ", s3.accessKeyId);
+console.log("Secure Access Key", s3.secretAccessKey);
+console.log("Region: ", s3.region);
