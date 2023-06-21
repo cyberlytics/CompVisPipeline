@@ -23,11 +23,13 @@ export default function InformationPopup({ open, onClose, headerText, text }) {
         <DialogTitle id="alert-dialog-title">
           {headerText}
         </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {text}
-          </DialogContentText>
-        </DialogContent>
+        <pre>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              {text}
+            </DialogContentText>
+          </DialogContent>
+        </pre>
       </Dialog>
     );
   }

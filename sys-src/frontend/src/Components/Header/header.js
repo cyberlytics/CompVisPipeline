@@ -53,7 +53,7 @@ export default function Header(props) {
 
     const handleLicenseWindowClose = () => setLicenseIsOpen(false);
 
-    let infotext = "Welcome to our cutting-edge computer vision pipeline! Unleash the power of visual intelligence and redefine the way you interact with images. Discover hidden details, gain meaningful insights, and effortlessly achieve remarkable results. Get ready to revolutionize your workflow and immerse yourself in a world of unlimited possibilities."
+    let infotext = "Welcome to our cutting-edge computer vision pipeline! Unleash the power of \nvisual intelligence and redefine the way you interact with images. Discover \nhidden details, gain meaningful insights, and effortlessly achieve remarkable \nresults. Get ready to revolutionize your workflow and immerse yourself in a \nworld of unlimited possibilities."
 
     return (
         <Card style={{ height: 50 }} >
