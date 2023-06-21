@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, debug } from "@testing-library/react";
+import { render, screen, debug, act } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import Header from "../../../Components/Header/header";
 import userEvent from "@testing-library/user-event";
@@ -22,5 +22,20 @@ describe("header.js tests", () => {
     userEvent.click(screen.getByTestId("refresh-button"));
     expect(reloadMock).toHaveBeenCalled();
   });
+
+  test("license icon should be visible", () => {
+    render(<Header />);
+    const licenseVisible = screen.getByTestId("license-button");
+    expect(licenseVisible).toBeVisible();
+  })
+
+  test("license icon should show popup on click", () => {
+    render(<Header />);
+    act(() => {
+      userEvent.click(screen.getByTestId("license-button"));
+    });
+    const popUpVisible = screen.queryByText(/License/);
+    expect(popUpVisible).toBeVisible();
+  })
 
 });
