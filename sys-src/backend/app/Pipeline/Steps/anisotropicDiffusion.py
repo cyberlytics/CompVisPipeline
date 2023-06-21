@@ -11,11 +11,11 @@ class AnisotropicDiffusion(BaseStep):
             p1 = float(parameters[1])
             p2 = int(parameters[2])
 
-            if len(img.shape) < 3 and img.shape[2] != 3: raise WrongParameterError(message="[AnisotropicDiffusion] Image must have three color channels!")
-            if p0 < 0: raise WrongParameterError(message="[AnisotropicDiffusion] Alpha value must be larger than zero!")
+            if len(img.shape) < 3 or img.shape[2] != 3: raise WrongParameterError(message="[AnisotropicDiffusion] Image must have three color channels!")
+            if p0 <= 0: raise WrongParameterError(message="[AnisotropicDiffusion] Alpha value must be larger than zero!")
             if p2 < 1: raise WrongParameterError(message="[AnisotropicDiffusion] Number of iterations must be larger than zero!")
 
-            return cv2.ximg.proc.anisotropicDiffusion(img, p0, p1, p2)
+            return cv2.ximgproc.anisotropicDiffusion(img, p0, p1, p2)
         except WrongParameterError as e:
             raise e
         except ValueError as e:
