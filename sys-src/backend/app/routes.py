@@ -153,6 +153,8 @@ def get_token():
         sessionToken = credentials['SessionToken']
         Region = "eu-central-1"
 
+        print("response: ", response)
+
         return {
             "accessKeyId": accessKeyId,
             "secretAccessKey": secretAccessKey,

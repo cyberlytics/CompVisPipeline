@@ -32,26 +32,48 @@ import Controller from "../../controller";
  */
 class S3Manager {
     constructor() {
-        
-        const response = Controller.getSessionTokenFromBackend();
-
-        this.accessKeyId = response.accessKeyId;
-        this.secretAccessKey = response.secretAccessKey;
-        this.region = response.region;
-
-        // get credentials from env
-        this.accessKeyId = 'AKIAZUXPDVDVIX7TZC6V'; // process.env.AWS_ACCESS_KEY_ID;
-        this.secretAccessKey = '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'; // process.env.AWS_SECRET_ACCESS_KEY;
-        this.region = 'eu-central-1'; // process.env.AWS_DEFAULT_REGION;
-
-        this.bucketName = "team-rot-fatcat-data";
-
-        // start connection to AWS
-        this.AWS = this._getAWSSDK();
-
-        // start connection to S3
-        this.S3 = this._getS3Connection();
+        this.initialize();
     }
+
+    async initialize() {
+        try {
+            const response = await Controller.getSessionTokenFromBackend();
+
+            console.log("in S3Manager: ", response);
+
+            this.accessKeyId = response.accessKeyId;
+            this.secretAccessKey = response.secretAccessKey;
+            this.region = response.region;
+        } catch (error) {
+            console.log("Error in S3Manager: ", error);
+        }
+    }
+
+    // constructor() {
+        
+    //     const response = Controller.getSessionTokenFromBackend();
+
+    //     response.then((res) => {
+    //         console.log("in S3Manager: ", res);
+    //     });
+
+    //     this.accessKeyId = response.accessKeyId;
+    //     this.secretAccessKey = response.secretAccessKey;
+    //     this.region = response.region;
+
+    //     // get credentials from env
+    //     this.accessKeyId = 'AKIAZUXPDVDVIX7TZC6V'; // process.env.AWS_ACCESS_KEY_ID;
+    //     this.secretAccessKey = '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'; // process.env.AWS_SECRET_ACCESS_KEY;
+    //     this.region = 'eu-central-1'; // process.env.AWS_DEFAULT_REGION;
+
+    //     this.bucketName = "team-rot-fatcat-data";
+
+    //     // start connection to AWS
+    //     this.AWS = this._getAWSSDK();
+
+    //     // start connection to S3
+    //     this.S3 = this._getS3Connection();
+    // }
 
     /**
      * Get AWS SDK object
@@ -182,9 +204,4 @@ class S3Manager {
     }
 }
 
-// export default S3Manager;
-
-s3 = new S3Manager();
-console.log("Access Key ID: ", s3.accessKeyId);
-console.log("Secure Access Key", s3.secretAccessKey);
-console.log("Region: ", s3.region);
+export default S3Manager;

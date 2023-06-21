@@ -16,7 +16,7 @@ class Controller {
 
   //Call to get available steps for
   static async getPipelineStepsFromBackend(set) {
-    fetch(base + '/available-steps',
+    await fetch(base + '/available-steps',
       {
         signal: Controller.abortController.signal
       })
@@ -153,15 +153,21 @@ class Controller {
   }
 
   static async getSessionTokenFromBackend() {
-    fetch(base+'/get_token', {
+    await fetch(base+'/get_token', {
       signal: Controller.abortController.signal,
     })
     .then(response => response.json())
     .then(response => {
-      return response;
+      console.log("in controller: ", response);
+      return {accessKeyId: response.accessKeyId, secretAccessKey: response.secretAccessKey, region: response.region};
     })
     .catch(error => {
-      // Error handling
+      if (error.name === 'AbortError') {
+        toast.error('Fetch aborted');
+      }
+      else {
+        toast.error('Error retrieving session token:', error);
+      }
     });
   }
 }
