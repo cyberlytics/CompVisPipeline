@@ -54,9 +54,7 @@ describe('LoadingWindow.js test', () => {
     const { left, top } = loadingCat.getBoundingClientRect();
   
     act(() => {
-      //console.error = jest.fn(); // Stummschaltung der Warnungen
       jest.advanceTimersByTime(10);
-      //console.error.mockRestore(); // Wiederherstellen der Warnungen
     });
 
     const { updatedLeft, updatedTop } = loadingCat.getBoundingClientRect();
