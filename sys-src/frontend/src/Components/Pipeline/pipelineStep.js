@@ -120,30 +120,30 @@ export default function PipelineStep(props) {
 
     //returns a single step with containing parameters
     return (
-        <Box className={'single-step'} ref={ref} style={{ opacity }} sx={{ bgcolor: 'background.default' }}>
+        <Box data-testid={`pipeline-step-${uuid}`} className={'single-step'} ref={ref} style={{ opacity }} sx={{ bgcolor: 'background.default' }}>
             <ListItem>
                 {params.length !== 0 &&
-                    <ListItemIcon onClick={handleExpandClick}>
+                    <ListItemIcon data-testid="expand-button" onClick={handleExpandClick}>
                         {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                     </ListItemIcon>
                 }
                 <ListItemText primary={title} />
-                <InfoOutlinedIcon onClick={handleInfoClick} sx={{ mr: 1 }} />
-                <VisibilityOutlinedIcon onClick={handleShowResultClick} sx={{ mr: 1 }} />
-                <DeleteOutlineOutlinedIcon onClick={handleDeleteClick} />
+                <InfoOutlinedIcon data-testid="info-button" onClick={handleInfoClick} sx={{ mr: 1 }} />
+                <VisibilityOutlinedIcon data-testid="showresult-button" onClick={handleShowResultClick} sx={{ mr: 1 }} />
+                <DeleteOutlineOutlinedIcon data-testid="deletestep-button" onClick={handleDeleteClick} />
             </ListItem>
             {params.length !== 0 &&
                 <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                         {params.map((param, index) => {
                             return (
-                                <Parameter key={index} index={index} sx={{ pl: 4 }} parameterName={param.title} defaultValue={param.defaultValue} value={param.value} setValue={setValue} info={param.info} />
+                                <Parameter data-testid={`parameter-${index}`} key={index} index={index} sx={{ pl: 4 }} parameterName={param.title} defaultValue={param.defaultValue} value={param.value} setValue={setValue} info={param.info} />
                             );
                         })}
                     </List>
                 </Collapse>
             }
-            <InformationPopup open={informationPopupIsOpen} onClose={handleClosePopup} headerText={title} text={info} />
+            <InformationPopup data-testid={"informationpopup"} open={informationPopupIsOpen} onClose={handleClosePopup} headerText={title} text={info} />
         </Box>
     );
 }
