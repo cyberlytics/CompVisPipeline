@@ -12,13 +12,9 @@ export default function StartPipeline(props) {
 
     const handleButtonClick = async () => {
         props.setIsLoading(true);
-
-        // Spiele den Sound ab
         const audio = new Audio(soundFile);
         audio.play();
-
         await Controller.sendPipelineSteps(props);
-
         props.setIsLoading(false);
     };
 
