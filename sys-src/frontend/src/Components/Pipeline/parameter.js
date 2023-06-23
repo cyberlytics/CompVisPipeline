@@ -61,27 +61,27 @@ export default function Parameter(props) {
     return (
         <ListItem sx={{ pl: 4 }}>
             <ListItemIcon>
-                <InfoOutlinedIcon className="infoOutlinedIcon" fontSize='small' onClick={handleInfoClick} />
+                <InfoOutlinedIcon data-testid="info-button" className="infoOutlinedIcon" fontSize='small' onClick={handleInfoClick} />
             </ListItemIcon>
             <ListItemText primary={parameterName} />
             {parameterType === ParameterType.Number &&
-                <TextField className='parameter-type-number' type={'number'} variant="outlined" value={parameterValue} onChange={handleParameterChange} sx={{ ml: 1, width: 150 }} />
+                <TextField data-testid="parameter-input" className='parameter-type-number' type={'number'} variant="outlined" value={parameterValue} onChange={handleParameterChange} sx={{ ml: 1, width: 150 }} />
             }
             {parameterType === ParameterType.Text &&
-                <TextField className='parameter-type-text' type={'text'} variant="outlined" value={parameterValue} onChange={handleParameterChange} sx={{ ml: 1, width: 150 }} />
+                <TextField data-testid="parameter-input" className='parameter-type-text' type={'text'} variant="outlined" value={parameterValue} onChange={handleParameterChange} sx={{ ml: 1, width: 150 }} />
             }
             {parameterType === ParameterType.Boolean &&
-                <Select className='parameter-type-boolean' value={parameterValue} onChange={handleParameterChange} sx={{ ml: 1, width: 150 }}>
+                <Select data-testid="parameter-select" className='parameter-type-boolean' value={parameterValue} onChange={handleParameterChange} sx={{ ml: 1, width: 150 }}>
                     <MenuItem value={'true'}>true</MenuItem>
                     <MenuItem value={'false'}>false</MenuItem>
                 </Select>
             }
             <ListItemIcon sx={{ pl: 4 }}>
                 <Tooltip title="Set parameter to default.">
-                    <RestartAltOutlinedIcon className="restartAltOutlinedIcon" fontSize='medium' onClick={handleDiscardChangesClick} />
+                    <RestartAltOutlinedIcon data-testid="discard-changes-button" className="restartAltOutlinedIcon" fontSize='medium' onClick={handleDiscardChangesClick} />
                 </Tooltip>
             </ListItemIcon>
-            <InformationPopup open={isOpen} onClose={handleClosePopup} headerText={parameterName} text={info} />
+            <InformationPopup data-testid="information-popup" open={isOpen} onClose={handleClosePopup} headerText={parameterName} text={info} />
         </ListItem>
     );
 }
