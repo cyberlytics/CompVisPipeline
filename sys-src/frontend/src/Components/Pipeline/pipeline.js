@@ -123,7 +123,7 @@ export default function Pipeline(props) {
                     <Box className={'step-uploadedPicture'} sx={{ bgcolor: 'background.default' }}>
                         <ListItem>
                             <ListItemText primary={'Uploaded Picture'} />
-                            <VisibilityOutlinedIcon onClick={handleShowUploadedPictureClick} sx={{ mr: 1 }} />
+                            <VisibilityOutlinedIcon data-testid="showuploadedpicture-button" onClick={handleShowUploadedPictureClick} sx={{ mr: 1 }} />
                         </ListItem>
                     </Box>
                     {props.steps.map((step, index) => (
