@@ -25,7 +25,7 @@ export default function AvailablePipelineSteps() {
             </CardContent>
             <CardContent>
                 <Box sx={{ width: '100%' }}>
-                    <SearchBar spacing={1} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+                    <SearchBar data-testid="search-bar" spacing={1} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
                     <Stack spacing={1} style={{ maxHeight: '830px', overflow: 'auto', marginTop: '1rem' }}>
                         {availablePipelineSteps.map((step, index) => {
                             if (step.title.toLowerCase().includes(searchQuery.toLowerCase())) {
