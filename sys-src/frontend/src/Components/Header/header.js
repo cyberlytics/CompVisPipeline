@@ -99,21 +99,21 @@ export default function Header(props) {
                             <Grid item>
                                 {developMode ?
                                     <Tooltip title="Logout to user mode.">
-                                        <PersonOutlineOutlinedIcon fontSize='medium' onClick={handleLogoutClick} />
+                                        <PersonOutlineOutlinedIcon data-testid="logout-button" fontSize='medium' onClick={handleLogoutClick} />
                                     </Tooltip> :
                                     <Tooltip title="Login to develop mode.">
-                                        <PersonOffOutlinedIcon fontSize='medium' onClick={handleLoginClick} />
+                                        <PersonOffOutlinedIcon data-testid="login-button" fontSize='medium' onClick={handleLoginClick} />
                                     </Tooltip>
                                 }
-                                <LoginWindow open={loginIsOpen} onClose={handleCloseLoginWindow} setState={setDevelopMode} setIsLoading={props.setIsLoading}/>
+                                <LoginWindow data-testid="login-window" open={loginIsOpen} onClose={handleCloseLoginWindow} setState={setDevelopMode} setIsLoading={props.setIsLoading}/>
                             </Grid>
                             <Grid item>
                                 {theme ?
                                     <Tooltip title="Switch to darkmode.">
-                                        <DarkModeOutlinedIcon onClick={() => setTheme(!theme)} />
+                                        <DarkModeOutlinedIcon data-testid="darkmode-button" onClick={() => setTheme(!theme)} />
                                     </Tooltip> :
                                     <Tooltip title="Switch to lightmode.">
-                                        <LightModeOutlinedIcon onClick={() => setTheme(!theme)} />
+                                        <LightModeOutlinedIcon data-testid="lightmode-button" onClick={() => setTheme(!theme)} />
                                     </Tooltip>
                                 }
                             </Grid>
