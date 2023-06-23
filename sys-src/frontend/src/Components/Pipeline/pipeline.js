@@ -123,7 +123,7 @@ export default function Pipeline(props) {
                     <Box className={'step-uploadedPicture'} sx={{ bgcolor: 'background.default' }}>
                         <ListItem>
                             <ListItemText primary={'Uploaded Picture'} />
-                            <VisibilityOutlinedIcon onClick={handleShowUploadedPictureClick} sx={{ mr: 1 }} />
+                            <VisibilityOutlinedIcon data-testid="showuploadedpicture-button" onClick={handleShowUploadedPictureClick} sx={{ mr: 1 }} />
                         </ListItem>
                     </Box>
                     {props.steps.map((step, index) => (
@@ -131,7 +131,7 @@ export default function Pipeline(props) {
                     ))}
                 </Stack>
                 {dropfieldIsVisible &&
-                    <Box ref={drop} sx={{ bgcolor: boxBackgroundColor, width: '100%', height: '60px', mt: 1, display: 'flex', align: 'center', alignItems: 'center', justifyContent: 'center' }}>
+                    <Box data-testid="dropzone" ref={drop} sx={{ bgcolor: boxBackgroundColor, width: '100%', height: '60px', mt: 1, display: 'flex', align: 'center', alignItems: 'center', justifyContent: 'center' }}>
                         <AddCircleOutlineOutlinedIcon fontSize='large' />
                     </Box>
                 }

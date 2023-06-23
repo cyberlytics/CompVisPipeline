@@ -1,5 +1,6 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/extend-expect";
 import Parameter from "../../../Components/Pipeline/parameter";
 
@@ -47,6 +48,29 @@ describe("parameter.js tests", () => {
     expect(parameter.container.getElementsByClassName("parameter-type-number")).toHaveLength(0);
     expect(parameter.container.getElementsByClassName("parameter-type-text")).toHaveLength(0);
     expect(parameter.container.getElementsByClassName("parameter-type-boolean")).toHaveLength(1);
+  });
+
+  test("handleInfoClick should open the information popup", () => {
+    let title = "Parametertestname";
+    let value = 123;
+    let info = "testinfo";
+    render(<Parameter parameterName={title} defaultValue={value} info={info} />);
+    const infoIcon = screen.getByTestId("info-button");
+    fireEvent.click(infoIcon);
+    const informationPopupTitle = screen.queryByText(/testinfo/i);
+    expect(informationPopupTitle).toBeVisible();
+  });
+
+  test("handleDiscardChangesClick should set parameter value to default value", () => {
+    let title = "Parametertestname";
+    let defaultValue = 123;
+    let value = 456;
+    const setValueMock = jest.fn();
+    render(<Parameter parameterName={title} defaultValue={defaultValue} value={value} setValue={setValueMock} />);
+    const discardChangesButton = screen.getByTestId("discard-changes-button");
+    fireEvent.click(discardChangesButton);
+    expect(setValueMock).toHaveBeenCalledTimes(1);
+    expect(setValueMock).toHaveBeenCalledWith(undefined, defaultValue); //check if called with defaultvalue
   });
 
 });
