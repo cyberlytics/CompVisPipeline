@@ -47,7 +47,7 @@ export default function LoginWindow({ open, onClose, setState, setIsLoading }) {
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
+    <Dialog data-testid="login-window" open={open} onClose={onClose} maxWidth="xs" fullWidth>
       <DialogTitle id="login-title" textAlign={'center'}>Login as developer</DialogTitle>
       <DialogContent>
         <DialogContentText>
