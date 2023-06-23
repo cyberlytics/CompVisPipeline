@@ -1,12 +1,18 @@
 import React from "react";
-import { render, screen, cleanup, act } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import Header from "../../../Components/Header/header";
 import userEvent from "@testing-library/user-event";
 
 describe("header.js tests", () => {
 
-  afterEach(cleanup);
+  beforeEach(() => {
+    console.error = jest.fn(); //Do not print connection to port 80 failed error.
+  })
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   test("card should be visible", () => {
     render(<Header />);
@@ -80,8 +86,8 @@ describe("header.js tests", () => {
   });
 
   test("should switch theme from lightmode to darkmode", () => {
-    const setTheme = jest.fn();
-    render(<Header theme={false} setTheme={setTheme} />);
+    const setThemeMock = jest.fn();
+    render(<Header theme={false} setTheme={setThemeMock} />);
 
     let darkModeButton = screen.queryByTestId("darkmode-button");
     let lightModeButton = screen.queryByTestId("lightmode-button");
@@ -92,7 +98,7 @@ describe("header.js tests", () => {
     act(() => {
       userEvent.click(lightModeButton);
     });
-    expect(setTheme).toHaveBeenCalledWith(true);
+    expect(setThemeMock).toHaveBeenCalledWith(true);
   });
 
   test("should switch theme from darkmode to lightmode", () => {
