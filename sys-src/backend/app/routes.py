@@ -119,13 +119,13 @@ def getRandomAiFatcat():
         aiFatCatManager = AiFatCatManager()
         result = aiFatCatManager.getRandomAiImage()
     except BaseError as e:
-        app.response_class(
+        return app.response_class(
             response=json.dumps({"error": f"Failed to get random ai fat cat: {e.message}"}),
             status=400,
             content_type="application/json",
         )
     except Exception as e:
-        app.response_class(
+        return app.response_class(
             response=json.dumps({"error": f"Failed to get random ai fat cat: Unknown Exception occured {e}"}),
             status=400,
             content_type="application/json",
