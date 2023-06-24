@@ -2,3 +2,4 @@
 /__pychache__/
 *.env
 .coverage
+/report/
