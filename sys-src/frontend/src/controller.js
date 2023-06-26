@@ -16,7 +16,7 @@ class Controller {
 
   //Call to get available steps for
   static async getPipelineStepsFromBackend(set) {
-    await fetch(base + '/available-steps',
+    fetch(base + '/available-steps',
       {
         signal: Controller.abortController.signal
       })
@@ -150,7 +150,7 @@ class Controller {
         }
         setMetadata(null);
       });
-      
+
   }
 }
 
