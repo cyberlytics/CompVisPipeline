@@ -5,7 +5,6 @@ Error Code
     - 404: NoSuchKey
     - 400: NoSuchBucket
 */
-import Controller from "../../controller";
 
 /**
  * Class to manage S3 Bucket

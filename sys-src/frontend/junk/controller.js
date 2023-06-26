@@ -1,3 +1,6 @@
+import Controller from "../../controller";
+
+
 static async getSessionTokenFromBackend() {
     await fetch(base+'/get_token', {
       signal: Controller.abortController.signal,
