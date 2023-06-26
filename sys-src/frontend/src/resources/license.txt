@@ -25,7 +25,7 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
  DEALINGS IN THE SOFTWARE.
 
 For fetching random random cute fat KI taco cat images, we are using the 
-"www.fette-katze.de/cat" API.
+"https://thecatapi.com/" API.
 
 Cat icons created by Ains - Flaticon: 
 "https://www.flaticon.com/free-icon/cat_10736493"
