@@ -60,10 +60,10 @@ FUNCTION_LIST = [
     GammaTransform(),
     Watershed(),
     PoissonNoise(),
-    HarrisCorner(),
+    #TODO: HarrisCorner(),
     HistogramEqualization(),
-    HoughCircle(),
-    HoleFilling(),
+    #TODO: HoughCircle(),
+    #TODO: HoleFilling(),
     LogTransform(),
     MedianFilter(),
     NonLocalMeansFilter(),
@@ -74,10 +74,10 @@ FUNCTION_LIST = [
     Thershold(),
     SpeckleNoise(),
     ThresholdMultiOtsu(),
-    Sobel(),
+    #TODO: Sobel(),
     SaltAndPepperNoise(),
     Rotate(),
-    HoughLines(),
+    #TODO: HoughLines(),
 ]
 
 
