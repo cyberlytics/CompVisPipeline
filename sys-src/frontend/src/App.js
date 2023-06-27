@@ -105,7 +105,7 @@ function App() {
       <DndProvider className={'App-DndProvider'} backend={HTML5Backend}>
         <ToastContainer position="bottom-left" />
         <LoadingWindow open={loadingScreenIsOpen} onClose={handleCloseLoadingWindow} />
-        {windowSize >= 900 ?
+        {windowSize >= 1450 ?
           <>
             <Grid style={{ paddingTop: 20, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
               <Header theme={theme} setTheme={setTheme} developMode={developMode} setDevelopMode={setDevelopMode} setIsLoading={setHeaderIsLoading} />
