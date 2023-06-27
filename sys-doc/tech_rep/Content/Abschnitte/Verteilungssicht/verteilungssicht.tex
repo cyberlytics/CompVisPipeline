@@ -1,2 +1,8 @@
 \section{Verteilungssicht}
-Hier steht Verteilungssicht.
+Bei der Anwendung werden Eingaben durch den Benutzer erfasst, Eingabedaten verarbeitet und die Ergebnisse dargestellt.
+Desweiteren werden (Zwischen-)Ergebnisse persistent in deiner Datebank gespeichert.
+Dies erfolgt mit Hilf eines AWS-S3-Bucktes \cite{awsSdk}.
+Für die Erfassung der Eingabedaten und die Darstellung der Ergebnisse ist das Frontend zuständig.
+Die Datenverarbeitung findet im Backend statt.
+Frontend und Backend sind jeweils in einem eigenen Docker-Container untergebracht \cite{docker}. 
+Für die Verwaltung der beiden Docker-Container wird Docker Compose verwendet \cite{docker_compose}.
