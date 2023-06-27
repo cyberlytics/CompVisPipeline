@@ -1,17 +1,20 @@
 \subsection{Frontend: Benutzerschnittstelle}
-Das in React geschriebene Frontend besteht aus einer Hauptkomponente, welche aus mehreren Kindkomponenten besteht (siehe Abbildung \ref{fig:frontend}).
-Ein \textit{Header}, welcher die Möglichkeit bietet die Seite neuzuladen, Informationen über die Internetseite einzuholen und den Darkmode zu aktivieren, befindet sich am oberen Bildschirmrand.
-Über ein Benutzersymbol, werden nach einer Autorisierung weitere Funktionalitäten für Entwickler freigeschalten.
-Eine weitere Komponente im oberen Bereich ermöglicht dem Benutzer den Upload eines eigenen oder eines Beispielbildes.
-Zwei weitere Komponenten am linken Bildschirmrand, \textit{Selected Image} und \textit{Imagedetails}, sind dafür zuständig das hochgeladene Bild anzuzeigen, sowie die Bildinformationen in Form eines Histogrammes anzuzeigen.
-Die Komponente \textit{Availible steps} am rechten Bildschirmrand stellt dem Benutzer alle möglichen Bildoperationen zur Verfügung.
-Möchte dieser eine Bildoperation anwenden, muss eine Karte aus der Komponente per Drag and Drop in die dafür vorgesehene Komponente \textit{Pipeline} im Zentrum gezogen werden.
-Möchte der Benutzer die Verarbeitung starten, kann dieser das durch das Klicken der Schaltfläche \textit{Start Pipeline} erreichen.
-Das Frontend schickt daraufhin alle benötigten Informationen an das Backend.
-Das Klicken des Symbols \textit{i} bei einem Verarbeitungsschritt liefert dem Benutzer Informationen zu der jeweiligen Bildoperation.
-Hat der Benutzer einen Verarbeitungsschritt abgelegt, kann er über das Klicken des nach unten gerichteten Pfeils die Parameter der Bildoperation konfigurieren.
-Klickt der Benutzer auf das Sichbarkeitssymbol eines Verarbeitungsschritts, wird das Zwischenergebnis angezeigt.
-Dies ermöglicht es dem Benutzer, Schritt für Schritt Ergebnisse aus den einzelnen Verarbeitungsschritten nachzuvollziehen.
+Das in React geschriebene Frontend (siehe Abbildung \ref{fig:webseite}) besteht aus einer Hauptkomponente, welche aus mehreren Kindkomponenten besteht (siehe Abbildung \ref{fig:frontend}).
+
+\textbf{Header:} Der \textit{Header} bietet die Möglichkeit, die Seite neu zu laden, Informationen über die Website zu erhalten, den Lizenztext einzusehen, den Darkmode zu aktivieren und in den Developermodus zu wechseln. Im Developermodus stehen dem Benutzer nach einer Autorisierung weitere Funktionalitäten zur Verfügung.
+
+\textbf{Upload:} Der Uploadbereich ermöglicht es dem Benutzer ein Bild hochzuladen oder ein vorgegebenes Beispielbild auszuwählen.
+
+\textbf{ImageView:} Die \textit{ImageView} zeigt das hochgeladene bzw. ausgewählte Bild an.
+
+\textbf{ImageDetails:} Bei den \textit{ImageDetails} werden die zum angezeigten Bild zugehörigen Informationenen in Form eines Historgrammes angezeigt.
+
+\textbf{Pipeline:} Bei der Komponente \textit{Pipeline} wird die aktuelle Verarbeitungskette angezeigt. Diese besteht initial nur aus dem hochgeladenen bzw. ausgewählten Bild und durch das hinzufügen weitere Bearbeitungsschritte mittels Drag and Drop erweitert werden. Ein Bearbeitungsschritt wird dabei von der Komponente \textit{PipelineStep} repräsentiert. Dieser bietet die Möglichkeit dessen Informationen anzuzeigen, die Parameter zu konfigurieren und nach erfolgreichen Durchlauf das zugehörige Zwischenergebnis anzuzeigen.
+
+\textbf{AvailablePipelineSteps:} Bei dieser Komponente werden dem Anwender alle verfügbaren Bearbeitungsschritte angezeigt. Diese können mit der implementierten \textit{SearchBar} gefiltert werden. Ein verfügbarer Schritt, welcher mit der Komponente \textit{AvailableStep} repräsentiert wird, kann per Drag and Drop zu der Komponente \textit{Pipeline} gezogen werden. Dadurch wird die Verarbeitungskette um den ausgewählten Verarbeitungsschritt erweitert.
+
+\textbf{StartPipeline:} Diese Komponente bietet dem Anwender die Möglichkeit, das hochgeladene bzw. ausgewählte Bild mit der erstellten Verarbeitungskette zu bearbeiten. Dabei werden alle Informationen mittels dem \textit{Controller} ans Backend weitergeleitet.
+
 \begin{figure*}[ht]
     \centering
     \includegraphics[width=\textwidth]{Bilder/FrontendBDCC.drawio.png}
