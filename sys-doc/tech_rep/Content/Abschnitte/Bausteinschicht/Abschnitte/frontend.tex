@@ -1,2 +1,14 @@
 \subsection{Frontend: Benutzerschnittstelle}
-Hier steht Frontend.
+Das in React geschriebene Frontend besteht aus einer Hauptkomponente, welche aus insgesamt sieben Kindkomponenten besteht.
+Ein \textit{Header}, welcher die Möglichkeit bietet die Seite zu refreshen, Informationen über die Internetseite einzuholen und den Darkmode zu aktivieren, befindet sich am oberen Bildschirmrand.
+Für berechtigte Personen gibt es ein User-Icon, welches eine berechtigte Person zum administrativen Bereich führt.
+Eine weitere Komponente im oberen Bereich ermöglicht dem User den Upload eines eigenen oder eines Beispielbildes.
+Zwei weitere Komponenten am linken Bildschirmrand, \textit{Selected Image} und \textit{Imagedetails}, sind dafür zuständig das hochgeladene Bild anzuzeigen, sowie die Bildinformationen in Form eines Histogrammes anzuzeigen.
+Die Komponente \textit{Availible steps} am rechten Bildschirmrand stellt dem Benutzer alle möglichen Bildoperationen zur Verfügung.
+Möchte dieser eine Bildoperation anwenden, muss eine Karte aus der Komponente per Drag and Drop in die dafür vorgesehene Komponente \textit{Pipeline} im Zentrum abgelegt werden.
+Möchte der Benutzer die Pipeline starten, kann dieser das durch das Klicken der Schaltfläche \textit{Start Pipeline} erreichen.
+Das Frontend schickt nun alle benötigten Informationen an das Backend.
+Das Klicken des Symbols \textit{i} liefert dem Benutzer Informationen zu der jeweiligen Bildoperation.
+Hat der Benutzer eine Pipelinekarte abgelegt, kann der Benutzer über das Klicken des nach unten gerichteten Pfeils die Parameter der Bildoperation konfigurieren.
+Klickt der Benutzer auf das Aug-Icon, wird das bearbeitete Bild bis zur ausgewählten Operation angezeigt.
+Dies ermöglicht es dem Benutzer, Schritt für Schritt Ergebnisse aus den einzelnen Operationen nachvollziehen zu können.
