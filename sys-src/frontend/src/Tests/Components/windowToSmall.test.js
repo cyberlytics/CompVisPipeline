@@ -19,7 +19,7 @@ describe('Minimize the windowsize', () => {
 
     test('does not display content when window is larger than 900px', () => {
         // Mock the window.innerWidth to be larger than 900px
-        global.innerWidth = 1000;
+        global.innerWidth = 1460;
 
         render(<App />);
 
