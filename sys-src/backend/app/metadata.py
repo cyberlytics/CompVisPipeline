@@ -32,7 +32,7 @@ class Metadata:
         else:
             raise MetadataError(message=f"Unkonwn colorspace: Could not plot histogram. Number of channels = {channels}")
 
-        fig, _ = plt.subplots()
+        fig, _ = plt.subplots(figsize=(8, 6))
         plt.xticks(fontsize = 12)
         plt.yticks(fontsize = 12)
         if channels > 1:
