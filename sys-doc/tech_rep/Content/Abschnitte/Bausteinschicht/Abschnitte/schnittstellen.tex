@@ -4,7 +4,7 @@ Die Kommunikation zwischen Front- und Backend erfolgt über eine REST-Schnittste
 
 \textbf{/start-pipeline/\textless imageId\textgreater: }Der Endpunkt \textit{/start-pipeline/\textless imageId\textgreater } ist dafür zuständig die Verarbeitung eines Bildes zu starten. \textit{\textless imageId\textgreater  } ist dabei eine eindeutige ID um das zu verarbeitende Bild aus dem S3-Bucket zu laden. Im Content des HTTP-POST Requests werden dabei die auszuführenden Verarbeitungsschritte, sowie deren Parameter übergeben. Die tatsächliche Verarbeitung des Bilds übernimmt die Klasse \textit{Pipeline}.
 
-\textbf{/available-steps: }Der Endpunkt \textit{/available-steps} liefert eine Beschreibung für alle Implementierten Verarbeitungsschritte, sowie deren Parameter. Dieser Endpunkt wird verwendet um die verfügbaren Verarbeitungsschritte im Frontend anzuzeigen und dem Benutzer Informationen über deren Verwendung zu liefern.
+\textbf{/available-steps: }Der Endpunkt \textit{/available-steps} liefert eine Beschreibung für alle implementierten Verarbeitungsschritte, sowie deren Parameter. Dieser Endpunkt wird verwendet um die verfügbaren Verarbeitungsschritte im Frontend anzuzeigen und dem Benutzer Informationen über deren Verwendung zu liefern.
 
 \textbf{/image-metadata/\textless imageId\textgreater: }Mit Hilfe des Endpunkts \textit{/image-metadata/\textless imageId\textgreater } kann ein Histogramm für das übergebene Bild erstellt werden. Außerdem liefert der Endpunkt Informationen über die Größe des Bilds und die Anzahl an Farbkanälen. Für die Erzeugung dieser Informationen ist die Klasse \textit{Metadata} verantwortlich.
 
