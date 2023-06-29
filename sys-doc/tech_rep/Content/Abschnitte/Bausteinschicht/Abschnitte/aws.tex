@@ -1,0 +1,8 @@
+\subsection{AWS: Amazon Web Services}
+Im Rahmen des Projekts wurde Amazon Web Sevices (AWS) verwendet, um die Anwendung mithilfe einer EC2-Instanz zu hosten und die Daten mithilfe eines S3-Buckets zentral zu speichern. Auf den
+S3-Bucket wird mithilfe, der im Frontend und Backend erstellten Klasse \textit{S3Manager} zugegriffen. Die Klasse basiert auf den Funktionen der Bibliothek boto3 \cite{boto3} und der aws-sdk \cite{awsSdk}. Der S3-Bucket dient als gemeinsamer Speicher zum Austausch von Bildern zwischen Frontend und Backend. 
+
+Die Zugriffsrechte wurden in der AWS-Konsole über den Identity und Access Management (IAM) konfiguriert. Dabei wurden feingranulare Rechte an die Benutzer 
+vergeben. Dies soll sicherstellen, dass nur autorisierte Benutzer auf den \textit{bdcc-fatcat-data} Bucket zugreifen können. Diese Sicherheitsmaßnahme soll die anderen Bereiche der Cloud schützen, falls ein Bereich kompromittiert wird.
+
+Durch die Verwendung von AWS und den beiden S3Manager Klassen konnte eine skalierbare Lösung zur Bildspeicherung und -verwaltung bereitgestellt werden.

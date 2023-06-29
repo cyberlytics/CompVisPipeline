@@ -1,9 +1,11 @@
+import os
 import requests
 import cv2
 import numpy as np
 from uuid import uuid4
 
 from app.connections.aws_s3 import S3Manager
+from app.exceptions import BaseError
 from app.metadata import Metadata
 
 
@@ -15,14 +17,15 @@ class AiFatCatManager:
     
     def getRandomAiImage(self):
         try:
-            imageBytes = requests.get("https://fette-katze.de/cat", timeout=30).content
+            random_image_url = requests.get("https://api.thecatapi.com/v1/images/search").json()[0]["url"]
+            imageBytes = requests.get(random_image_url).content
         except Exception:
-            raise BaseException(message="Failed to get Image from https://fette-katze.de/cat")  
+            raise BaseError(message="Failed to get Image from thecatapi")  
         try:
             array = np.frombuffer(imageBytes, np.uint8)
             img = cv2.imdecode(array, cv2.IMREAD_UNCHANGED)
         except Exception:
-            raise BaseException(message="Failed to convert response from https://fette-katze.de/cat to OpneCV image")
+            raise BaseError(message="Failed to convert response from thecatapi to OpneCV image")
         try:
             id = str(uuid4()) + ".jpeg"
             self.s3Manager.pushImageToS3(id, img)

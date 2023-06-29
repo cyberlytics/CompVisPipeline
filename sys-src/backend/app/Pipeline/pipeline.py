@@ -1,5 +1,6 @@
 from uuid import uuid4
 from app.Pipeline.Steps.bilateralFilter import BilateralFilter
+from app.Pipeline.Steps.convertType import ConvertType
 from app.Pipeline.Steps.gaussianBlur import GaussianBlur
 from app.Pipeline.Steps.anisotropicDiffusion import AnisotropicDiffusion
 from app.Pipeline.Steps.averagingFilter import AveragingFilter
@@ -50,6 +51,7 @@ FUNCTION_LIST = [
     Closing(),
     ConnectedComponents(),
     ConvertGray(),
+    ConvertType(),
     Crop(),
     Dilation(),
     Erosion(),
@@ -58,10 +60,10 @@ FUNCTION_LIST = [
     GammaTransform(),
     Watershed(),
     PoissonNoise(),
-    HarrisCorner(),
+    #TODO: HarrisCorner(),
     HistogramEqualization(),
-    HoughCircle(),
-    HoleFilling(),
+    #TODO: HoughCircle(),
+    #TODO: HoleFilling(),
     LogTransform(),
     MedianFilter(),
     NonLocalMeansFilter(),
@@ -72,10 +74,10 @@ FUNCTION_LIST = [
     Thershold(),
     SpeckleNoise(),
     ThresholdMultiOtsu(),
-    Sobel(),
+    #TODO: Sobel(),
     SaltAndPepperNoise(),
     Rotate(),
-    HoughLines(),
+    #TODO: HoughLines(),
 ]
 
 

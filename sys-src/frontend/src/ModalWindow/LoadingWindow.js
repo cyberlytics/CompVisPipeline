@@ -3,15 +3,15 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import cat from '../resources/cat.png';
-import CardMedia from "@mui/material/CardMedia";
+import SvgCat from '../resources/SvgCat';
+import Divider from "@mui/material/Divider";
 import Box from '@mui/material/Box';
 import { generateRandomColor } from '../randomColorGenerator';
 
 export default function LoadingWindow({ open, onClose }) {
   const BOUNCINGWIDTH = 400;
   const BOUNCINGHEIGHT = 260;
-  const IMAGESIZE = 60;
+  const IMAGESIZE = 80;
 
   const [animationSettings, setAnimationSettings] = useState(
     {
@@ -19,7 +19,7 @@ export default function LoadingWindow({ open, onClose }) {
       positionY: BOUNCINGHEIGHT / 2,
       velocityX: 4,
       velocityY: 4,
-      backgroundcolor: "transparent"
+      backgroundcolor: '#d22819'
     })
 
   const updateAnimationSettings = useCallback(() => {
@@ -58,8 +58,11 @@ export default function LoadingWindow({ open, onClose }) {
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      <Box sx={{ width: BOUNCINGWIDTH, height: BOUNCINGHEIGHT, backgroundColor: animationSettings.backgroundcolor, padding:0 }}>
-        <CardMedia data-testid="loading-screen-cat" src={cat} component="img" alt="Loading" sx={{ width: `${IMAGESIZE}px`, objectFit: "contain", position: "absolute", transform: `translate(${animationSettings.positionX}px, ${animationSettings.positionY}px)` }} />
+      <Divider />
+      <Box sx={{ width: BOUNCINGWIDTH, height: BOUNCINGHEIGHT+6, padding: 0 }}>
+        <Box data-testid="loading-screen-cat" sx={{ width: `${IMAGESIZE}px`, height: `${IMAGESIZE}px`, objectFit: "contain", position: "absolute", transform: `translate(${animationSettings.positionX}px, ${animationSettings.positionY}px)`, padding:0}}>
+          <SvgCat data-testid="loading-screen-cat" fill={animationSettings.backgroundcolor} size={IMAGESIZE}/>
+        </Box>
       </Box>
     </Dialog>
   );

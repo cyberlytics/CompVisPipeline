@@ -13,6 +13,9 @@ import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import WindowToSmall from "./Components/windowToSmall";
 import LoadingWindow from './ModalWindow/LoadingWindow';
+import Controller from './controller';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const lightTheme = createTheme({
   palette: {
@@ -46,7 +49,7 @@ function App() {
   const [imageDetailsIsLoading, setImageDetailsIsLoading] = useState(false)
   const [startPipelineIsLoading, setStartpipelineIsLoading] = useState(false)
   const [loadingScreenIsOpen, setLoadingScreenIsOpen] = useState(false);
-  
+
   // Update isLoading Hook pending on other loading processes
   useEffect(() => {
     const componentsAreLoading = headerIsLoading || uploadIsLoading || imageDetailsIsLoading || startPipelineIsLoading;
@@ -54,27 +57,28 @@ function App() {
   }, [headerIsLoading, uploadIsLoading, imageDetailsIsLoading, startPipelineIsLoading]);
 
   useEffect(() => {
-    if(startPipelineIsLoading === true){
-      setImageDetailsIsLoading(true);
-    }
-  }, [startPipelineIsLoading]);
-
-  useEffect(() => {
-    if(uploadIsLoading === true){
+    if (uploadIsLoading === true) {
       setImageDetailsIsLoading(true);
     }
   }, [uploadIsLoading]);
 
-  // Update the window size when resized
   useEffect(() => {
-    window.addEventListener('resize', setWindowSize(window.innerWidth));
-    return () => window.removeEventListener('resize', setWindowSize(window.innerWidth));
+    // Update the window size when resized
+    const handleResize = () => {
+      setWindowSize(window.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   useEffect(() => {
     if (pipelineResult.length !== 0) {
       let result = pipelineResult.result
       setCurrentImageID(result[result.length - 1].imageId)
+      setImageDetailsIsLoading(true);
       setCurrentHistogramIDandMetadata(result[result.length - 1])
     }
   }, [pipelineResult]);
@@ -92,15 +96,16 @@ function App() {
     setStartpipelineIsLoading(false)
     setIsLoading(false);
     setLoadingScreenIsOpen(false);
-    //TODO: Abbort fetch calls from controller and place tooltip to button to inform the user of this action
+    Controller.abortFetch();
   }
 
   return (
     <ThemeProvider theme={appliedTheme}>
       <CssBaseline className={'App-CssBaseline'} />
       <DndProvider className={'App-DndProvider'} backend={HTML5Backend}>
-        <LoadingWindow open={loadingScreenIsOpen} onClose={handleCloseLoadingWindow}/>
-        {windowSize >= 900 ?
+        <ToastContainer position="bottom-left" />
+        <LoadingWindow open={loadingScreenIsOpen} onClose={handleCloseLoadingWindow} />
+        {windowSize >= 1450 ?
           <>
             <Grid style={{ paddingTop: 20, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 }}>
               <Header theme={theme} setTheme={setTheme} developMode={developMode} setDevelopMode={setDevelopMode} setIsLoading={setHeaderIsLoading} />
@@ -109,10 +114,10 @@ function App() {
               <Grid item md={4} style={{ paddingRight: 10 }}>
                 <Grid container direction="column">
                   <Grid item xs style={{ paddingBottom: 10 }}>
-                    <Upload setOriginalImageID={setOriginalImageID} setCurrentImageID={setCurrentImageID} setCurrentHistogramIDandMetadata={setCurrentHistogramIDandMetadata} setIsLoading={setUploadIsLoading}/>
+                    <Upload setOriginalImageID={setOriginalImageID} setCurrentImageID={setCurrentImageID} setCurrentHistogramIDandMetadata={setCurrentHistogramIDandMetadata} setIsLoading={setUploadIsLoading} />
                   </Grid>
                   <Grid item xs style={{ paddingBottom: 10 }}>
-                    <ImageView currentImageID={currentImageID}/>
+                    <ImageView currentImageID={currentImageID} />
                   </Grid>
                   <Grid item xs>
                     <ImageDetails currentHistogramIDandMetadata={currentHistogramIDandMetadata} setIsLoading={setImageDetailsIsLoading} />
@@ -123,7 +128,7 @@ function App() {
               <Grid item md={4} style={{ paddingRight: 10 }}>
                 <Grid container direction="column">
                   <Grid item xs style={{ paddingBottom: 10 }}>
-                    <Pipeline steps={steps} setSteps={setSteps} />
+                    <Pipeline steps={steps} setSteps={setSteps} pipelineResult={pipelineResult} setPipelineResult={setPipelineResult} setCurrentImageID={setCurrentImageID} setCurrentHistogramIDandMetadata={setCurrentHistogramIDandMetadata} />
                   </Grid>
                   <Grid item xs>
                     <StartPipeline steps={steps} originalImageID={originalImageID} setPipelineResult={setPipelineResult} isLoading={startPipelineIsLoading} setIsLoading={setStartpipelineIsLoading} />

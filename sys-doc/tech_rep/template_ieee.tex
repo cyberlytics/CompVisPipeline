@@ -7,6 +7,8 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage[ngerman]{babel}
+\usepackage{placeins}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
@@ -56,19 +58,7 @@
 
 \maketitle
 
-\begin{abstract}
-	\input{Abschnitte/abstract.tex}
-\end{abstract}
-
-
-\section{Einführung und Ziele}
-\input{Abschnitte/einfuehrung.tex}
-
-\section{Bausteinsicht}
-\input{Abschnitte/Bausteinsicht/bausteinsicht.tex}
-
-\section{Fazit und Ausblick}
-\input{Abschnitte/fazitundausblick.tex}
+\input{Content/content.tex}
 
 \begin{thebibliography}{00}
 	\bibitem{scratch} Scratch Programmierung: https://scratch.mit.edu/projects/editor/?tutorial=getStarted
@@ -79,7 +69,20 @@
 	\bibitem{react} React: https://react.dev
 	\bibitem{jest} Jest: https://jestjs.io
 	\bibitem{pytest} PyTest: https://docs.pytest.org/en/7.3.x/
+	\bibitem{boto3} Boto3: https://boto3.amazonaws.com/v1/documentation/api/latest/index.html
+	\bibitem{awsSdk} AWS-SDK: https://www.npmjs.com/package/aws-sdk
+	\bibitem{docker} Docker: https://www.docker.com
+	\bibitem{docker_compose} Docker Compose: https://docs.docker.com/compose/
+	\bibitem{catapi} The Cat API: https://thecatapi.com
+	\bibitem{pytest-cov} pytest-cov: https://pypi.org/project/pytest-cov/
 \end{thebibliography}
 \vspace{12pt}
+
+\begin{figure*}[ht]
+    \centering
+    \includegraphics[width=\textheight, angle=90, keepaspectratio]{Bilder/frontend_webseite}
+    \caption{Frontend Computer Vision Pipeline}
+    \label{fig:webseite}
+\end{figure*}
 
 \end{document}

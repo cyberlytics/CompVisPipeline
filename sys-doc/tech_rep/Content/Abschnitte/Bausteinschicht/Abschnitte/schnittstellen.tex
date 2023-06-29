@@ -1,0 +1,13 @@
+\section{Schnittstellen}
+\label{sec:schnittstellen}
+Die Kommunikation zwischen Front- und Backend erfolgt über eine REST-Schnittstelle. Die Endpunkte dieser Schnittstelle werden im Folgenden genauer erläutert. 
+
+\textbf{/start-pipeline/\textless imageId\textgreater: }Der Endpunkt \textit{/start-pipeline/\textless imageId\textgreater } ist dafür zuständig die Verarbeitung eines Bildes zu starten. \textit{\textless imageId\textgreater  } ist dabei eine eindeutige ID um das zu verarbeitende Bild aus dem S3-Bucket zu laden. Im Content des HTTP-POST Requests werden dabei die auszuführenden Verarbeitungsschritte, sowie deren Parameter übergeben. Die tatsächliche Verarbeitung des Bilds übernimmt die Klasse \textit{Pipeline}.
+
+\textbf{/available-steps: }Der Endpunkt \textit{/available-steps} liefert eine Beschreibung für alle implementierten Verarbeitungsschritte, sowie deren Parameter. Dieser Endpunkt wird verwendet um die verfügbaren Verarbeitungsschritte im Frontend anzuzeigen und dem Benutzer Informationen über deren Verwendung zu liefern.
+
+\textbf{/image-metadata/\textless imageId\textgreater: }Mit Hilfe des Endpunkts \textit{/image-metadata/\textless imageId\textgreater } kann ein Histogramm für das übergebene Bild erstellt werden. Außerdem liefert der Endpunkt Informationen über die Größe des Bilds und die Anzahl an Farbkanälen. Für die Erzeugung dieser Informationen ist die Klasse \textit{Metadata} verantwortlich.
+
+\textbf{/login: }Der Endpunkt \textit{/login} bietet die Möglichkeit die im POST-Request übergebenen Parameter Benutzername und Passwort zu überprüfen. Dieser wird verwendet um dem Benutzer die Möglichkeit zu geben das Entwicklermenü im Frontend zu aktivieren und darüber alle Daten aus dem S3-Bucket zu löschen. In der Aktuellen Implementierung werden Benutzername und Passwort im Klartext unverschlüsselt über HTTP übertragen. Diese Übertragung stellt keine sichere Authentifizierung dar für den Einsatz in einem Produktivsystem muss an dieser Stelle eine sichere Authentifizierung implementiert werden.
+
+\textbf{/random-ai-fatcat: }Unter dem Endpunkt \textit{/random-ai-fatcat} kann ein zufälliges Katzenbild aus dem Internet geladen werden. Dieses wird im S3-Bucket gespeichert und die ID zurückgegeben. Die Bilder stammen dabei von einer externen API \cite{catapi}. 

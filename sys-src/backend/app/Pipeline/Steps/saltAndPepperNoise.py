@@ -10,19 +10,19 @@ class SaltAndPepperNoise(BaseStep):
             p0 = float(parameters[0])
             p1 = float(parameters[1])
 
-            if len(img.shape) not in (2, 3): raise WrongParameterError("Invalid image shape!")
+            if len(img.shape) not in (2, 3): raise WrongParameterError("[Salt And Pepper Noise] Invalid image shape!")
 
             if p0 < 0:
                 raise WrongParameterError(
-                    message="Ration between Salt & Pepper should be between 0 and 1, e.g. 0.5!"
+                    message="[Salt And Pepper Noise] Ration between Salt & Pepper should be between 0 and 1, e.g. 0.5!"
                 )
             elif p0 > 1:
                 raise WrongParameterError(
-                    message="Ration between Salt & Pepper should be between 0 and 1, e.g. 0.5!"
+                    message="[Salt And Pepper Noise] Ration between Salt & Pepper should be between 0 and 1, e.g. 0.5!"
                 )
 
             if p1 < 0:
-                WrongParameterError(message="Noise strength should not be negative!")
+                WrongParameterError(message="[Salt And Pepper Noise] Noise strength should not be negative!")
 
             out = np.copy(img)
 
@@ -42,9 +42,9 @@ class SaltAndPepperNoise(BaseStep):
         except WrongParameterError as e:
             raise e
         except ValueError as e:
-            raise WrongParameterError(message=e)
+            raise WrongParameterError(message=f"[Salt And Pepper Noise] {e}")
         except Exception as e:
-            raise ImageProcessingError(message=e)
+            raise ImageProcessingError(message=f"[Salt And Pepper Noise] {e}")
 
     def describe(self):
         return {

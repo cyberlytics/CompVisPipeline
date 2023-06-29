@@ -1,13 +1,26 @@
 import cv2
 
 from app.Pipeline.Steps.baseStep import BaseStep
-from app.exceptions import ImageProcessingError
+from app.exceptions import ImageProcessingError, WrongParameterError
 
 
 class BilateralFilter(BaseStep):
     def __call__(self, img, parameters):
-        # TODO: add error handling and check which parameters we need
-        return img
+        try:
+            p0 = int(parameters[0])
+            p1 = float(parameters[1])
+            p2 = float(parameters[2])
+
+            if len(img.shape) not in (2, 3): raise WrongParameterError(message="[Bilateral Filter] Invalid image shape!")
+            if p0 < 1: raise WrongParameterError(message="[Bilateral Filter] Diameter can't be less than one!")
+
+            return cv2.bilateralFilter(img, p0, p1, p2)
+        except WrongParameterError as e:
+            raise e
+        except ValueError as e:
+            raise WrongParameterError(message=f"[Bilateral Filter]  {e}")
+        except Exception as e:
+            raise ImageProcessingError(message=f"[Bilateral Filter] {e}")
 
     def describe(self):
         return {

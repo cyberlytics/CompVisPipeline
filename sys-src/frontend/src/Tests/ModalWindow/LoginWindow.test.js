@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, cleanup } from "@testing-library/react";
+import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import LoginWindow from "../../ModalWindow/LoginWindow";
 import userEvent from "@testing-library/user-event";
@@ -63,5 +63,22 @@ describe("LoginWindow.js tests", () => {
     });
 
     expect(setTestState).toHaveBeenCalledWith(true);
+  });
+
+  test("login with false credentials should display error message", async () => {
+    render(<TestWrapper testState={testState} setTestState={setTestState} testIsLoading={testIsLoading} setTestIsLoading={setTestIsLoading} />);
+  
+    Controller.login = jest.fn().mockResolvedValueOnce(false);
+  
+    await act(async () => {
+      console.error = jest.fn(); // Stummschaltung der Warnungen
+      userEvent.click(screen.getByTestId("login-button"));
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      console.error.mockRestore(); // Wiederherstellen der Warnungen
+    });
+  
+    const errorMessage = screen.getByTestId("error-message");
+    expect(errorMessage).toBeInTheDocument();
+    expect(errorMessage).toHaveTextContent("Incorrect Username or Password");
   });
 });

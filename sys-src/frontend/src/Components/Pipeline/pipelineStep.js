@@ -13,9 +13,11 @@ import { useDrag, useDrop } from 'react-dnd'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import InformationPopup from '../../ModalWindow/InformationPopup.js';
 import Parameter from './parameter.js';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function PipelineStep(props) {
-    const { stepIndex, deleteStep, title, params, info, id, moveStep, uuid } = props;
+    const { stepIndex, deleteStep, title, params, info, id, moveStep, uuid, setCurrentImageID, setCurrentHistogramIDandMetadata, pipelineResult, setPipelineResult} = props;
     const [isExpanded, setIsExpandend] = useState(false)
     const [informationPopupIsOpen, setInformationPopupIsOpen] = useState(false);
     const ref = useRef(null)
@@ -57,6 +59,14 @@ export default function PipelineStep(props) {
             // Perform the action
             moveStep(dragIndex, hoverIndex)
             item.stepIndex = hoverIndex
+            if(props.pipelineResult.length !== 0) 
+            {
+                let result = props.pipelineResult.result
+                props.setCurrentImageID(result[0].imageId)
+                props.setCurrentHistogramIDandMetadata(result[0])
+                props.setPipelineResult([]) //empty result when pipeline changed
+                toast.info("Pipeline result deleted due to pipeline changed.")
+            }
         },
     })
 
@@ -87,7 +97,11 @@ export default function PipelineStep(props) {
 
     //function to show result image from selected step
     const handleShowResultClick = () => {
-        //todo - Bild anzeigen 
+        if (pipelineResult.length !== 0) {
+            let result = pipelineResult.result
+            setCurrentImageID(result[stepIndex + 1].imageId)
+            setCurrentHistogramIDandMetadata(result[stepIndex + 1])
+          }
     };
 
     //function to open modul window to show 
@@ -106,30 +120,30 @@ export default function PipelineStep(props) {
 
     //returns a single step with containing parameters
     return (
-        <Box className={'single-step'} ref={ref} style={{ opacity }} sx={{ bgcolor: 'background.default' }}>
+        <Box data-testid={`pipeline-step-${uuid}`} className={'single-step'} ref={ref} style={{ opacity }} sx={{ bgcolor: 'background.default' }}>
             <ListItem>
                 {params.length !== 0 &&
-                    <ListItemIcon onClick={handleExpandClick}>
+                    <ListItemIcon data-testid="expand-button" onClick={handleExpandClick}>
                         {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                     </ListItemIcon>
                 }
                 <ListItemText primary={title} />
-                <InfoOutlinedIcon onClick={handleInfoClick} sx={{ mr: 1 }} />
-                <VisibilityOutlinedIcon onClick={handleShowResultClick} sx={{ mr: 1 }} />
-                <DeleteOutlineOutlinedIcon onClick={handleDeleteClick} />
+                <InfoOutlinedIcon data-testid="info-button" onClick={handleInfoClick} sx={{ mr: 1 }} />
+                <VisibilityOutlinedIcon data-testid="showresult-button" onClick={handleShowResultClick} sx={{ mr: 1 }} />
+                <DeleteOutlineOutlinedIcon data-testid="deletestep-button" onClick={handleDeleteClick} />
             </ListItem>
             {params.length !== 0 &&
                 <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                         {params.map((param, index) => {
                             return (
-                                <Parameter key={index} index={index} sx={{ pl: 4 }} parameterName={param.title} defaultValue={param.defaultValue} value={param.value} setValue={setValue} info={param.info} />
+                                <Parameter data-testid={`parameter-${index}`} key={index} index={index} sx={{ pl: 4 }} parameterName={param.title} defaultValue={param.defaultValue} value={param.value} setValue={setValue} info={param.info} />
                             );
                         })}
                     </List>
                 </Collapse>
             }
-            <InformationPopup open={informationPopupIsOpen} onClose={handleClosePopup} headerText={title} text={info} />
+            <InformationPopup data-testid={"informationpopup"} open={informationPopupIsOpen} onClose={handleClosePopup} headerText={title} text={info} />
         </Box>
     );
 }

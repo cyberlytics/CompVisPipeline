@@ -9,31 +9,26 @@ import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import InformationPopup from '../../ModalWindow/InformationPopup';
 import Tooltip from '@mui/material/Tooltip';
-import Snackbar from '@mui/material/Snackbar';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import PersonOffOutlinedIcon from '@mui/icons-material/PersonOffOutlined';
 import LoginWindow from '../../ModalWindow/LoginWindow';
 import RollingCat from './rollingCat';
-
+import CardMembershipOutlinedIcon from '@mui/icons-material/CardMembershipOutlined';
 import DeveloperMenu from './developerMenu';
+import licenseTextFile from '../../resources/license.txt'
 
 export default function Header(props) {
     const { theme, setTheme, developMode, setDevelopMode } = props;
     const [isOpen, setIsOpen] = useState(false);
     const [loginIsOpen, setLoginIsOpen] = useState(false);
-    const [toastOpen, setToastOpen] = React.useState(false);
-    const [toastMessage, setToastMessage] = React.useState("")
+    const [licenseOpen, setLicenseIsOpen] = useState(false);
+    const [licenseText, setLicenseText] = useState("");
 
-    //useffect to show toast if user is logged in as developer
     useEffect(() => {
-        if (developMode) {
-            setToastMessage('Enjoy the developer mode.'); 
-            handleToastClick()
-        }
-    }, [developMode]);
-
-    //function to open toast message
-    const handleToastClick = () => setToastOpen(true);
+        fetch(licenseTextFile)
+        .then(r => r.text())
+        .then(text => setLicenseText(text))
+    }, []);
 
     //function to handle login
     const handleLoginClick = () => setLoginIsOpen(true);
@@ -44,9 +39,6 @@ export default function Header(props) {
     //function to handle close login window
     const handleCloseLoginWindow = () => setLoginIsOpen(false);
 
-    //function to close toast message
-    const handleToastClose = () => setToastOpen(false);
-
     //function to refresh the page
     const refresh = () => window.location.reload()
 
@@ -56,7 +48,12 @@ export default function Header(props) {
     //function to close modalwindow
     const handleClosePopup = () => setIsOpen(false);
 
-    let infotext = "Welcome to our cutting-edge computer vision pipeline! Unleash the power of visual intelligence and redefine the way you interact with images. Discover hidden details, gain meaningful insights, and effortlessly achieve remarkable results. Get ready to revolutionize your workflow and immerse yourself in a world of unlimited possibilities."
+    // function to open license window
+    const handleLicenseWindowOpen = () => setLicenseIsOpen(true);
+
+    const handleLicenseWindowClose = () => setLicenseIsOpen(false);
+
+    let infotext = "Welcome to our cutting-edge computer vision pipeline! Unleash the power of \nvisual intelligence and redefine the way you interact with images. Discover \nhidden details, gain meaningful insights, and effortlessly achieve remarkable \nresults. Get ready to revolutionize your workflow and immerse yourself in a \nworld of unlimited possibilities."
 
     return (
         <Card style={{ height: 50 }} >
@@ -83,6 +80,12 @@ export default function Header(props) {
                                 </Grid>
                             {/* Other symboles */}
                             <Grid item>
+                                <Tooltip title="License Information">
+                                    <CardMembershipOutlinedIcon onClick={handleLicenseWindowOpen} fontSize='medium' data-testid="license-button"/>
+                                </Tooltip>
+                            </Grid>
+                            <InformationPopup open={licenseOpen} onClose={handleLicenseWindowClose} headerText={"License"} text={licenseText} data-testid='license-dialog'/>
+                            <Grid item>
                                 <Tooltip title="Refresh page.">
                                     <RestartAltIcon onClick={refresh} fontSize='medium' data-testid='refresh-button'/>
                                 </Tooltip>
@@ -96,21 +99,21 @@ export default function Header(props) {
                             <Grid item>
                                 {developMode ?
                                     <Tooltip title="Logout to user mode.">
-                                        <PersonOutlineOutlinedIcon fontSize='medium' onClick={handleLogoutClick} />
+                                        <PersonOutlineOutlinedIcon data-testid="logout-button" fontSize='medium' onClick={handleLogoutClick} />
                                     </Tooltip> :
                                     <Tooltip title="Login to develop mode.">
-                                        <PersonOffOutlinedIcon fontSize='medium' onClick={handleLoginClick} />
+                                        <PersonOffOutlinedIcon data-testid="login-button" fontSize='medium' onClick={handleLoginClick} />
                                     </Tooltip>
                                 }
-                                <LoginWindow open={loginIsOpen} onClose={handleCloseLoginWindow} setState={setDevelopMode} setIsLoading={props.setIsLoading}/>
+                                <LoginWindow data-testid="login-window" open={loginIsOpen} onClose={handleCloseLoginWindow} setState={setDevelopMode} setIsLoading={props.setIsLoading}/>
                             </Grid>
                             <Grid item>
                                 {theme ?
                                     <Tooltip title="Switch to darkmode.">
-                                        <DarkModeOutlinedIcon onClick={() => setTheme(!theme)} />
+                                        <DarkModeOutlinedIcon data-testid="darkmode-button" onClick={() => setTheme(!theme)} />
                                     </Tooltip> :
                                     <Tooltip title="Switch to lightmode.">
-                                        <LightModeOutlinedIcon onClick={() => setTheme(!theme)} />
+                                        <LightModeOutlinedIcon data-testid="lightmode-button" onClick={() => setTheme(!theme)} />
                                     </Tooltip>
                                 }
                             </Grid>
@@ -118,7 +121,6 @@ export default function Header(props) {
                     </Grid>
                 </Grid>
             </CardContent>
-            <Snackbar open={toastOpen} autoHideDuration={3000} onClose={handleToastClose} message={toastMessage} />
         </Card>
     );
 }

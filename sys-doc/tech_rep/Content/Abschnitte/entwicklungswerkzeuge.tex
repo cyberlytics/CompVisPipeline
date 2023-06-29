@@ -1,0 +1,16 @@
+\section{entwicklungswerkzeuge}
+Für die Entwicklung des Projekts wurde verschiedene Werkzeuge verwendet, um ein möglichst reibungsloses und effizientes Arbeiten zu gewährleisten.
+
+\subsection{Paketverwaltung}
+Die Paketverwaltung spielt eine entscheidende Rolle bei der Verwaltung der Abhängigkeiten und dem Versionsmanagement der einzelnen Bibliotheken.
+
+Im Backend wurde \textit{pip} verwendet. Dies ist die Standardpaketverwaltung für Python. \textit{Pip} ermöglicht die einfache Installation und Aktualisierung von Python-Paketen. Im Frontend erfolgte die Paketverwaltung mithilfe von  \textit{npm} (Node Package Manager). Dadurch konnten die benötigten Pakete für das Frontend effizient verwaltet werden.
+
+\subsection{Frontend}
+Das Frontend des Projekts basiert auf React \cite{react}. Dies ist eine leistungsstarke JavaScript-Bibliothek, die zur Entwicklung von Benutzeroberflächen dient. React ermöglicht eine modulare Gestaltung der Oberfläche, was zu einer besseren Wartbarkeit des Codes führt. Die einzelnen React-Komponenten wurden in JSX (einer Erweiterung für JavaScript) geschrieben. 
+
+\subsection{Backend}
+Das Backend des Projekts basiert auf Python und dem Flask-Framework. Python bietet eine Vielzahl an Bibliotheken zur Bildverarbeitung. Flask zeichnet sich durch seine einfache Handhabung und Flexibilität bei der Implementierung von REST-Schnittstellen aus.
+
+\subsection{Container}
+Um eine effiziente Bereitstellung des Systems zu gewährleisten, wurden Container verwendet. Die Komposition der Container erfolgt dabei mit Docker-Compose \cite{docker_compose}. Dabei existiert ein Container für das Frontend und ein Container für das Backend. Durch die Verwendung von Containern wurde sichergestellt, dass alle erforderlichen Abhängigkeiten, Bibliotheken und Konfigurationen zentral festgelegt sind und Plattform unabhängig ausgeführt werden können.
