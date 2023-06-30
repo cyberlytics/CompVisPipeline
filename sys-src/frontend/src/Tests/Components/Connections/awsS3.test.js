@@ -20,8 +20,8 @@ describe("s3Manager - connection", () => {
         expect(s3Manager.region).not.toBe("");
 
         // check if credentials are set to env
-        expect(s3Manager.accessKeyId).toBe("AKIAZUXPDVDVIX7TZC6V");
-        expect(s3Manager.secretAccessKey).toBe("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");
+        expect(s3Manager.accessKeyId).toBe("AKIAZUXPDVDVAIDHRLX3");
+        expect(s3Manager.secretAccessKey).toBe("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");
         expect(s3Manager.region).toBe("eu-central-1");
     });
 
